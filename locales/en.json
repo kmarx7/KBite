@@ -14,7 +14,9 @@
     "closed": "Closed",
     "loading": "Loading...",
     "km": "km",
-    "reviews": "{count, plural, one {# review} other {# reviews}}"
+    "reviews": "{count, plural, one {# review} other {# reviews}}",
+    "fileTooLarge": "File must be under {size}MB",
+    "fileType": "This file type is not allowed"
   },
   "tabs": {
     "explore": "Explore",
@@ -107,7 +109,10 @@
     "submitted": "Registration submitted!",
     "submittedDesc": "We'll review your restaurant within 2 business days and email you once it's approved.",
     "backToExplore": "Back to Explore",
-    "requiredField": "Please fill in all required fields"
+    "requiredField": "Please fill in all required fields",
+    "invalidEmail": "Please enter a valid email address",
+    "invalidUrl": "Please enter a valid URL starting with http(s)://",
+    "invalidBizNo": "Business registration number format: 000-00-00000"
   },
   "language": {
     "select": "Select Language"
