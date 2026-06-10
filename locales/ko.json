@@ -45,7 +45,9 @@
     "nearYou": "내 주변 식당",
     "found": "{count}곳",
     "filterSort": "필터 · 정렬",
-    "myLocation": "내 위치"
+    "myLocation": "내 위치",
+    "locationDenied": "위치 권한이 꺼져 있어요. 브라우저 주소창의 자물쇠 아이콘(또는 사이트 설정)에서 위치를 허용한 뒤 새로고침해주세요.",
+    "locationUnavailable": "위치를 가져오지 못했어요. 다시 시도해주세요."
   },
   "filterSheet": {
     "title": "필터 & 정렬",

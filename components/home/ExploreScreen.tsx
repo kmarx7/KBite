@@ -4,7 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { IconSearch, IconMapPin, IconChevronDown } from "@tabler/icons-react";
+import {
+  IconSearch,
+  IconMapPin,
+  IconChevronDown,
+  IconCurrentLocation,
+  IconX,
+} from "@tabler/icons-react";
 import { CATEGORIES, type Category, type RestaurantListItem } from "@/types";
 import { DEFAULT_LOCATION, haversineKm, isOpenNow } from "@/lib/utils";
 import { TRACK_EVENTS, track } from "@/lib/analytics";
@@ -47,8 +53,37 @@ export default function ExploreScreen({
     lat: number;
     lng: number;
   } | null>(null);
+  const [locating, setLocating] = useState(false);
+  const [locationError, setLocationError] = useState<
+    "locationDenied" | "locationUnavailable" | null
+  >(null);
 
-  /* 현재 위치 — 거부/실패 시 이태원 폴백 (myLocation null 유지) */
+  /* 버튼 클릭 — 권한 재요청, 거부 상태면 안내 배너 */
+  const requestLocation = () => {
+    if (!navigator.geolocation) return;
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLocating(false);
+        setLocationError(null);
+        setMyLocation({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+        });
+      },
+      (error) => {
+        setLocating(false);
+        setLocationError(
+          error.code === error.PERMISSION_DENIED
+            ? "locationDenied"
+            : "locationUnavailable",
+        );
+      },
+      { enableHighAccuracy: false, timeout: 8000 },
+    );
+  };
+
+  /* 최초 자동 요청 — 실패 시 조용히 이태원 폴백 (콜백에서만 상태 갱신) */
   useEffect(() => {
     if (!navigator.geolocation) return;
     navigator.geolocation.getCurrentPosition(
@@ -58,7 +93,7 @@ export default function ExploreScreen({
           lng: pos.coords.longitude,
         }),
       () => {},
-      { enableHighAccuracy: false, timeout: 5000 },
+      { enableHighAccuracy: false, timeout: 8000 },
     );
   }, []);
 
@@ -180,6 +215,21 @@ export default function ExploreScreen({
             />
           </div>
         </div>
+        {/* 내 위치 버튼 — 클릭 시 권한 재요청, 거부 상태면 안내 배너 */}
+        <button
+          type="button"
+          onClick={requestLocation}
+          disabled={locating}
+          aria-label={t("myLocation")}
+          className="absolute bottom-14 end-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-[#FFD4B8] bg-white shadow-md disabled:opacity-60"
+        >
+          <IconCurrentLocation
+            size={17}
+            color={myLocation ? "#3B82F6" : "#8A6040"}
+            className={locating ? "animate-pulse" : undefined}
+          />
+        </button>
+
         {/* CategoryChips — 지도 위 float, 중복 선택 */}
         <div className="absolute inset-x-0 bottom-3 z-10 flex gap-1.5 overflow-x-auto px-3 [scrollbar-width:none]">
           <CategoryChip
@@ -201,6 +251,23 @@ export default function ExploreScreen({
           ))}
         </div>
       </div>
+
+      {/* 위치 권한 안내 배너 */}
+      {locationError && (
+        <div className="flex items-start gap-2 border-b border-[#FDE047] bg-[#FEF9C3] px-4 py-2.5">
+          <p className="min-w-0 flex-1 text-[11px] font-semibold leading-relaxed text-[#854D0E]">
+            {t(locationError)}
+          </p>
+          <button
+            type="button"
+            onClick={() => setLocationError(null)}
+            aria-label="Close"
+            className="shrink-0"
+          >
+            <IconX size={14} color="#854D0E" />
+          </button>
+        </div>
+      )}
 
       {/* HandleBar */}
       <div className="flex justify-center bg-[#FFFAF5] py-2">
