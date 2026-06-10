@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { IconSearch, IconMapPin, IconChevronDown } from "@tabler/icons-react";
@@ -35,6 +36,7 @@ export default function ExploreScreen({
   const t = useTranslations("home");
   const tf = useTranslations("filterSheet");
   const tc = useTranslations("categories");
+  const tp = useTranslations("policies");
   const router = useRouter();
 
   const [selectedCats, setSelectedCats] = useState<Category[]>([]);
@@ -251,6 +253,20 @@ export default function ExploreScreen({
               {t("found", { count: 0 })}
             </p>
           )}
+          {/* 정책 링크 푸터 */}
+          <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 pb-2 pt-4">
+            {(["terms", "privacy", "partner", "refund"] as const).map(
+              (slug) => (
+                <Link
+                  key={slug}
+                  href={`/policy/${slug}`}
+                  className="text-[10px] font-semibold text-[#C0A080] underline-offset-2 hover:underline"
+                >
+                  {tp(slug)}
+                </Link>
+              ),
+            )}
+          </div>
         </div>
       </div>
 

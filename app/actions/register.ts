@@ -32,6 +32,11 @@ const EXT_BY_MIME: Record<string, string> = {
 export async function registerRestaurant(
   formData: FormData,
 ): Promise<RegisterResult> {
+  /* 약관 동의 — 서버에서도 강제 */
+  if (formData.get("consent") !== "true") {
+    return { ok: false, error: "consentRequired" };
+  }
+
   const raw = {
     name: String(formData.get("name") ?? ""),
     ownerEmail: String(formData.get("ownerEmail") ?? ""),

@@ -32,6 +32,7 @@ interface RegisterForm {
   bizRegNo: string;
   certFile: File | null;
   snsUrl: string;
+  consent: boolean;
 }
 
 const INITIAL_FORM: RegisterForm = {
@@ -50,6 +51,7 @@ const INITIAL_FORM: RegisterForm = {
   bizRegNo: "",
   certFile: null,
   snsUrl: "",
+  consent: false,
 };
 
 const inputClass =
@@ -81,6 +83,10 @@ export default function RegisterPage() {
       return;
     }
     if (isPending) return;
+    if (!form.consent) {
+      setError("consentRequired");
+      return;
+    }
     /* 서버 액션이 zod 재검증 + status:pending/plan:free 강제 후 DB 저장 */
     const payload = new FormData();
     payload.set("name", form.name);
@@ -96,6 +102,7 @@ export default function RegisterPage() {
     form.languages.forEach((l) => payload.append("languages", l));
     payload.set("bizRegNo", form.bizRegNo);
     payload.set("snsUrl", form.snsUrl);
+    payload.set("consent", String(form.consent));
     if (form.photo) payload.set("photo", form.photo);
 
     startTransition(async () => {
@@ -335,6 +342,46 @@ export default function RegisterPage() {
             <p className="rounded-xl bg-[#FFF5EE] p-3 text-[11px] leading-relaxed text-[#8A6040]">
               {t("verifyNotice")}
             </p>
+            {/* 약관 동의 — 필수 */}
+            <label className="flex items-start gap-2 rounded-xl border border-[#FFD4B8] bg-white p-3">
+              <input
+                type="checkbox"
+                checked={form.consent}
+                onChange={(e) => set("consent", e.target.checked)}
+                className="mt-0.5 h-4 w-4 shrink-0 accent-[#FF6B35]"
+              />
+              <span className="text-[11px] leading-relaxed text-[#8A6040]">
+                {t.rich("consent", {
+                  terms: (chunks) => (
+                    <Link
+                      href="/policy/terms"
+                      target="_blank"
+                      className="font-bold text-[#FF6B35] underline"
+                    >
+                      {chunks}
+                    </Link>
+                  ),
+                  privacy: (chunks) => (
+                    <Link
+                      href="/policy/privacy"
+                      target="_blank"
+                      className="font-bold text-[#FF6B35] underline"
+                    >
+                      {chunks}
+                    </Link>
+                  ),
+                  partner: (chunks) => (
+                    <Link
+                      href="/policy/partner"
+                      target="_blank"
+                      className="font-bold text-[#FF6B35] underline"
+                    >
+                      {chunks}
+                    </Link>
+                  ),
+                })}
+              </span>
+            </label>
           </div>
         )}
 
