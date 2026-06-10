@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary — 딥 오렌지 */
+  --color-primary: #ff6b35;
+  --color-primary-light: #ff9a6c;
+  --color-primary-tint: #ffe8d6;
+  --color-primary-dark: #cc4400;
+  --color-primary-hover: #cc4400;
+
+  /* 배경 */
+  --color-bg-primary: #fffaf5;
+  --color-bg-secondary: #fff5ee;
+  --color-bg-tertiary: #f5ede0;
+
+  /* 텍스트 */
+  --color-text-primary: #1a0800;
+  --color-text-secondary: #8a6040;
+  --color-text-tertiary: #b07040;
+  --color-text-disabled: #c0a080;
+
+  /* 보더 */
+  --color-border-primary: #ffd4b8;
+  --color-border-light: #ffe8d6;
+
+  /* 카테고리별 핀 컬러 */
+  --color-cat-me: #ff6b35; /* Middle Eastern */
+  --color-cat-as: #f59e0b; /* Asian */
+  --color-cat-cj: #ef4444; /* China/Japan */
+  --color-cat-we: #5b8def; /* Western */
+  --color-cat-af: #8b5cf6; /* African */
+  --color-cat-rc: #0ea5e9; /* Russia & Central Asia */
+
+  /* 인증 배지 */
+  --color-halal: #15803d;
+  --color-halal-bg: #dcfce7;
+  --color-halal-border: #86efac;
+  --color-vegan: #15803d;
+  --color-vegan-bg: #dcfce7;
+  --color-kosher-bg: #fef9c3;
+  --color-gf-bg: #fee2e2;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--color-primary);
+  --color-primary-light: var(--color-primary-light);
+  --color-primary-tint: var(--color-primary-tint);
+  --color-primary-dark: var(--color-primary-dark);
+
+  --color-cream: #fffaf5;
+  --color-cream-border: #ffd4b8;
+
+  --color-bg-primary: var(--color-bg-primary);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-bg-tertiary: var(--color-bg-tertiary);
+
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --color-text-disabled: var(--color-text-disabled);
+
+  --color-border-primary: var(--color-border-primary);
+  --color-border-light: var(--color-border-light);
+
+  --color-cat-me: var(--color-cat-me);
+  --color-cat-as: var(--color-cat-as);
+  --color-cat-cj: var(--color-cat-cj);
+  --color-cat-we: var(--color-cat-we);
+  --color-cat-af: var(--color-cat-af);
+  --color-cat-rc: var(--color-cat-rc);
+
+  --color-halal: var(--color-halal);
+  --color-halal-bg: var(--color-halal-bg);
+  --color-halal-border: var(--color-halal-border);
+  --color-vegan: var(--color-vegan);
+  --color-vegan-bg: var(--color-vegan-bg);
+  --color-kosher-bg: var(--color-kosher-bg);
+  --color-gf-bg: var(--color-gf-bg);
+
+  --font-sans: var(--font-plus-jakarta), var(--font-noto-kr), sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* RTL (아랍어·페르시아어) 레이아웃 미러링은 dir="rtl" 속성 기준으로 처리 */
+[dir="rtl"] {
+  direction: rtl;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-plus-jakarta), var(--font-noto-kr), sans-serif;
 }
