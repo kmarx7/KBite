@@ -71,6 +71,13 @@ export interface Restaurant {
   updated_at: string;
 }
 
+export interface MenuItem {
+  name: string;
+  description: string;
+  price: number; // KRW
+  emoji: string;
+}
+
 export interface Review {
   id: string;
   restaurant_id: string;
