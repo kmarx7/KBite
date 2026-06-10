@@ -8,7 +8,6 @@ import {
   IconMapPin,
   IconCoin,
   IconToolsKitchen2,
-  IconNavigation,
 } from "@tabler/icons-react";
 import { getRestaurantDetail } from "@/lib/api/restaurants";
 import { DEFAULT_LOCATION, haversineKm, isOpenNow } from "@/lib/utils";
@@ -19,6 +18,9 @@ import LanguageAvailable from "@/components/restaurant/LanguageAvailable";
 import VenueMap from "@/components/restaurant/VenueMap";
 import ReviewList from "@/components/restaurant/ReviewList";
 import ShareButton from "@/components/restaurant/ShareButton";
+import DetailCTA from "@/components/restaurant/DetailCTA";
+import TrackOnMount from "@/components/analytics/TrackOnMount";
+import { TRACK_EVENTS } from "@/lib/analytics";
 import TabBar from "@/components/ui/TabBar";
 
 const PRICE_SYMBOL: Record<PriceRange, string> = {
@@ -89,7 +91,15 @@ export default async function RestaurantDetailPage({
       </header>
 
       <main className="flex-1 pb-2">
+        <TrackOnMount
+          event={TRACK_EVENTS.RESTAURANT_VIEW}
+          properties={{
+            restaurantId: restaurant.id,
+            category: restaurant.category,
+          }}
+        />
         <DetailCover
+          restaurantId={restaurant.id}
           category={restaurant.category}
           certifications={restaurant.certifications}
           coverEmoji={restaurant.cover_emoji}
@@ -165,37 +175,15 @@ export default async function RestaurantDetailPage({
         )}
       </main>
 
-      {/* CTA 바 — 고정 */}
-      <div className="sticky bottom-0 z-30 flex items-center gap-2 border-t border-[#FFE8D6] bg-[#FFFAF5] px-4 py-3">
-        <p className="min-w-0 flex-1 text-[12px] font-bold text-[#8A6040]">
-          {restaurant.starting_price !== null &&
-            t("startingFrom", {
-              price: `₩${restaurant.starting_price.toLocaleString()}`,
-            })}
-        </p>
-        <a
-          href={`https://map.kakao.com/link/to/${encodeURIComponent(restaurant.name)},${restaurant.lat},${restaurant.lng}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex shrink-0 items-center gap-1 rounded-xl border border-[#FFD4B8] bg-white px-3 py-2.5 text-[13px] font-bold text-[#CC4400]"
-        >
-          <IconNavigation size={14} />
-          {t("directions")}
-        </a>
-        <a
-          href={restaurant.booking_url ?? "#"}
-          target={restaurant.booking_url ? "_blank" : undefined}
-          rel="noopener noreferrer"
-          aria-disabled={!restaurant.booking_url}
-          className="shrink-0 rounded-xl px-5 py-2.5 text-[13px] font-extrabold text-white"
-          style={{
-            backgroundColor: "#FF6B35",
-            opacity: restaurant.booking_url ? 1 : 0.5,
-          }}
-        >
-          {t("reserve")}
-        </a>
-      </div>
+      {/* CTA 바 — 고정 (클릭 추적 포함) */}
+      <DetailCTA
+        restaurantId={restaurant.id}
+        name={restaurant.name}
+        lat={restaurant.lat}
+        lng={restaurant.lng}
+        startingPrice={restaurant.starting_price}
+        bookingUrl={restaurant.booking_url}
+      />
       <TabBar active="explore" />
     </div>
   );

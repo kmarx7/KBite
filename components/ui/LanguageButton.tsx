@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { IconChevronDown } from "@tabler/icons-react";
 import { LANGUAGES, type Language } from "@/types";
 import { setLocale } from "@/app/actions/locale";
+import { TRACK_EVENTS, track } from "@/lib/analytics";
 import LanguageDropdown from "./LanguageDropdown";
 
 /** 헤더 우측 언어 버튼 — 선택 즉시 새로고침 없이 전체 텍스트 전환 */
@@ -18,6 +19,7 @@ export default function LanguageButton() {
   const handleSelect = (lang: Language) => {
     setOpen(false);
     if (lang === locale) return;
+    track(TRACK_EVENTS.LANGUAGE_CHANGED, { from: locale, to: lang });
     startTransition(async () => {
       await setLocale(lang);
       router.refresh();

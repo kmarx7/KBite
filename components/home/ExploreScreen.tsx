@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { IconSearch, IconMapPin, IconChevronDown } from "@tabler/icons-react";
 import { CATEGORIES, type Category, type RestaurantListItem } from "@/types";
 import { DEFAULT_LOCATION, haversineKm, isOpenNow } from "@/lib/utils";
+import { TRACK_EVENTS, track } from "@/lib/analytics";
 import MapView from "@/components/map/MapView";
 import RestaurantCard from "@/components/restaurant/RestaurantCard";
 import CategoryChip from "@/components/ui/CategoryChip";
@@ -61,10 +62,33 @@ export default function ExploreScreen({
 
   const origin = myLocation ?? DEFAULT_LOCATION;
 
-  const toggleCat = (cat: Category) =>
+  /* 검색어 추적 — 1초 디바운스 (입력 중 노이즈 방지) */
+  useEffect(() => {
+    const query = search.trim();
+    if (query.length < 2) return;
+    const timer = setTimeout(
+      () => track(TRACK_EVENTS.SEARCH_QUERY, { query: query.slice(0, 100) }),
+      1000,
+    );
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  const toggleCat = (cat: Category) => {
+    track(TRACK_EVENTS.FILTER_USED, { type: "category", value: cat });
     setSelectedCats((prev) =>
       prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat],
     );
+  };
+
+  const applyFilter = (next: FilterState) => {
+    track(TRACK_EVENTS.FILTER_USED, {
+      type: "sheet",
+      sort: next.sort,
+      certifications: next.certifications.join(","),
+      priceRanges: next.priceRanges.join(","),
+    });
+    setFilter(next);
+  };
 
   const list = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -233,7 +257,7 @@ export default function ExploreScreen({
       <FilterSortSheet
         open={sheetOpen}
         value={filter}
-        onApply={setFilter}
+        onApply={applyFilter}
         onClose={() => setSheetOpen(false)}
       />
       <TabBar active="explore" />

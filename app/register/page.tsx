@@ -14,6 +14,7 @@ import StepButton from "@/components/ui/StepButton";
 import DateTimeButton from "@/components/ui/DateTimeButton";
 import { validateStep, ALLOWED_DOC_TYPES } from "@/lib/validation/register";
 import { registerRestaurant } from "@/app/actions/register";
+import { TRACK_EVENTS, track } from "@/lib/analytics";
 
 interface RegisterForm {
   name: string;
@@ -99,8 +100,14 @@ export default function RegisterPage() {
 
     startTransition(async () => {
       const result = await registerRestaurant(payload);
-      if (result.ok) setSubmitted(true);
-      else setError(result.error ?? "submitFailed");
+      if (result.ok) {
+        track(TRACK_EVENTS.RESTAURANT_REGISTERED, {
+          category: form.category ?? "",
+        });
+        setSubmitted(true);
+      } else {
+        setError(result.error ?? "submitFailed");
+      }
     });
   };
 
