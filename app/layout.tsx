@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Noto_Sans_KR } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
+import { Analytics } from "@vercel/analytics/next";
 import { getDir } from "@/lib/i18n/config";
+import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import type { Language } from "@/types";
 import "./globals.css";
 
@@ -45,6 +47,8 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans bg-bg-tertiary text-text-primary">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <AnalyticsProvider />
+        <Analytics />
       </body>
     </html>
   );
