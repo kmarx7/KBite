@@ -1,0 +1,72 @@
+{
+  "common": {
+    "appName": "KBite",
+    "slogan": "غذای وطن خود را در کره پیدا کنید",
+    "back": "بازگشت",
+    "next": "بعدی",
+    "submit": "ارسال",
+    "apply": "اعمال",
+    "resetAll": "بازنشانی همه",
+    "cancel": "لغو",
+    "save": "ذخیره",
+    "share": "اشتراک‌گذاری",
+    "openNow": "اکنون باز است",
+    "closed": "بسته",
+    "loading": "در حال بارگذاری..."
+  },
+  "tabs": {
+    "explore": "کاوش",
+    "saved": "ذخیره‌شده",
+    "alerts": "اعلان‌ها",
+    "profile": "پروفایل"
+  },
+  "categories": {
+    "all": "همه",
+    "me": "خاورمیانه‌ای",
+    "as": "آسیایی",
+    "cj": "چینی / ژاپنی",
+    "we": "غربی",
+    "af": "آفریقایی",
+    "rc": "روسیه و آسیای مرکزی"
+  },
+  "certifications": {
+    "halal": "حلال تأییدشده",
+    "vegan": "مناسب گیاه‌خواران",
+    "kosher": "کوشر",
+    "gf": "بدون گلوتن",
+    "dairy-free": "بدون لبنیات"
+  },
+  "home": {
+    "searchPlaceholder": "جستجوی رستوران یا غذا...",
+    "nearYou": "رستوران‌های نزدیک شما",
+    "found": "{count} مورد",
+    "filterSort": "فیلتر · مرتب‌سازی",
+    "myLocation": "موقعیت من"
+  },
+  "filterSheet": {
+    "title": "فیلتر و مرتب‌سازی",
+    "sortBy": "مرتب‌سازی بر اساس",
+    "nearest": "نزدیک‌ترین",
+    "highestRated": "بالاترین امتیاز",
+    "openNowFirst": "ابتدا باز‌ها",
+    "newestListed": "جدیدترین",
+    "dietary": "گواهی‌های غذایی",
+    "priceRange": "محدوده قیمت"
+  },
+  "detail": {
+    "cuisine": "آشپزی",
+    "hours": "ساعات کار",
+    "location": "موقعیت",
+    "price": "قیمت",
+    "about": "درباره",
+    "popularMenu": "منوی محبوب",
+    "languagesAvailable": "زبان‌های موجود",
+    "reviews": "نظرات",
+    "startingFrom": "شروع از {price}",
+    "directions": "مسیریابی",
+    "reserve": "رزرو"
+  },
+  "language": {
+    "select": "انتخاب زبان"
+  }
+}
