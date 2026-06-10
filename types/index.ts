@@ -89,9 +89,21 @@ export interface RestaurantListItem {
   certifications: Certification[];
   languages: Language[];
   booking_url: string | null;
+  description: string | null;
   avg_rating: number;
   review_count: number;
   created_at: string;
+}
+
+/** 상세 페이지 리뷰 표시용 */
+export interface ReviewDisplay {
+  id: string;
+  author: string;
+  nationality: string;
+  flag: string;
+  rating: number;
+  content: string;
+  date: string;
 }
 
 export interface MenuItem {
