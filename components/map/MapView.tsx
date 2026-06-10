@@ -32,6 +32,8 @@ export default function MapView({
   );
   const myLocOverlayRef = useRef<kakao.maps.CustomOverlay | null>(null);
   const [sdkReady, setSdkReady] = useState(false);
+  /* 지도 인스턴스 생성 완료 — 위치 점 등 후속 작업의 기준 (SDK 로드와 별개) */
+  const [mapReady, setMapReady] = useState(false);
 
   const initMap = useCallback(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -51,6 +53,7 @@ export default function MapView({
         clickable: true,
       }).setMap(map);
     }
+    setMapReady(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -72,10 +75,10 @@ export default function MapView({
     }
   }, [visibleCategories, restaurants]);
 
-  /* 내 위치 갱신 */
+  /* 내 위치 갱신 — 지도 생성 완료(mapReady) 후에만 (위치 응답이 SDK보다 빨라도 안전) */
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !myLocation || !window.kakao) return;
+    if (!mapReady || !map || !myLocation || !window.kakao) return;
     const pos = new window.kakao.maps.LatLng(myLocation.lat, myLocation.lng);
     if (!myLocOverlayRef.current) {
       myLocOverlayRef.current = new window.kakao.maps.CustomOverlay({
@@ -86,7 +89,7 @@ export default function MapView({
       myLocOverlayRef.current.setMap(map);
     }
     map.setCenter(pos);
-  }, [myLocation, sdkReady]);
+  }, [myLocation, mapReady]);
 
   return (
     <>
