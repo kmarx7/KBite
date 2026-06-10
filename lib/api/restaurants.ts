@@ -10,30 +10,10 @@ import type {
   Certification,
   Language,
   PriceRange,
+  RestaurantListItem,
 } from "@/types";
 
-/** 목록/지도 화면에서 쓰는 식당 카드 데이터 */
-export interface RestaurantListItem {
-  id: string;
-  name: string;
-  category: Category;
-  address: string;
-  lat: number;
-  lng: number;
-  opening_time: string | null; // "HH:MM"
-  closing_time: string | null;
-  price_range: PriceRange | null;
-  cover_emoji: string;
-  photo_url: string | null;
-  cuisine: string | null;
-  starting_price: number | null;
-  certifications: Certification[];
-  languages: Language[];
-  booking_url: string | null;
-  avg_rating: number;
-  review_count: number;
-  created_at: string;
-}
+export type { RestaurantListItem };
 
 type StatsRow = {
   id: string;
