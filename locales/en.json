@@ -1,0 +1,110 @@
+{
+  "common": {
+    "appName": "KBite",
+    "slogan": "Find Your Home Food in Korea",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "apply": "Apply",
+    "resetAll": "Reset All",
+    "cancel": "Cancel",
+    "save": "Save",
+    "share": "Share",
+    "openNow": "Open Now",
+    "closed": "Closed",
+    "loading": "Loading...",
+    "km": "km",
+    "reviews": "{count, plural, one {# review} other {# reviews}}"
+  },
+  "tabs": {
+    "explore": "Explore",
+    "saved": "Saved",
+    "alerts": "Alerts",
+    "profile": "Profile"
+  },
+  "categories": {
+    "all": "All",
+    "me": "Middle Eastern",
+    "as": "Asian",
+    "cj": "China / Japan",
+    "we": "Western",
+    "af": "African",
+    "rc": "Russia & Central Asia"
+  },
+  "certifications": {
+    "halal": "Halal Certified",
+    "vegan": "Vegan Friendly",
+    "kosher": "Kosher",
+    "gf": "GF Gluten-Free",
+    "dairy-free": "Dairy-Free"
+  },
+  "home": {
+    "searchPlaceholder": "Search restaurants or dishes...",
+    "nearYou": "Restaurants Near You",
+    "found": "{count} found",
+    "filterSort": "Filter · Sort",
+    "myLocation": "My Location"
+  },
+  "filterSheet": {
+    "title": "Filter & Sort",
+    "sortBy": "Sort By",
+    "nearest": "Nearest",
+    "highestRated": "Highest Rated",
+    "openNowFirst": "Open Now First",
+    "newestListed": "Newest Listed",
+    "dietary": "Dietary Certification",
+    "priceRange": "Price Range",
+    "priceBudget": "₩",
+    "priceModerate": "₩₩",
+    "priceUpscale": "₩₩₩"
+  },
+  "detail": {
+    "cuisine": "Cuisine",
+    "hours": "Hours",
+    "location": "Location",
+    "price": "Price",
+    "about": "About",
+    "popularMenu": "Popular Menu",
+    "languagesAvailable": "Languages Available",
+    "reviews": "Reviews",
+    "startingFrom": "Starting from {price}",
+    "directions": "Dir",
+    "reserve": "Reserve",
+    "distanceAway": "{distance} away"
+  },
+  "register": {
+    "title": "Add Restaurant",
+    "stepBasic": "Basic",
+    "stepDetail": "Detail",
+    "stepVerify": "Verify",
+    "basicInfo": "Basic Info",
+    "restaurantName": "Restaurant Name",
+    "restaurantNamePlaceholder": "e.g. Istanbul Kitchen",
+    "ownerEmail": "Owner Email",
+    "phoneNumber": "Phone Number",
+    "category": "Category",
+    "restaurantDetail": "Restaurant Detail",
+    "address": "Address",
+    "addressPlaceholder": "Street address",
+    "openingTime": "Opening Time",
+    "closingTime": "Closing Time",
+    "priceRange": "Price Range",
+    "about": "About",
+    "aboutPlaceholder": "Tell foreigners what makes your food special...",
+    "dietaryCertifications": "Dietary Certifications",
+    "languagesSpoken": "Languages Spoken",
+    "restaurantPhoto": "Restaurant Photo",
+    "uploadPhoto": "Upload a photo",
+    "verification": "Verification",
+    "businessRegNo": "Business Registration No.",
+    "halalCertificate": "Halal Certificate",
+    "uploadCertificate": "Upload certificate",
+    "websiteSns": "Website / SNS",
+    "verifyNotice": "Your restaurant will be reviewed within 2 business days. We may contact you for additional verification.",
+    "submitDone": "Submit",
+    "stepOf": "{current}/{total}"
+  },
+  "language": {
+    "select": "Select Language"
+  }
+}

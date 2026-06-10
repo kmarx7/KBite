@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Noto_Sans_KR } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
+import { getDir } from "@/lib/i18n/config";
+import type { Language } from "@/types";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -26,18 +30,21 @@ export const viewport: Viewport = {
   themeColor: "#FF6B35",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = (await getLocale()) as Language;
+
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={getDir(locale)}
       className={`${plusJakarta.variable} ${notoSansKR.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-bg-tertiary text-text-primary">
-        {children}
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>
   );

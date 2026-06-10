@@ -1,0 +1,110 @@
+{
+  "common": {
+    "appName": "KBite",
+    "slogan": "한국에서 고향의 맛을 찾다",
+    "back": "이전",
+    "next": "다음",
+    "submit": "제출",
+    "apply": "적용",
+    "resetAll": "전체 초기화",
+    "cancel": "취소",
+    "save": "저장",
+    "share": "공유",
+    "openNow": "영업 중",
+    "closed": "영업 종료",
+    "loading": "불러오는 중...",
+    "km": "km",
+    "reviews": "리뷰 {count}개"
+  },
+  "tabs": {
+    "explore": "탐색",
+    "saved": "저장됨",
+    "alerts": "알림",
+    "profile": "프로필"
+  },
+  "categories": {
+    "all": "전체",
+    "me": "중동",
+    "as": "아시안",
+    "cj": "중국 / 일본",
+    "we": "서양",
+    "af": "아프리카",
+    "rc": "러시아 & 중앙아시아"
+  },
+  "certifications": {
+    "halal": "할랄 인증",
+    "vegan": "비건 친화",
+    "kosher": "코셔",
+    "gf": "글루텐프리",
+    "dairy-free": "유제품 무첨가"
+  },
+  "home": {
+    "searchPlaceholder": "식당이나 음식 검색...",
+    "nearYou": "내 주변 식당",
+    "found": "{count}곳",
+    "filterSort": "필터 · 정렬",
+    "myLocation": "내 위치"
+  },
+  "filterSheet": {
+    "title": "필터 & 정렬",
+    "sortBy": "정렬 기준",
+    "nearest": "가까운 순",
+    "highestRated": "평점 높은 순",
+    "openNowFirst": "영업 중 우선",
+    "newestListed": "최신 등록순",
+    "dietary": "식이 인증",
+    "priceRange": "가격대",
+    "priceBudget": "₩",
+    "priceModerate": "₩₩",
+    "priceUpscale": "₩₩₩"
+  },
+  "detail": {
+    "cuisine": "요리",
+    "hours": "영업시간",
+    "location": "위치",
+    "price": "가격",
+    "about": "소개",
+    "popularMenu": "인기 메뉴",
+    "languagesAvailable": "지원 언어",
+    "reviews": "리뷰",
+    "startingFrom": "{price}부터",
+    "directions": "길찾기",
+    "reserve": "예약",
+    "distanceAway": "{distance} 거리"
+  },
+  "register": {
+    "title": "식당 등록",
+    "stepBasic": "기본",
+    "stepDetail": "상세",
+    "stepVerify": "검증",
+    "basicInfo": "기본 정보",
+    "restaurantName": "식당 이름",
+    "restaurantNamePlaceholder": "예: 이스탄불 키친",
+    "ownerEmail": "대표 이메일",
+    "phoneNumber": "전화번호",
+    "category": "카테고리",
+    "restaurantDetail": "식당 상세",
+    "address": "주소",
+    "addressPlaceholder": "도로명 주소",
+    "openingTime": "오픈 시간",
+    "closingTime": "마감 시간",
+    "priceRange": "가격대",
+    "about": "소개",
+    "aboutPlaceholder": "외국인 손님에게 우리 음식의 특별함을 알려주세요...",
+    "dietaryCertifications": "식이 인증",
+    "languagesSpoken": "응대 가능 언어",
+    "restaurantPhoto": "식당 사진",
+    "uploadPhoto": "사진 업로드",
+    "verification": "검증",
+    "businessRegNo": "사업자등록번호",
+    "halalCertificate": "할랄 인증서",
+    "uploadCertificate": "인증서 업로드",
+    "websiteSns": "웹사이트 / SNS",
+    "verifyNotice": "등록하신 식당은 영업일 기준 2일 이내에 검토됩니다. 추가 확인을 위해 연락드릴 수 있습니다.",
+    "submitDone": "등록 완료",
+    "stepOf": "{current}/{total}"
+  },
+  "language": {
+    "select": "언어 선택"
+  }
+}

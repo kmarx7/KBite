@@ -1,0 +1,72 @@
+{
+  "common": {
+    "appName": "KBite",
+    "slogan": "اعثر على طعام وطنك في كوريا",
+    "back": "رجوع",
+    "next": "التالي",
+    "submit": "إرسال",
+    "apply": "تطبيق",
+    "resetAll": "إعادة تعيين الكل",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "share": "مشاركة",
+    "openNow": "مفتوح الآن",
+    "closed": "مغلق",
+    "loading": "جارٍ التحميل..."
+  },
+  "tabs": {
+    "explore": "استكشاف",
+    "saved": "المحفوظات",
+    "alerts": "التنبيهات",
+    "profile": "الملف الشخصي"
+  },
+  "categories": {
+    "all": "الكل",
+    "me": "شرق أوسطي",
+    "as": "آسيوي",
+    "cj": "صيني / ياباني",
+    "we": "غربي",
+    "af": "أفريقي",
+    "rc": "روسيا وآسيا الوسطى"
+  },
+  "certifications": {
+    "halal": "حلال معتمد",
+    "vegan": "مناسب للنباتيين",
+    "kosher": "كوشر",
+    "gf": "خالٍ من الغلوتين",
+    "dairy-free": "خالٍ من الألبان"
+  },
+  "home": {
+    "searchPlaceholder": "ابحث عن مطاعم أو أطباق...",
+    "nearYou": "مطاعم بالقرب منك",
+    "found": "{count} نتيجة",
+    "filterSort": "تصفية · ترتيب",
+    "myLocation": "موقعي"
+  },
+  "filterSheet": {
+    "title": "تصفية وترتيب",
+    "sortBy": "ترتيب حسب",
+    "nearest": "الأقرب",
+    "highestRated": "الأعلى تقييماً",
+    "openNowFirst": "المفتوح الآن أولاً",
+    "newestListed": "الأحدث إدراجاً",
+    "dietary": "الشهادات الغذائية",
+    "priceRange": "نطاق السعر"
+  },
+  "detail": {
+    "cuisine": "المطبخ",
+    "hours": "ساعات العمل",
+    "location": "الموقع",
+    "price": "السعر",
+    "about": "حول",
+    "popularMenu": "الأطباق الشائعة",
+    "languagesAvailable": "اللغات المتاحة",
+    "reviews": "التقييمات",
+    "startingFrom": "ابتداءً من {price}",
+    "directions": "الاتجاهات",
+    "reserve": "حجز"
+  },
+  "language": {
+    "select": "اختر اللغة"
+  }
+}
