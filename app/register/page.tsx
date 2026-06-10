@@ -12,6 +12,7 @@ import LangToggle from "@/components/register/LangToggle";
 import UploadBox from "@/components/register/UploadBox";
 import StepButton from "@/components/ui/StepButton";
 import DateTimeButton from "@/components/ui/DateTimeButton";
+import { validateStep, ALLOWED_DOC_TYPES } from "@/lib/validation/register";
 
 interface RegisterForm {
   name: string;
@@ -58,27 +59,20 @@ export default function RegisterPage() {
   const t = useTranslations("register");
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [form, setForm] = useState<RegisterForm>(INITIAL_FORM);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
   const set = <K extends keyof RegisterForm>(key: K, value: RegisterForm[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
 
-  const stepValid =
-    step === 1
-      ? form.name.trim() !== "" &&
-        form.ownerEmail.trim() !== "" &&
-        form.category !== null
-      : step === 2
-        ? form.address.trim() !== ""
-        : form.bizRegNo.trim() !== "";
-
   const handleNext = () => {
-    if (!stepValid) {
-      setError(true);
+    /* zod 스키마 검증 — 작업 2에서 서버 측에 동일 스키마 재사용 */
+    const errorKey = validateStep(step, form);
+    if (errorKey) {
+      setError(errorKey);
       return;
     }
-    setError(false);
+    setError(null);
     if (step < 3) {
       setStep((s) => (s + 1) as 1 | 2 | 3);
       return;
@@ -95,7 +89,7 @@ export default function RegisterPage() {
   };
 
   const handlePrev = () => {
-    setError(false);
+    setError(null);
     if (step > 1) setStep((s) => (s - 1) as 1 | 2 | 3);
   };
 
@@ -297,6 +291,7 @@ export default function RegisterPage() {
               <UploadBox
                 label={t("uploadCertificate")}
                 accept="image/*,.pdf"
+                allowedTypes={ALLOWED_DOC_TYPES}
                 value={form.certFile}
                 onChange={(file) => set("certFile", file)}
               />
@@ -322,7 +317,7 @@ export default function RegisterPage() {
 
         {error && (
           <p className="mt-3 text-[12px] font-bold text-[#B91C1C]">
-            {t("requiredField")}
+            {t(error)}
           </p>
         )}
       </main>
