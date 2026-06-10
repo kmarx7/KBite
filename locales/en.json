@@ -45,7 +45,9 @@
     "nearYou": "Restaurants Near You",
     "found": "{count} found",
     "filterSort": "Filter · Sort",
-    "myLocation": "My Location"
+    "myLocation": "My Location",
+    "locationDenied": "Location permission is off. Allow location in your browser's address bar (lock icon) or site settings, then refresh.",
+    "locationUnavailable": "Couldn't get your location. Please try again."
   },
   "filterSheet": {
     "title": "Filter & Sort",
