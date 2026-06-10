@@ -1,11 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import { IconStarFilled } from "@tabler/icons-react";
-import type { MockReview } from "@/lib/mock/restaurants";
+import type { ReviewDisplay } from "@/types";
 
 export default async function ReviewList({
   reviews,
 }: {
-  reviews: MockReview[];
+  reviews: ReviewDisplay[];
 }) {
   const t = await getTranslations("detail");
 

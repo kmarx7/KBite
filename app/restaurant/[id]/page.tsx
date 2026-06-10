@@ -10,7 +10,8 @@ import {
   IconToolsKitchen2,
   IconNavigation,
 } from "@tabler/icons-react";
-import { getMockRestaurant, isOpenNow } from "@/lib/mock/restaurants";
+import { getRestaurantDetail } from "@/lib/api/restaurants";
+import { DEFAULT_LOCATION, haversineKm, isOpenNow } from "@/lib/utils";
 import type { PriceRange } from "@/types";
 import DetailCover from "@/components/restaurant/DetailCover";
 import MenuList from "@/components/restaurant/MenuList";
@@ -32,30 +33,41 @@ export default async function RestaurantDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const restaurant = getMockRestaurant(id);
+  const restaurant = await getRestaurantDetail(id);
   if (!restaurant) notFound();
 
   const t = await getTranslations("detail");
   const tc = await getTranslations("common");
   const tt = await getTranslations("tabs");
-  const open = isOpenNow(restaurant);
+  const open = isOpenNow(restaurant.opening_time, restaurant.closing_time);
+  /* 서버에서는 사용자 위치를 모름 — 이태원 기준 거리 (지도 연동 시 클라이언트 보정) */
+  const distanceKm = Math.round(haversineKm(DEFAULT_LOCATION, restaurant) * 10) / 10;
 
   const infoGrid = [
-    { Icon: IconToolsKitchen2, label: t("cuisine"), value: restaurant.cuisine },
+    {
+      Icon: IconToolsKitchen2,
+      label: t("cuisine"),
+      value: restaurant.cuisine ?? "—",
+    },
     {
       Icon: IconClock,
       label: t("hours"),
-      value: `${restaurant.opening_time} – ${restaurant.closing_time}`,
+      value:
+        restaurant.opening_time && restaurant.closing_time
+          ? `${restaurant.opening_time} – ${restaurant.closing_time}`
+          : "—",
     },
     {
       Icon: IconMapPin,
       label: t("location"),
-      value: t("distanceAway", { distance: `${restaurant.distanceKm}km` }),
+      value: t("distanceAway", { distance: `${distanceKm}km` }),
     },
     {
       Icon: IconCoin,
       label: t("price"),
-      value: PRICE_SYMBOL[restaurant.price_range],
+      value: restaurant.price_range
+        ? PRICE_SYMBOL[restaurant.price_range]
+        : "—",
     },
   ];
 
@@ -80,7 +92,8 @@ export default async function RestaurantDetailPage({
         <DetailCover
           category={restaurant.category}
           certifications={restaurant.certifications}
-          coverEmoji={restaurant.coverEmoji}
+          coverEmoji={restaurant.cover_emoji}
+          photoUrl={restaurant.photo_url}
         />
 
         {/* MainInfo */}
@@ -103,9 +116,9 @@ export default async function RestaurantDetailPage({
           <p className="mt-1 flex items-center gap-1 text-[12px] font-semibold text-[#8A6040]">
             <IconStarFilled size={13} color="#F59E0B" />
             <span className="font-extrabold text-[#1A0800]">
-              {restaurant.rating}
+              {restaurant.avg_rating > 0 ? restaurant.avg_rating : "—"}
             </span>
-            · {tc("reviews", { count: restaurant.reviewCount })}
+            · {tc("reviews", { count: restaurant.review_count })}
           </p>
         </section>
 
@@ -128,32 +141,37 @@ export default async function RestaurantDetailPage({
         </section>
 
         {/* About */}
-        <section className="px-4 py-1">
-          <h2 className="mb-1 text-[15px] font-extrabold text-[#1A0800]">
-            {t("about")}
-          </h2>
-          <p className="text-[13px] leading-relaxed text-[#8A6040]">
-            {restaurant.description}
-          </p>
-        </section>
+        {restaurant.description && (
+          <section className="px-4 py-1">
+            <h2 className="mb-1 text-[15px] font-extrabold text-[#1A0800]">
+              {t("about")}
+            </h2>
+            <p className="text-[13px] leading-relaxed text-[#8A6040]">
+              {restaurant.description}
+            </p>
+          </section>
+        )}
 
-        <MenuList items={restaurant.menu} />
+        {restaurant.menu.length > 0 && <MenuList items={restaurant.menu} />}
         <LanguageAvailable available={restaurant.languages} />
         <VenueMap
           address={restaurant.address}
-          distanceKm={restaurant.distanceKm}
+          distanceKm={distanceKm}
           lat={restaurant.lat}
           lng={restaurant.lng}
         />
-        <ReviewList reviews={restaurant.reviews} />
+        {restaurant.reviews.length > 0 && (
+          <ReviewList reviews={restaurant.reviews} />
+        )}
       </main>
 
       {/* CTA 바 — 고정 */}
       <div className="sticky bottom-0 z-30 flex items-center gap-2 border-t border-[#FFE8D6] bg-[#FFFAF5] px-4 py-3">
         <p className="min-w-0 flex-1 text-[12px] font-bold text-[#8A6040]">
-          {t("startingFrom", {
-            price: `₩${restaurant.startingPrice.toLocaleString()}`,
-          })}
+          {restaurant.starting_price !== null &&
+            t("startingFrom", {
+              price: `₩${restaurant.starting_price.toLocaleString()}`,
+            })}
         </p>
         <a
           href={`https://map.kakao.com/link/to/${encodeURIComponent(restaurant.name)},${restaurant.lat},${restaurant.lng}`}

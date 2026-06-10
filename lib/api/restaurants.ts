@@ -9,11 +9,18 @@ import type {
   Category,
   Certification,
   Language,
+  MenuItem,
   PriceRange,
   RestaurantListItem,
+  ReviewDisplay,
 } from "@/types";
 
 export type { RestaurantListItem };
+
+export interface RestaurantDetail extends RestaurantListItem {
+  menu: MenuItem[];
+  reviews: ReviewDisplay[];
+}
 
 type StatsRow = {
   id: string;
@@ -32,6 +39,7 @@ type StatsRow = {
   certifications: Certification[] | null;
   languages: Language[] | null;
   booking_url: string | null;
+  description: string | null;
   avg_rating: number | null;
   review_count: number | null;
   created_at: string;
@@ -68,10 +76,22 @@ function mockToItem(m: MockRestaurant): RestaurantListItem {
     certifications: m.certifications,
     languages: m.languages,
     booking_url: m.booking_url,
+    description: m.description,
     avg_rating: m.rating,
     review_count: m.reviewCount,
     created_at: "2026-06-01T00:00:00Z",
   };
+}
+
+/** ISO 2자리 국적 코드 → 국기 이모지 */
+function flagEmoji(code: string | null): string {
+  if (!code || code.length !== 2) return "🌍";
+  return String.fromCodePoint(
+    ...code
+      .toUpperCase()
+      .split("")
+      .map((c) => 0x1f1e6 + c.charCodeAt(0) - 65),
+  );
 }
 
 /**
@@ -97,12 +117,15 @@ export async function getApprovedRestaurants(): Promise<RestaurantListItem[]> {
   }
 }
 
-export async function getRestaurantById(
+/** 상세 페이지용 — 식당 + 메뉴 + 리뷰 */
+export async function getRestaurantDetail(
   id: string,
-): Promise<RestaurantListItem | null> {
+): Promise<RestaurantDetail | null> {
   /* 목 데이터 id(r1~r6)는 UUID가 아니므로 DB 조회 없이 처리 */
   const mock = MOCK_RESTAURANTS.find((m) => m.id === id);
-  if (mock) return mockToItem(mock);
+  if (mock) {
+    return { ...mockToItem(mock), menu: mock.menu, reviews: mock.reviews };
+  }
 
   try {
     const supabase = await createClient();
@@ -113,7 +136,27 @@ export async function getRestaurantById(
       .maybeSingle();
 
     if (error) throw error;
-    return data ? rowToItem(data as StatsRow) : null;
+    if (!data) return null;
+
+    const { data: reviewRows } = await supabase
+      .from("reviews")
+      .select("id, rating, content, nationality, created_at")
+      .eq("restaurant_id", id)
+      .order("created_at", { ascending: false })
+      .limit(50);
+
+    const reviews: ReviewDisplay[] = (reviewRows ?? []).map((v) => ({
+      id: v.id as string,
+      author: "Guest", // 프로필 닉네임 도입 전까지 익명 표시
+      nationality: (v.nationality as string | null) ?? "",
+      flag: flagEmoji(v.nationality as string | null),
+      rating: v.rating as number,
+      content: (v.content as string | null) ?? "",
+      date: (v.created_at as string).slice(0, 10),
+    }));
+
+    /* 메뉴 테이블은 Phase 2(Basic 플랜 기능) — 그 전까지 빈 목록 */
+    return { ...rowToItem(data as StatsRow), menu: [], reviews };
   } catch {
     return null;
   }
