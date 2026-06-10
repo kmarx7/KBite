@@ -70,7 +70,8 @@
     "startingFrom": "Starting from {price}",
     "directions": "Dir",
     "reserve": "Reserve",
-    "distanceAway": "{distance} away"
+    "distanceAway": "{distance} away",
+    "mapPlaceholder": "Interactive map coming soon"
   },
   "register": {
     "title": "Add Restaurant",
@@ -102,7 +103,11 @@
     "websiteSns": "Website / SNS",
     "verifyNotice": "Your restaurant will be reviewed within 2 business days. We may contact you for additional verification.",
     "submitDone": "Submit",
-    "stepOf": "{current}/{total}"
+    "stepOf": "{current}/{total}",
+    "submitted": "Registration submitted!",
+    "submittedDesc": "We'll review your restaurant within 2 business days and email you once it's approved.",
+    "backToExplore": "Back to Explore",
+    "requiredField": "Please fill in all required fields"
   },
   "language": {
     "select": "Select Language"
