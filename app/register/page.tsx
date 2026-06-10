@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IconChevronLeft, IconSparkles } from "@tabler/icons-react";
@@ -13,6 +13,7 @@ import UploadBox from "@/components/register/UploadBox";
 import StepButton from "@/components/ui/StepButton";
 import DateTimeButton from "@/components/ui/DateTimeButton";
 import { validateStep, ALLOWED_DOC_TYPES } from "@/lib/validation/register";
+import { registerRestaurant } from "@/app/actions/register";
 
 interface RegisterForm {
   name: string;
@@ -61,6 +62,7 @@ export default function RegisterPage() {
   const [form, setForm] = useState<RegisterForm>(INITIAL_FORM);
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const set = <K extends keyof RegisterForm>(key: K, value: RegisterForm[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -77,15 +79,29 @@ export default function RegisterPage() {
       setStep((s) => (s + 1) as 1 | 2 | 3);
       return;
     }
-    /* Supabase 연동(작업 2) 전 목 제출 — status: 'pending', plan: 'free' 로 저장될 페이로드 */
-    console.log("register payload", {
-      ...form,
-      photo: form.photo?.name ?? null,
-      certFile: form.certFile?.name ?? null,
-      status: "pending",
-      plan: "free",
+    if (isPending) return;
+    /* 서버 액션이 zod 재검증 + status:pending/plan:free 강제 후 DB 저장 */
+    const payload = new FormData();
+    payload.set("name", form.name);
+    payload.set("ownerEmail", form.ownerEmail);
+    payload.set("phone", form.phone);
+    payload.set("category", form.category ?? "");
+    payload.set("address", form.address);
+    if (form.openingTime) payload.set("openingTime", form.openingTime);
+    if (form.closingTime) payload.set("closingTime", form.closingTime);
+    payload.set("priceRange", form.priceRange);
+    payload.set("about", form.about);
+    form.certifications.forEach((c) => payload.append("certifications", c));
+    form.languages.forEach((l) => payload.append("languages", l));
+    payload.set("bizRegNo", form.bizRegNo);
+    payload.set("snsUrl", form.snsUrl);
+    if (form.photo) payload.set("photo", form.photo);
+
+    startTransition(async () => {
+      const result = await registerRestaurant(payload);
+      if (result.ok) setSubmitted(true);
+      else setError(result.error ?? "submitFailed");
     });
-    setSubmitted(true);
   };
 
   const handlePrev = () => {

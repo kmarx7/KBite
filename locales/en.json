@@ -112,7 +112,8 @@
     "requiredField": "Please fill in all required fields",
     "invalidEmail": "Please enter a valid email address",
     "invalidUrl": "Please enter a valid URL starting with http(s)://",
-    "invalidBizNo": "Business registration number format: 000-00-00000"
+    "invalidBizNo": "Business registration number format: 000-00-00000",
+    "submitFailed": "Something went wrong while submitting. Please try again."
   },
   "language": {
     "select": "Select Language"
