@@ -127,5 +127,11 @@
     "privacy": "Chính sách quyền riêng tư",
     "partner": "Điều khoản đối tác",
     "refund": "Chính sách hoàn tiền"
+  },
+  "saved": {
+    "title": "Nhà hàng đã lưu",
+    "empty": "Chưa có nhà hàng nào được lưu",
+    "emptyDesc": "Nhấn vào biểu tượng trái tim trên nhà hàng để lưu lại đây.",
+    "explore": "Khám phá nhà hàng"
   }
 }
