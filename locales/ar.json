@@ -12,7 +12,11 @@
     "share": "مشاركة",
     "openNow": "مفتوح الآن",
     "closed": "مغلق",
-    "loading": "جارٍ التحميل..."
+    "loading": "جارٍ التحميل...",
+    "km": "كم",
+    "reviews": "{count} تقييم",
+    "fileTooLarge": "يجب أن يكون حجم الملف أقل من {size} ميغابايت",
+    "fileType": "نوع الملف غير مسموح به"
   },
   "tabs": {
     "explore": "استكشاف",
@@ -41,7 +45,9 @@
     "nearYou": "مطاعم بالقرب منك",
     "found": "{count} نتيجة",
     "filterSort": "تصفية · ترتيب",
-    "myLocation": "موقعي"
+    "myLocation": "موقعي",
+    "locationDenied": "إذن الموقع متوقف. يرجى السماح بالوصول إلى الموقع من شريط عنوان المتصفح (رمز القفل) أو إعدادات الموقع، ثم تحديث الصفحة.",
+    "locationUnavailable": "تعذر تحديد موقعك. يرجى المحاولة مرة أخرى."
   },
   "filterSheet": {
     "title": "تصفية وترتيب",
@@ -51,7 +57,10 @@
     "openNowFirst": "المفتوح الآن أولاً",
     "newestListed": "الأحدث إدراجاً",
     "dietary": "الشهادات الغذائية",
-    "priceRange": "نطاق السعر"
+    "priceRange": "نطاق السعر",
+    "priceBudget": "₩",
+    "priceModerate": "₩₩",
+    "priceUpscale": "₩₩₩"
   },
   "detail": {
     "cuisine": "المطبخ",
@@ -64,9 +73,59 @@
     "reviews": "التقييمات",
     "startingFrom": "ابتداءً من {price}",
     "directions": "الاتجاهات",
-    "reserve": "حجز"
+    "reserve": "حجز",
+    "distanceAway": "على بُعد {distance}",
+    "mapPlaceholder": "الخريطة التفاعلية قريباً"
+  },
+  "register": {
+    "title": "إضافة مطعم",
+    "stepBasic": "أساسي",
+    "stepDetail": "تفاصيل",
+    "stepVerify": "تحقق",
+    "basicInfo": "المعلومات الأساسية",
+    "restaurantName": "اسم المطعم",
+    "restaurantNamePlaceholder": "مثال: مطبخ إسطنبول",
+    "ownerEmail": "البريد الإلكتروني للمالك",
+    "phoneNumber": "رقم الهاتف",
+    "category": "الفئة",
+    "restaurantDetail": "تفاصيل المطعم",
+    "address": "العنوان",
+    "addressPlaceholder": "عنوان الشارع",
+    "openingTime": "وقت الفتح",
+    "closingTime": "وقت الإغلاق",
+    "priceRange": "نطاق السعر",
+    "about": "نبذة",
+    "aboutPlaceholder": "أخبر الزبائن الأجانب بما يميز طعامك...",
+    "dietaryCertifications": "الشهادات الغذائية",
+    "languagesSpoken": "اللغات المتوفرة",
+    "restaurantPhoto": "صورة المطعم",
+    "uploadPhoto": "رفع صورة",
+    "verification": "التحقق",
+    "businessRegNo": "رقم السجل التجاري",
+    "halalCertificate": "شهادة الحلال",
+    "uploadCertificate": "رفع الشهادة",
+    "websiteSns": "الموقع الإلكتروني / وسائل التواصل",
+    "verifyNotice": "ستتم مراجعة مطعمك خلال يومي عمل. قد نتواصل معك للتحقق الإضافي.",
+    "submitDone": "إرسال",
+    "stepOf": "{current}/{total}",
+    "submitted": "تم إرسال التسجيل!",
+    "submittedDesc": "سنراجع مطعمك خلال يومي عمل وسنرسل لك بريداً إلكترونياً فور الموافقة.",
+    "backToExplore": "العودة إلى الاستكشاف",
+    "requiredField": "يرجى تعبئة جميع الحقول المطلوبة",
+    "invalidEmail": "يرجى إدخال بريد إلكتروني صحيح",
+    "invalidUrl": "يرجى إدخال رابط صحيح يبدأ بـ //:http(s)",
+    "invalidBizNo": "صيغة رقم السجل التجاري: 000-00-00000",
+    "submitFailed": "حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.",
+    "consent": "لقد قرأت وأوافق على <terms>شروط الخدمة</terms> و<privacy>سياسة الخصوصية</privacy> و<partner>شروط الشركاء</partner>.",
+    "consentRequired": "يرجى الموافقة على الشروط للمتابعة"
   },
   "language": {
     "select": "اختر اللغة"
+  },
+  "policies": {
+    "terms": "شروط الخدمة",
+    "privacy": "سياسة الخصوصية",
+    "partner": "شروط الشركاء",
+    "refund": "سياسة الاسترداد"
   }
 }
