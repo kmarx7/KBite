@@ -90,6 +90,7 @@ export interface RestaurantListItem {
   languages: Language[];
   booking_url: string | null;
   description: string | null;
+  plan: Plan;
   avg_rating: number;
   review_count: number;
   created_at: string;

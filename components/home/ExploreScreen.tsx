@@ -13,6 +13,7 @@ import {
 } from "@tabler/icons-react";
 import { CATEGORIES, type Category, type RestaurantListItem } from "@/types";
 import { DEFAULT_LOCATION, haversineKm, isOpenNow } from "@/lib/utils";
+import { searchBoost } from "@/lib/features";
 import { TRACK_EVENTS, track } from "@/lib/analytics";
 import MapView from "@/components/map/MapView";
 import RestaurantCard from "@/components/restaurant/RestaurantCard";
@@ -155,23 +156,37 @@ export default function ExploreScreen({
         isOpen: isOpenNow(r.opening_time, r.closing_time),
       }));
 
+    /* 유료 플랜 검색 상단 노출(searchBoost) 우선, 그 안에서 선택한 기준으로 정렬 */
+    const boostDiff = (
+      a: (typeof items)[number],
+      b: (typeof items)[number],
+    ) => searchBoost(b.restaurant.plan) - searchBoost(a.restaurant.plan);
+
     switch (filter.sort) {
       case "rating":
-        items.sort((a, b) => b.restaurant.avg_rating - a.restaurant.avg_rating);
+        items.sort(
+          (a, b) =>
+            boostDiff(a, b) ||
+            b.restaurant.avg_rating - a.restaurant.avg_rating,
+        );
         break;
       case "open":
         items.sort(
           (a, b) =>
-            Number(b.isOpen) - Number(a.isOpen) || a.distanceKm - b.distanceKm,
+            boostDiff(a, b) ||
+            Number(b.isOpen) - Number(a.isOpen) ||
+            a.distanceKm - b.distanceKm,
         );
         break;
       case "newest":
-        items.sort((a, b) =>
-          b.restaurant.created_at.localeCompare(a.restaurant.created_at),
+        items.sort(
+          (a, b) =>
+            boostDiff(a, b) ||
+            b.restaurant.created_at.localeCompare(a.restaurant.created_at),
         );
         break;
       default:
-        items.sort((a, b) => a.distanceKm - b.distanceKm);
+        items.sort((a, b) => boostDiff(a, b) || a.distanceKm - b.distanceKm);
     }
     return items;
   }, [restaurants, selectedCats, search, filter, origin]);
