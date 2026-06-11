@@ -143,6 +143,35 @@
     "addRestaurant": "お店を登録する",
     "legal": "規約とポリシー",
     "contact": "お問い合わせ",
-    "accountSoon": "アカウント機能は近日公開——現在、保存はこの端末に記録されます。"
+    "accountSoon": "アカウント機能は近日公開——現在、保存はこの端末に記録されます。",
+    "partnerLogin": "パートナーログイン"
+  },
+  "partner": {
+    "title": "パートナーセンター",
+    "loginTitle": "パートナーログイン",
+    "login": "ログイン",
+    "signup": "新規登録",
+    "email": "メールアドレス",
+    "password": "パスワード（8文字以上）",
+    "loginFailed": "メールアドレスまたはパスワードが正しくありません",
+    "signupFailed": "アカウントを作成できませんでした。既に登録済みのメールの可能性があります。",
+    "passwordMin": "パスワードは8文字以上にしてください",
+    "invalidEmail": "有効なメールアドレスを入力してください",
+    "emailConfirmSent": "確認メールを送信しました。メールを確認してからログインしてください。",
+    "logout": "ログアウト",
+    "myRestaurants": "マイレストラン",
+    "empty": "まだ連携されたお店がありません",
+    "emptyDesc": "お店を登録するか、あなたのメールで登録済みのお店があれば下から所有権を連携してください。",
+    "claimTitle": "あなたのメールで登録済み",
+    "claim": "所有権を連携",
+    "claimFailed": "このお店の所有権を連携できませんでした",
+    "editTitle": "お店情報の編集",
+    "save": "変更を保存",
+    "saved": "保存しました！",
+    "saveFailed": "保存できませんでした。もう一度お試しください。",
+    "registerNew": "新しいお店を登録",
+    "statusPending": "審査中",
+    "statusApproved": "公開中",
+    "statusRejected": "却下"
   }
 }

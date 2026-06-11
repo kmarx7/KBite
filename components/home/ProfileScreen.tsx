@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import {
   IconHeart,
   IconBuildingStore,
+  IconLogin2,
   IconMail,
   IconCheck,
   IconChevronRight,
@@ -106,11 +107,18 @@ export default function ProfileScreen() {
 
         {/* 식당 사장님 */}
         <SectionLabel>{t("forOwners")}</SectionLabel>
-        <Link href="/register" className={rowClass}>
-          <IconBuildingStore size={17} color="#FF6B35" />
-          <span className="flex-1">{t("addRestaurant")}</span>
-          <IconChevronRight size={15} color="#C0A080" />
-        </Link>
+        <div className="flex flex-col gap-2">
+          <Link href="/register" className={rowClass}>
+            <IconBuildingStore size={17} color="#FF6B35" />
+            <span className="flex-1">{t("addRestaurant")}</span>
+            <IconChevronRight size={15} color="#C0A080" />
+          </Link>
+          <Link href="/partner" className={rowClass}>
+            <IconLogin2 size={17} color="#FF6B35" />
+            <span className="flex-1">{t("partnerLogin")}</span>
+            <IconChevronRight size={15} color="#C0A080" />
+          </Link>
+        </div>
 
         {/* 약관 및 정책 */}
         <SectionLabel>{t("legal")}</SectionLabel>

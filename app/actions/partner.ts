@@ -1,0 +1,223 @@
+"use server";
+
+import { randomUUID } from "crypto";
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
+import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import {
+  step2Schema,
+  validateFile,
+  ALLOWED_IMAGE_TYPES,
+} from "@/lib/validation/register";
+
+export interface PartnerResult {
+  ok: boolean;
+  /** i18n 키 (partner 네임스페이스) */
+  error?: string;
+  /** 회원가입 후 이메일 확인이 필요한 경우 */
+  needsEmailConfirm?: boolean;
+}
+
+const credentialsSchema = z.object({
+  email: z.string().trim().email("invalidEmail").max(254),
+  password: z.string().min(8, "passwordMin").max(72),
+});
+
+/* ───────────── 가입 / 로그인 / 로그아웃 ───────────── */
+
+export async function partnerSignUp(
+  formData: FormData,
+): Promise<PartnerResult> {
+  const parsed = credentialsSchema.safeParse({
+    email: String(formData.get("email") ?? ""),
+    password: String(formData.get("password") ?? ""),
+  });
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message };
+  }
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signUp(parsed.data);
+  if (error) {
+    /* 이미 가입된 이메일 등 — 상세 사유는 노출하지 않음 (계정 열거 방지) */
+    return { ok: false, error: "signupFailed" };
+  }
+  return { ok: true, needsEmailConfirm: !data.session };
+}
+
+export async function partnerLogin(
+  formData: FormData,
+): Promise<PartnerResult> {
+  const parsed = credentialsSchema.safeParse({
+    email: String(formData.get("email") ?? ""),
+    password: String(formData.get("password") ?? ""),
+  });
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message };
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signInWithPassword(parsed.data);
+  if (error) {
+    await new Promise((r) => setTimeout(r, 600));
+    return { ok: false, error: "loginFailed" };
+  }
+  return { ok: true };
+}
+
+export async function partnerLogout(): Promise<void> {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+}
+
+/* ───────────── 식당 소유권 연결 (claim) ───────────── */
+
+export async function claimRestaurant(id: string): Promise<PartnerResult> {
+  const parsedId = z.string().uuid().safeParse(id);
+  if (!parsedId.success) return { ok: false, error: "claimFailed" };
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user?.email) return { ok: false, error: "loginFailed" };
+
+  /* 등록 시 입력한 owner_email과 로그인 이메일이 일치해야 소유권 부여 */
+  const admin = createAdminClient();
+  const { data: restaurant } = await admin
+    .from("restaurants")
+    .select("id, owner_email, owner_id")
+    .eq("id", parsedId.data)
+    .maybeSingle();
+
+  if (
+    !restaurant ||
+    restaurant.owner_id !== null ||
+    (restaurant.owner_email ?? "").toLowerCase() !== user.email.toLowerCase()
+  ) {
+    return { ok: false, error: "claimFailed" };
+  }
+
+  const { error } = await admin
+    .from("restaurants")
+    .update({ owner_id: user.id })
+    .eq("id", parsedId.data)
+    .is("owner_id", null);
+
+  if (error) {
+    console.error("claim failed:", error.code);
+    return { ok: false, error: "claimFailed" };
+  }
+  revalidatePath("/partner");
+  return { ok: true };
+}
+
+/* ───────────── 본인 식당 정보 수정 ───────────── */
+
+const editSchema = step2Schema.extend({
+  name: z.string().trim().min(1, "requiredField").max(100),
+  phone: z
+    .string()
+    .trim()
+    .max(20)
+    .regex(/^[0-9+\-() ]*$/, "requiredField"),
+  bookingUrl: z
+    .string()
+    .trim()
+    .max(300)
+    .regex(/^$|^https?:\/\/\S+$/i, "invalidUrl"),
+  snsUrl: z
+    .string()
+    .trim()
+    .max(300)
+    .regex(/^$|^https?:\/\/\S+$/i, "invalidUrl"),
+});
+
+export async function updateRestaurant(
+  id: string,
+  formData: FormData,
+): Promise<PartnerResult> {
+  const parsedId = z.string().uuid().safeParse(id);
+  if (!parsedId.success) return { ok: false, error: "saveFailed" };
+
+  const parsed = editSchema.safeParse({
+    name: String(formData.get("name") ?? ""),
+    phone: String(formData.get("phone") ?? ""),
+    address: String(formData.get("address") ?? ""),
+    openingTime: (formData.get("openingTime") as string | null) || null,
+    closingTime: (formData.get("closingTime") as string | null) || null,
+    priceRange: String(formData.get("priceRange") ?? "moderate"),
+    about: String(formData.get("about") ?? ""),
+    certifications: formData.getAll("certifications").map(String),
+    languages: formData.getAll("languages").map(String),
+    bookingUrl: String(formData.get("bookingUrl") ?? ""),
+    snsUrl: String(formData.get("snsUrl") ?? ""),
+  });
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "loginFailed" };
+
+  /* 사진 교체 — 소유권 확인 후 admin으로 업로드 (스토리지 쓰기는 서버 전용) */
+  let photoUrl: string | undefined;
+  const photo = formData.get("photo");
+  if (photo instanceof File && photo.size > 0) {
+    const fileError = validateFile(photo, ALLOWED_IMAGE_TYPES);
+    if (fileError) return { ok: false, error: fileError };
+
+    const admin = createAdminClient();
+    const { data: owned } = await admin
+      .from("restaurants")
+      .select("id")
+      .eq("id", parsedId.data)
+      .eq("owner_id", user.id)
+      .maybeSingle();
+    if (!owned) return { ok: false, error: "saveFailed" };
+
+    const ext =
+      { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/heic": "heic" }[
+        photo.type
+      ] ?? "jpg";
+    const path = `${randomUUID()}.${ext}`;
+    const { error: uploadError } = await admin.storage
+      .from("restaurant-photos")
+      .upload(path, photo, { contentType: photo.type });
+    if (uploadError) return { ok: false, error: "saveFailed" };
+    photoUrl = admin.storage.from("restaurant-photos").getPublicUrl(path)
+      .data.publicUrl;
+  }
+
+  /* 사용자 컨텍스트로 업데이트 — RLS(본인 행) + 컬럼 GRANT(운영 정보만)가 강제 */
+  const { error } = await supabase
+    .from("restaurants")
+    .update({
+      name: parsed.data.name,
+      phone: parsed.data.phone || null,
+      address: parsed.data.address,
+      opening_time: parsed.data.openingTime,
+      closing_time: parsed.data.closingTime,
+      price_range: parsed.data.priceRange,
+      description: parsed.data.about || null,
+      certifications: parsed.data.certifications,
+      languages: parsed.data.languages,
+      booking_url: parsed.data.bookingUrl || null,
+      sns_url: parsed.data.snsUrl || null,
+      ...(photoUrl ? { photo_url: photoUrl } : {}),
+    })
+    .eq("id", parsedId.data);
+
+  if (error) {
+    console.error("restaurant update failed:", error.code);
+    return { ok: false, error: "saveFailed" };
+  }
+  revalidatePath("/partner");
+  revalidatePath(`/restaurant/${parsedId.data}`);
+  revalidatePath("/");
+  return { ok: true };
+}

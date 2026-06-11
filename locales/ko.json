@@ -143,6 +143,35 @@
     "addRestaurant": "내 식당 등록하기",
     "legal": "약관 및 정책",
     "contact": "문의하기",
-    "accountSoon": "계정 기능이 곧 추가돼요 — 지금은 찜이 이 기기에 저장됩니다."
+    "accountSoon": "계정 기능이 곧 추가돼요 — 지금은 찜이 이 기기에 저장됩니다.",
+    "partnerLogin": "파트너 로그인"
+  },
+  "partner": {
+    "title": "파트너 센터",
+    "loginTitle": "파트너 로그인",
+    "login": "로그인",
+    "signup": "회원가입",
+    "email": "이메일",
+    "password": "비밀번호 (8자 이상)",
+    "loginFailed": "이메일 또는 비밀번호가 올바르지 않습니다",
+    "signupFailed": "계정을 만들지 못했어요. 이미 가입된 이메일일 수 있어요.",
+    "passwordMin": "비밀번호는 8자 이상이어야 해요",
+    "invalidEmail": "올바른 이메일 주소를 입력해주세요",
+    "emailConfirmSent": "확인 이메일을 보냈어요 — 메일함 확인 후 로그인해주세요.",
+    "logout": "로그아웃",
+    "myRestaurants": "내 식당",
+    "empty": "아직 연결된 식당이 없어요",
+    "emptyDesc": "식당을 새로 등록하거나, 내 이메일로 등록된 식당이 있다면 아래에서 소유권을 연결하세요.",
+    "claimTitle": "내 이메일로 등록된 식당",
+    "claim": "소유권 연결",
+    "claimFailed": "소유권을 연결하지 못했어요",
+    "editTitle": "식당 정보 수정",
+    "save": "변경사항 저장",
+    "saved": "저장됐어요!",
+    "saveFailed": "저장하지 못했어요. 다시 시도해주세요.",
+    "registerNew": "새 식당 등록",
+    "statusPending": "심사 중",
+    "statusApproved": "게시 중",
+    "statusRejected": "거절됨"
   }
 }
