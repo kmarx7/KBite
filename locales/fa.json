@@ -12,7 +12,11 @@
     "share": "اشتراک‌گذاری",
     "openNow": "اکنون باز است",
     "closed": "بسته",
-    "loading": "در حال بارگذاری..."
+    "loading": "در حال بارگذاری...",
+    "km": "کیلومتر",
+    "reviews": "{count} نظر",
+    "fileTooLarge": "حجم فایل باید کمتر از {size} مگابایت باشد",
+    "fileType": "این نوع فایل مجاز نیست"
   },
   "tabs": {
     "explore": "کاوش",
@@ -41,7 +45,9 @@
     "nearYou": "رستوران‌های نزدیک شما",
     "found": "{count} مورد",
     "filterSort": "فیلتر · مرتب‌سازی",
-    "myLocation": "موقعیت من"
+    "myLocation": "موقعیت من",
+    "locationDenied": "دسترسی به موقعیت خاموش است. لطفاً در نوار آدرس مرورگر (نماد قفل) یا تنظیمات سایت، موقعیت را مجاز کنید و صفحه را تازه‌سازی کنید.",
+    "locationUnavailable": "موقعیت شما دریافت نشد. لطفاً دوباره تلاش کنید."
   },
   "filterSheet": {
     "title": "فیلتر و مرتب‌سازی",
@@ -51,7 +57,10 @@
     "openNowFirst": "ابتدا باز‌ها",
     "newestListed": "جدیدترین",
     "dietary": "گواهی‌های غذایی",
-    "priceRange": "محدوده قیمت"
+    "priceRange": "محدوده قیمت",
+    "priceBudget": "₩",
+    "priceModerate": "₩₩",
+    "priceUpscale": "₩₩₩"
   },
   "detail": {
     "cuisine": "آشپزی",
@@ -64,9 +73,59 @@
     "reviews": "نظرات",
     "startingFrom": "شروع از {price}",
     "directions": "مسیریابی",
-    "reserve": "رزرو"
+    "reserve": "رزرو",
+    "distanceAway": "در فاصله {distance}",
+    "mapPlaceholder": "نقشه تعاملی به‌زودی"
+  },
+  "register": {
+    "title": "ثبت رستوران",
+    "stepBasic": "پایه",
+    "stepDetail": "جزئیات",
+    "stepVerify": "تأیید",
+    "basicInfo": "اطلاعات پایه",
+    "restaurantName": "نام رستوران",
+    "restaurantNamePlaceholder": "مثال: آشپزخانه استانبول",
+    "ownerEmail": "ایمیل مالک",
+    "phoneNumber": "شماره تلفن",
+    "category": "دسته‌بندی",
+    "restaurantDetail": "جزئیات رستوران",
+    "address": "نشانی",
+    "addressPlaceholder": "نشانی خیابان",
+    "openingTime": "ساعت بازگشایی",
+    "closingTime": "ساعت تعطیلی",
+    "priceRange": "محدوده قیمت",
+    "about": "درباره",
+    "aboutPlaceholder": "به مشتریان خارجی بگویید غذای شما چه ویژگی خاصی دارد...",
+    "dietaryCertifications": "گواهی‌های غذایی",
+    "languagesSpoken": "زبان‌های قابل ارائه",
+    "restaurantPhoto": "عکس رستوران",
+    "uploadPhoto": "بارگذاری عکس",
+    "verification": "تأیید",
+    "businessRegNo": "شماره ثبت کسب‌وکار",
+    "halalCertificate": "گواهی حلال",
+    "uploadCertificate": "بارگذاری گواهی",
+    "websiteSns": "وب‌سایت / شبکه‌های اجتماعی",
+    "verifyNotice": "رستوران شما ظرف ۲ روز کاری بررسی می‌شود. ممکن است برای تأیید بیشتر با شما تماس بگیریم.",
+    "submitDone": "ارسال",
+    "stepOf": "{current}/{total}",
+    "submitted": "ثبت‌نام ارسال شد!",
+    "submittedDesc": "رستوران شما را ظرف ۲ روز کاری بررسی می‌کنیم و پس از تأیید با ایمیل اطلاع می‌دهیم.",
+    "backToExplore": "بازگشت به کاوش",
+    "requiredField": "لطفاً همه موارد الزامی را پر کنید",
+    "invalidEmail": "لطفاً یک ایمیل معتبر وارد کنید",
+    "invalidUrl": "لطفاً یک آدرس معتبر که با //:http(s) شروع می‌شود وارد کنید",
+    "invalidBizNo": "قالب شماره ثبت کسب‌وکار: 000-00-00000",
+    "submitFailed": "هنگام ارسال مشکلی پیش آمد. لطفاً دوباره تلاش کنید.",
+    "consent": "<terms>شرایط خدمات</terms>، <privacy>سیاست حفظ حریم خصوصی</privacy> و <partner>شرایط شرکا</partner> را خوانده‌ام و می‌پذیرم.",
+    "consentRequired": "برای ادامه باید شرایط را بپذیرید"
   },
   "language": {
     "select": "انتخاب زبان"
+  },
+  "policies": {
+    "terms": "شرایط خدمات",
+    "privacy": "سیاست حفظ حریم خصوصی",
+    "partner": "شرایط شرکا",
+    "refund": "سیاست بازپرداخت"
   }
 }
