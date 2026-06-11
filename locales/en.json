@@ -133,5 +133,16 @@
     "empty": "Nothing saved yet",
     "emptyDesc": "Tap the heart on a restaurant to keep it here for quick access.",
     "explore": "Explore Restaurants"
+  },
+  "profile": {
+    "title": "Profile",
+    "language": "Language",
+    "myActivity": "My Activity",
+    "savedRow": "Saved restaurants",
+    "forOwners": "For Restaurant Owners",
+    "addRestaurant": "Add your restaurant",
+    "legal": "Legal",
+    "contact": "Contact us",
+    "accountSoon": "Accounts are coming soon — your saves are stored on this device for now."
   }
 }

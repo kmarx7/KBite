@@ -14,9 +14,9 @@ type Tab = "explore" | "saved" | "alerts" | "profile";
 const TABS: { key: Tab; Icon: typeof IconCompass; href: string | null }[] = [
   { key: "explore", Icon: IconCompass, href: "/" },
   { key: "saved", Icon: IconHeart, href: "/saved" },
-  /* alerts/profile 라우트는 추후 작업에서 추가 — 그 전까지 비활성 */
+  /* alerts는 푸시 인프라(Phase 3)와 함께 추가 — 그 전까지 비활성 */
   { key: "alerts", Icon: IconBell, href: null },
-  { key: "profile", Icon: IconUser, href: null },
+  { key: "profile", Icon: IconUser, href: "/profile" },
 ];
 
 export default function TabBar({ active }: { active: Tab }) {
