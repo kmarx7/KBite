@@ -10,6 +10,7 @@ import type {
   Certification,
   Language,
   MenuItem,
+  Plan,
   PriceRange,
   RestaurantListItem,
   ReviewDisplay,
@@ -40,6 +41,7 @@ type StatsRow = {
   languages: Language[] | null;
   booking_url: string | null;
   description: string | null;
+  plan: Plan | null;
   avg_rating: number | null;
   review_count: number | null;
   created_at: string;
@@ -53,6 +55,7 @@ function rowToItem(row: StatsRow): RestaurantListItem {
     cover_emoji: row.cover_emoji ?? "🍽️",
     certifications: row.certifications ?? [],
     languages: row.languages ?? [],
+    plan: row.plan ?? "free",
     avg_rating: Number(row.avg_rating ?? 0),
     review_count: row.review_count ?? 0,
   };
@@ -77,6 +80,7 @@ function mockToItem(m: MockRestaurant): RestaurantListItem {
     languages: m.languages,
     booking_url: m.booking_url,
     description: m.description,
+    plan: "free",
     avg_rating: m.rating,
     review_count: m.reviewCount,
     created_at: "2026-06-01T00:00:00Z",
