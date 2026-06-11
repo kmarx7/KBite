@@ -143,6 +143,35 @@
     "addRestaurant": "Đăng ký nhà hàng của bạn",
     "legal": "Điều khoản & Chính sách",
     "contact": "Liên hệ",
-    "accountSoon": "Tài khoản sắp ra mắt — hiện các mục đã lưu được giữ trên thiết bị này."
+    "accountSoon": "Tài khoản sắp ra mắt — hiện các mục đã lưu được giữ trên thiết bị này.",
+    "partnerLogin": "Đăng nhập đối tác"
+  },
+  "partner": {
+    "title": "Trung tâm đối tác",
+    "loginTitle": "Đăng nhập đối tác",
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "email": "Email",
+    "password": "Mật khẩu (8 ký tự trở lên)",
+    "loginFailed": "Email hoặc mật khẩu không đúng",
+    "signupFailed": "Không thể tạo tài khoản. Email có thể đã được sử dụng.",
+    "passwordMin": "Mật khẩu phải có ít nhất 8 ký tự",
+    "invalidEmail": "Vui lòng nhập email hợp lệ",
+    "emailConfirmSent": "Đã gửi email xác nhận — kiểm tra hộp thư rồi đăng nhập.",
+    "logout": "Đăng xuất",
+    "myRestaurants": "Nhà hàng của tôi",
+    "empty": "Chưa có nhà hàng nào được liên kết",
+    "emptyDesc": "Đăng ký nhà hàng của bạn, hoặc nhận quyền sở hữu nhà hàng đã đăng ký bằng email của bạn bên dưới.",
+    "claimTitle": "Đã đăng ký bằng email của bạn",
+    "claim": "Nhận quyền sở hữu",
+    "claimFailed": "Không thể nhận quyền sở hữu nhà hàng này",
+    "editTitle": "Chỉnh sửa nhà hàng",
+    "save": "Lưu thay đổi",
+    "saved": "Đã lưu!",
+    "saveFailed": "Không thể lưu. Vui lòng thử lại.",
+    "registerNew": "Đăng ký nhà hàng mới",
+    "statusPending": "Đang xét duyệt",
+    "statusApproved": "Đang hiển thị",
+    "statusRejected": "Bị từ chối"
   }
 }

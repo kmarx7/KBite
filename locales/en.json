@@ -143,6 +143,35 @@
     "addRestaurant": "Add your restaurant",
     "legal": "Legal",
     "contact": "Contact us",
-    "accountSoon": "Accounts are coming soon — your saves are stored on this device for now."
+    "accountSoon": "Accounts are coming soon — your saves are stored on this device for now.",
+    "partnerLogin": "Partner login"
+  },
+  "partner": {
+    "title": "Partner Center",
+    "loginTitle": "Partner Login",
+    "login": "Log in",
+    "signup": "Sign up",
+    "email": "Email",
+    "password": "Password (8+ characters)",
+    "loginFailed": "Incorrect email or password",
+    "signupFailed": "Could not create the account. The email may already be in use.",
+    "passwordMin": "Password must be at least 8 characters",
+    "invalidEmail": "Please enter a valid email address",
+    "emailConfirmSent": "Confirmation email sent — check your inbox, then log in.",
+    "logout": "Log out",
+    "myRestaurants": "My Restaurants",
+    "empty": "No restaurants linked yet",
+    "emptyDesc": "Register your restaurant, or claim one below if it was registered with your email.",
+    "claimTitle": "Registered with your email",
+    "claim": "Claim ownership",
+    "claimFailed": "Could not claim this restaurant",
+    "editTitle": "Edit Restaurant",
+    "save": "Save changes",
+    "saved": "Saved!",
+    "saveFailed": "Could not save. Please try again.",
+    "registerNew": "Register a new restaurant",
+    "statusPending": "Under review",
+    "statusApproved": "Live",
+    "statusRejected": "Rejected"
   }
 }

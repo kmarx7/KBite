@@ -143,6 +143,35 @@
     "addRestaurant": "登记我的餐厅",
     "legal": "条款与政策",
     "contact": "联系我们",
-    "accountSoon": "账号功能即将上线——目前收藏保存在本设备上。"
+    "accountSoon": "账号功能即将上线——目前收藏保存在本设备上。",
+    "partnerLogin": "合作伙伴登录"
+  },
+  "partner": {
+    "title": "合作伙伴中心",
+    "loginTitle": "合作伙伴登录",
+    "login": "登录",
+    "signup": "注册",
+    "email": "邮箱",
+    "password": "密码（8位以上）",
+    "loginFailed": "邮箱或密码不正确",
+    "signupFailed": "无法创建账号，该邮箱可能已被注册。",
+    "passwordMin": "密码至少需要8个字符",
+    "invalidEmail": "请输入有效的邮箱地址",
+    "emailConfirmSent": "确认邮件已发送——请查收邮箱后登录。",
+    "logout": "退出登录",
+    "myRestaurants": "我的餐厅",
+    "empty": "还没有关联的餐厅",
+    "emptyDesc": "登记您的餐厅，或在下方认领以您的邮箱登记的餐厅。",
+    "claimTitle": "以您的邮箱登记的餐厅",
+    "claim": "认领所有权",
+    "claimFailed": "无法认领该餐厅",
+    "editTitle": "编辑餐厅信息",
+    "save": "保存更改",
+    "saved": "已保存！",
+    "saveFailed": "保存失败，请重试。",
+    "registerNew": "登记新餐厅",
+    "statusPending": "审核中",
+    "statusApproved": "已上线",
+    "statusRejected": "已拒绝"
   }
 }
