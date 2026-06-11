@@ -133,5 +133,16 @@
     "empty": "아직 저장한 식당이 없어요",
     "emptyDesc": "식당의 하트 버튼을 누르면 여기에 모아둘 수 있어요.",
     "explore": "식당 둘러보기"
+  },
+  "profile": {
+    "title": "프로필",
+    "language": "언어",
+    "myActivity": "내 활동",
+    "savedRow": "저장한 식당",
+    "forOwners": "식당 사장님이신가요?",
+    "addRestaurant": "내 식당 등록하기",
+    "legal": "약관 및 정책",
+    "contact": "문의하기",
+    "accountSoon": "계정 기능이 곧 추가돼요 — 지금은 찜이 이 기기에 저장됩니다."
   }
 }

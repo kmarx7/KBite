@@ -133,5 +133,16 @@
     "empty": "Chưa có nhà hàng nào được lưu",
     "emptyDesc": "Nhấn vào biểu tượng trái tim trên nhà hàng để lưu lại đây.",
     "explore": "Khám phá nhà hàng"
+  },
+  "profile": {
+    "title": "Hồ sơ",
+    "language": "Ngôn ngữ",
+    "myActivity": "Hoạt động của tôi",
+    "savedRow": "Nhà hàng đã lưu",
+    "forOwners": "Dành cho chủ nhà hàng",
+    "addRestaurant": "Đăng ký nhà hàng của bạn",
+    "legal": "Điều khoản & Chính sách",
+    "contact": "Liên hệ",
+    "accountSoon": "Tài khoản sắp ra mắt — hiện các mục đã lưu được giữ trên thiết bị này."
   }
 }

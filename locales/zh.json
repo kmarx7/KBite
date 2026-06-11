@@ -133,5 +133,16 @@
     "empty": "还没有收藏的餐厅",
     "emptyDesc": "点击餐厅页面的爱心，即可收藏到这里方便查看。",
     "explore": "探索餐厅"
+  },
+  "profile": {
+    "title": "我的",
+    "language": "语言",
+    "myActivity": "我的活动",
+    "savedRow": "收藏的餐厅",
+    "forOwners": "餐厅老板专区",
+    "addRestaurant": "登记我的餐厅",
+    "legal": "条款与政策",
+    "contact": "联系我们",
+    "accountSoon": "账号功能即将上线——目前收藏保存在本设备上。"
   }
 }
