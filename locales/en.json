@@ -127,5 +127,11 @@
     "privacy": "Privacy Policy",
     "partner": "Partner Terms",
     "refund": "Refund Policy"
+  },
+  "saved": {
+    "title": "Saved Restaurants",
+    "empty": "Nothing saved yet",
+    "emptyDesc": "Tap the heart on a restaurant to keep it here for quick access.",
+    "explore": "Explore Restaurants"
   }
 }

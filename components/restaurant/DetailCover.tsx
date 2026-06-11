@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import { CATEGORIES, type Category, type Certification } from "@/types";
 import { TRACK_EVENTS, track } from "@/lib/analytics";
+import { toggleSaved, useSavedIds } from "@/lib/saved";
 import CertBadge from "@/components/ui/CertBadge";
 
 interface DetailCoverProps {
@@ -23,7 +23,7 @@ export default function DetailCover({
   photoUrl,
 }: DetailCoverProps) {
   const t = useTranslations("categories");
-  const [liked, setLiked] = useState(false);
+  const liked = useSavedIds().includes(restaurantId);
 
   return (
     <div
@@ -67,13 +67,10 @@ export default function DetailCover({
       {/* 찜 버튼 — 우하단 */}
       <button
         type="button"
-        onClick={() =>
-          setLiked((v) => {
-            if (!v)
-              track(TRACK_EVENTS.RESTAURANT_SAVE, { restaurantId, category });
-            return !v;
-          })
-        }
+        onClick={() => {
+          if (toggleSaved(restaurantId))
+            track(TRACK_EVENTS.RESTAURANT_SAVE, { restaurantId, category });
+        }}
         aria-pressed={liked}
         aria-label="Save restaurant"
         className="absolute bottom-3 end-3 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md"
