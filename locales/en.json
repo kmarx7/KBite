@@ -144,7 +144,8 @@
     "legal": "Legal",
     "contact": "Contact us",
     "accountSoon": "Accounts are coming soon — your saves are stored on this device for now.",
-    "partnerLogin": "Partner login"
+    "partnerLogin": "Partner login",
+    "viewPlans": "Plans & pricing"
   },
   "partner": {
     "title": "Partner Center",
@@ -212,5 +213,28 @@
     "featBadge": "Certification badge",
     "planYes": "✓",
     "planNo": "—"
+  },
+  "pricing": {
+    "title": "Simple, transparent pricing",
+    "subtitle": "Start free. Upgrade when you're ready to grow.",
+    "mostPopular": "Most popular",
+    "getStarted": "Get started free",
+    "upgradeBasic": "Upgrade to Basic",
+    "upgradePremium": "Upgrade to Premium",
+    "comingSoon": "Payment setup in progress",
+    "freeDesc": "Everything you need to get discovered.",
+    "basicDesc": "Grow your presence with more photos and review replies.",
+    "premiumDesc": "Full analytics suite and maximum search visibility.",
+    "ctaPartner": "Register your restaurant",
+    "ctaLogin": "Partner login",
+    "faqTitle": "Frequently asked questions",
+    "faq1Q": "Is there a contract or commitment?",
+    "faq1A": "No. You can cancel anytime from your dashboard.",
+    "faq2Q": "When can I upgrade to a paid plan?",
+    "faq2A": "Paid plans are launching soon. Register now to secure your listing.",
+    "upgradeModalTitle": "Upgrade to unlock",
+    "upgradeModalDesc": "This feature is available on {plan} and higher.",
+    "upgradeModalCta": "View plans & upgrade",
+    "upgradeModalDismiss": "Maybe later"
   }
 }

@@ -17,6 +17,7 @@ import { CATEGORIES, type Category } from "@/types";
 import type { Plan } from "@/types";
 import { PLAN_FEATURES } from "@/lib/features";
 import ReviewReplyForm from "@/components/partner/ReviewReplyForm";
+import { IconLock } from "@tabler/icons-react";
 
 export const dynamic = "force-dynamic";
 
@@ -265,12 +266,25 @@ export default async function PartnerRestaurantDashboard({
                       )}
 
                       {/* 답글 폼 — basic/premium만 */}
-                      {canReply && (
+                      {canReply ? (
                         <ReviewReplyForm
                           reviewId={review.id}
                           restaurantId={id}
                           existingReply={review.reply_text}
                         />
+                      ) : (
+                        <Link
+                          href={`/partner/restaurant/${id}/billing`}
+                          className="mt-2 flex items-center gap-1.5 rounded-xl border border-dashed border-[#FDE68A] bg-[#FFFBEB] px-3 py-2"
+                        >
+                          <IconLock size={12} color="#D97706" className="shrink-0" />
+                          <span className="text-[11px] font-bold text-[#D97706]">
+                            {t("replyPlaceholder")}
+                          </span>
+                          <span className="ml-auto rounded-full bg-[#FDE68A] px-2 py-0.5 text-[9px] font-extrabold text-[#92400E]">
+                            Basic+
+                          </span>
+                        </Link>
                       )}
                     </div>
                   </div>

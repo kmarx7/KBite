@@ -144,7 +144,8 @@
     "legal": "약관 및 정책",
     "contact": "문의하기",
     "accountSoon": "계정 기능이 곧 추가돼요 — 지금은 찜이 이 기기에 저장됩니다.",
-    "partnerLogin": "파트너 로그인"
+    "partnerLogin": "파트너 로그인",
+    "viewPlans": "플랜 · 가격 보기"
   },
   "partner": {
     "title": "파트너 센터",
@@ -212,5 +213,28 @@
     "featBadge": "인증 배지",
     "planYes": "✓",
     "planNo": "—"
+  },
+  "pricing": {
+    "title": "투명한 가격 정책",
+    "subtitle": "무료로 시작하고, 준비됐을 때 업그레이드하세요.",
+    "mostPopular": "인기",
+    "getStarted": "무료로 시작",
+    "upgradeBasic": "베이직으로 업그레이드",
+    "upgradePremium": "프리미엄으로 업그레이드",
+    "comingSoon": "결제 시스템 준비 중",
+    "freeDesc": "발견되기 위한 모든 기본 기능.",
+    "basicDesc": "더 많은 사진과 리뷰 답글로 존재감을 높이세요.",
+    "premiumDesc": "풍부한 분석과 최상위 검색 노출.",
+    "ctaPartner": "식당 등록하기",
+    "ctaLogin": "파트너 로그인",
+    "faqTitle": "자주 묻는 질문",
+    "faq1Q": "약정이나 계약이 있나요?",
+    "faq1A": "아닙니다. 대시보드에서 언제든지 취소할 수 있습니다.",
+    "faq2Q": "유료 플랜은 언제 업그레이드할 수 있나요?",
+    "faq2A": "유료 플랜은 곧 출시됩니다. 지금 등록해서 자리를 확보하세요.",
+    "upgradeModalTitle": "업그레이드하여 잠금 해제",
+    "upgradeModalDesc": "이 기능은 {plan} 이상에서 사용 가능합니다.",
+    "upgradeModalCta": "플랜 보기 · 업그레이드",
+    "upgradeModalDismiss": "나중에"
   }
 }
