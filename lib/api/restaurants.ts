@@ -1,6 +1,7 @@
 import "server-only";
 
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import {
   MOCK_RESTAURANTS,
   type MockRestaurant,
@@ -118,6 +119,16 @@ export async function getApprovedRestaurants(): Promise<RestaurantListItem[]> {
   } catch {
     /* 마이그레이션 미적용 등 — 목 데이터 폴백 */
     return MOCK_RESTAURANTS.map(mockToItem);
+  }
+}
+
+/** 조회수 원자적 증가 — DB 함수 호출 (fire-and-forget) */
+export async function incrementViewCount(id: string): Promise<void> {
+  try {
+    const admin = createAdminClient();
+    await admin.rpc("increment_view_count", { rid: id });
+  } catch {
+    /* 마이그레이션 미적용 등 — 무시 */
   }
 }
 

@@ -221,3 +221,41 @@ export async function updateRestaurant(
   revalidatePath("/");
   return { ok: true };
 }
+
+/* ───────────── 리뷰 답글 ───────────── */
+
+const replySchema = z.object({
+  reviewId: z.string().uuid(),
+  restaurantId: z.string().uuid(),
+  text: z.string().trim().min(1).max(1000),
+});
+
+export async function replyToReview(
+  reviewId: string,
+  restaurantId: string,
+  text: string,
+): Promise<PartnerResult> {
+  const parsed = replySchema.safeParse({ reviewId, restaurantId, text });
+  if (!parsed.success) return { ok: false, error: "replyFailed" };
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "loginFailed" };
+
+  /* RLS reviews_owner_reply 정책 + 컬럼 GRANT가 강제 */
+  const { error } = await supabase
+    .from("reviews")
+    .update({ reply_text: parsed.data.text, reply_at: new Date().toISOString() })
+    .eq("id", parsed.data.reviewId)
+    .eq("restaurant_id", parsed.data.restaurantId);
+
+  if (error) {
+    return { ok: false, error: "replyFailed" };
+  }
+
+  revalidatePath(`/partner/restaurant/${parsed.data.restaurantId}`);
+  revalidatePath(`/restaurant/${parsed.data.restaurantId}`);
+  return { ok: true };
+}
