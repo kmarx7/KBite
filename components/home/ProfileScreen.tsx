@@ -12,6 +12,7 @@ import {
   IconCheck,
   IconChevronRight,
   IconInfoCircle,
+  IconRocket,
 } from "@tabler/icons-react";
 import { LANGUAGES, type Language } from "@/types";
 import { LOCALES } from "@/lib/i18n/config";
@@ -116,6 +117,11 @@ export default function ProfileScreen() {
           <Link href="/partner" className={rowClass}>
             <IconLogin2 size={17} color="#FF6B35" />
             <span className="flex-1">{t("partnerLogin")}</span>
+            <IconChevronRight size={15} color="#C0A080" />
+          </Link>
+          <Link href="/pricing" className={rowClass}>
+            <IconRocket size={17} color="#FF6B35" />
+            <span className="flex-1">{t("viewPlans")}</span>
             <IconChevronRight size={15} color="#C0A080" />
           </Link>
         </div>

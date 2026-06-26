@@ -96,7 +96,7 @@ export default async function PartnerPage() {
                 return (
                   <li key={r.id}>
                     <Link
-                      href={`/partner/restaurant/${r.id}/edit`}
+                      href={`/partner/restaurant/${r.id}`}
                       className="flex items-center gap-2.5 rounded-2xl border border-[#FFE8D6] bg-white p-3"
                     >
                       <span aria-hidden>{CATEGORIES[r.category].emoji}</span>

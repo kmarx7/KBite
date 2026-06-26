@@ -9,7 +9,10 @@ import {
   IconCoin,
   IconToolsKitchen2,
 } from "@tabler/icons-react";
-import { getRestaurantDetail } from "@/lib/api/restaurants";
+import {
+  getRestaurantDetail,
+  incrementViewCount,
+} from "@/lib/api/restaurants";
 import { DEFAULT_LOCATION, haversineKm, isOpenNow } from "@/lib/utils";
 import type { PriceRange } from "@/types";
 import DetailCover from "@/components/restaurant/DetailCover";
@@ -35,6 +38,7 @@ export default async function RestaurantDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  void incrementViewCount(id);
   const restaurant = await getRestaurantDetail(id);
   if (!restaurant) notFound();
 
