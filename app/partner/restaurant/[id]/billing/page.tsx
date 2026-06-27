@@ -50,10 +50,27 @@ export default async function PartnerBillingPage({
 
   const currentPlan = (restaurant.plan as Plan) ?? "free";
 
-  /* 결제 내역 — subscriptions 마이그레이션 적용 후 조회 */
+  const admin = createAdminClient();
+
+  /* 현재 구독 상태 — 취소됐지만 기간이 남은 경우 처리 */
+  let subStatus: "active" | "cancelled" | null = null;
+  let periodEnd: string | null = null;
+  try {
+    const { data: sub } = await admin
+      .from("subscriptions")
+      .select("status, current_period_end")
+      .eq("restaurant_id", id)
+      .in("status", ["active", "cancelled"])
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    subStatus = (sub?.status as "active" | "cancelled") ?? null;
+    periodEnd = (sub?.current_period_end as string | null) ?? null;
+  } catch {}
+
+  /* 결제 내역 */
   let payments: PaymentRow[] = [];
   try {
-    const admin = createAdminClient();
     const { data } = await admin
       .from("payment_history")
       .select("id, amount, status, paid_at, created_at")
@@ -61,9 +78,7 @@ export default async function PartnerBillingPage({
       .order("created_at", { ascending: false })
       .limit(20);
     payments = (data ?? []) as PaymentRow[];
-  } catch {
-    /* subscriptions 마이그레이션 미적용 — 빈 목록 */
-  }
+  } catch {}
 
   const planOrder: Plan[] = ["free", "basic", "premium"];
   const planLabels: Record<Plan, string> = {
@@ -206,7 +221,17 @@ export default async function PartnerBillingPage({
 
         {/* 업그레이드 / 취소 버튼 */}
         <div className="flex flex-col gap-2">
-          {currentPlan !== "premium" &&
+          {/* 취소 예정 안내 */}
+          {subStatus === "cancelled" && periodEnd && (
+            <div className="rounded-2xl border border-[#FDE68A] bg-[#FFFBEB] px-4 py-3 text-center">
+              <p className="text-[12px] font-bold text-[#D97706]">
+                구독 취소 예정 — {periodEnd.slice(0, 10)}까지 혜택 유지
+              </p>
+            </div>
+          )}
+
+          {/* 구독 중이 아니거나 취소된 경우 업그레이드 버튼 표시 */}
+          {(currentPlan === "free" || subStatus === "cancelled") &&
             planOrder
               .filter((p) => p !== "free" && p !== currentPlan)
               .map((plan) => (
@@ -220,7 +245,9 @@ export default async function PartnerBillingPage({
                   userEmail={user.email ?? ""}
                 />
               ))}
-          {currentPlan !== "free" && (
+
+          {/* 취소 버튼 — 활성 구독일 때만 */}
+          {currentPlan !== "free" && subStatus === "active" && (
             <CancelSubscriptionButton restaurantId={id} />
           )}
         </div>
