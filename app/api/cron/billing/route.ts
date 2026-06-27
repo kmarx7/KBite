@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { chargeBillingKey } from "@/lib/toss";
 import { PLAN_PRICES } from "@/lib/features";
+import { sendPaymentReceipt, sendRenewalReminder } from "@/lib/email";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
@@ -12,7 +13,7 @@ interface SubRow {
   plan: string;
   billing_key: string | null;
   amount: number;
-  restaurants: { name: string } | null;
+  restaurants: { name: string; owner_id: string } | null;
 }
 
 export async function GET(req: NextRequest) {
@@ -22,15 +23,43 @@ export async function GET(req: NextRequest) {
   }
 
   const admin = createAdminClient();
-  const now = new Date().toISOString();
-  const results = { renewed: 0, expired: 0, failed: 0 };
+  const now = new Date();
+  const nowIso = now.toISOString();
+  const results = { renewed: 0, expired: 0, failed: 0, reminded: 0 };
+
+  // 0. D-7 갱신 예정 알림
+  const reminderFrom = new Date(now.getTime() + 6 * 24 * 60 * 60 * 1000).toISOString();
+  const reminderTo = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString();
+  const { data: upcoming } = await admin
+    .from("subscriptions")
+    .select("id, restaurant_id, plan, amount, restaurants(name, owner_id)")
+    .eq("status", "active")
+    .gte("current_period_end", reminderFrom)
+    .lt("current_period_end", reminderTo)
+    .returns<SubRow[]>();
+
+  for (const sub of upcoming ?? []) {
+    const ownerId = sub.restaurants?.owner_id;
+    if (!ownerId) continue;
+    const { data: userData } = await admin.auth.admin.getUserById(ownerId);
+    const email = userData?.user?.email;
+    if (!email) continue;
+    await sendRenewalReminder({
+      to: email,
+      restaurantName: sub.restaurants?.name ?? sub.restaurant_id,
+      plan: sub.plan as "basic" | "premium",
+      amount: sub.amount,
+      renewalDate: new Date(reminderFrom),
+    }).catch(() => {});
+    results.reminded++;
+  }
 
   // 1. 취소된 구독 중 기간 만료 → free 다운그레이드
   const { data: cancelled } = await admin
     .from("subscriptions")
     .select("id, restaurant_id")
     .eq("status", "cancelled")
-    .lt("current_period_end", now);
+    .lt("current_period_end", nowIso);
 
   for (const sub of cancelled ?? []) {
     await admin
@@ -47,9 +76,9 @@ export async function GET(req: NextRequest) {
   // 2. 활성 구독 중 기간 만료 → 재결제
   const { data: active } = await admin
     .from("subscriptions")
-    .select("id, restaurant_id, plan, billing_key, amount, restaurants(name)")
+    .select("id, restaurant_id, plan, billing_key, amount, restaurants(name, owner_id)")
     .eq("status", "active")
-    .lt("current_period_end", now)
+    .lt("current_period_end", nowIso)
     .returns<SubRow[]>();
 
   for (const sub of active ?? []) {
@@ -90,6 +119,21 @@ export async function GET(req: NextRequest) {
         payment_key: payment.paymentKey,
         paid_at: new Date().toISOString(),
       });
+
+      const ownerId = sub.restaurants?.owner_id;
+      if (ownerId) {
+        const { data: ud } = await admin.auth.admin.getUserById(ownerId);
+        const email = ud?.user?.email;
+        if (email) {
+          await sendPaymentReceipt({
+            to: email,
+            restaurantName: sub.restaurants?.name ?? sub.restaurant_id,
+            plan,
+            amount,
+            nextBillingDate: periodEnd,
+          }).catch(() => {});
+        }
+      }
 
       results.renewed++;
     } catch (err) {

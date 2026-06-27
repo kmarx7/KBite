@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { issueBillingKey, chargeBillingKey } from "@/lib/toss";
 import { PLAN_PRICES } from "@/lib/features";
+import { sendPaymentReceipt } from "@/lib/email";
 import type { Plan } from "@/types";
 
 const searchParamsSchema = z.object({
@@ -136,6 +137,16 @@ export default async function BillingSuccessPage({
       .from("restaurants")
       .update({ plan: plan as Plan })
       .eq("id", restaurantId);
+
+    if (user.email) {
+      await sendPaymentReceipt({
+        to: user.email,
+        restaurantName: (restaurant.name as string) ?? restaurantId,
+        plan,
+        amount,
+        nextBillingDate: periodEnd,
+      }).catch(() => {});
+    }
 
     return (
       <ResultUI
