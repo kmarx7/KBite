@@ -3,8 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { createClient } from "@/lib/supabase/server";
-import type { Certification, Language, MenuItemRow, Plan, PriceCurrency, PriceRange } from "@/types";
-import { inferPriceOptionIdx } from "@/lib/price";
+import type { Certification, Language, MenuItemRow, Plan, PriceCurrency } from "@/types";
 import EditForm, {
   type EditableRestaurant,
 } from "@/components/partner/EditForm";
@@ -59,12 +58,8 @@ export default async function EditRestaurantPage({
     openingTime: (data.opening_time as string | null)?.slice(0, 5) ?? null,
     closingTime: (data.closing_time as string | null)?.slice(0, 5) ?? null,
     priceCurrency: ((data.price_currency as PriceCurrency | null) ?? "KRW"),
-    priceOptionIdx: inferPriceOptionIdx(
-      (data.price_currency as PriceCurrency | null) ?? "KRW",
-      data.price_min as number | null,
-      data.price_max as number | null,
-      (data.price_range as PriceRange | null),
-    ),
+    priceMin: (data.price_min as number | null) ?? null,
+    priceMax: (data.price_max as number | null) ?? null,
     about: (data.description as string | null) ?? "",
     certifications: (data.certifications as Certification[] | null) ?? [],
     languages: (data.languages as Language[] | null) ?? [],

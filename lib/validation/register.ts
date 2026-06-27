@@ -52,7 +52,14 @@ export const step2Schema = z.object({
   openingTime: z.string().regex(TIME_PATTERN).nullable(),
   closingTime: z.string().regex(TIME_PATTERN).nullable(),
   priceCurrency: z.enum(CURRENCY_VALUES),
-  priceOptionIdx: z.coerce.number().int().min(0).max(3),
+  priceMin: z.preprocess(
+    (v) => (v === "" || v == null ? null : Number(v)),
+    z.number().int().min(0).nullable(),
+  ),
+  priceMax: z.preprocess(
+    (v) => (v === "" || v == null ? null : Number(v)),
+    z.number().int().min(0).nullable(),
+  ),
   about: z.string().trim().max(1000, "requiredField"),
   certifications: z.array(z.enum(CERT_VALUES)).max(CERT_VALUES.length),
   languages: z.array(z.enum(LANGUAGE_VALUES)).max(LANGUAGE_VALUES.length),

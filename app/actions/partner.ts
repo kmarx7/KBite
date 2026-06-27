@@ -10,7 +10,7 @@ import {
   validateFile,
   ALLOWED_IMAGE_TYPES,
 } from "@/lib/validation/register";
-import { PRICE_OPTIONS } from "@/lib/price";
+import { priceRangeFromMinMax } from "@/lib/price";
 
 export interface PartnerResult {
   ok: boolean;
@@ -149,7 +149,8 @@ export async function updateRestaurant(
     openingTime: (formData.get("openingTime") as string | null) || null,
     closingTime: (formData.get("closingTime") as string | null) || null,
     priceCurrency: String(formData.get("priceCurrency") ?? "KRW"),
-    priceOptionIdx: Number(formData.get("priceOptionIdx") ?? "1"),
+    priceMin: formData.get("priceMin") ?? "",
+    priceMax: formData.get("priceMax") ?? "",
     about: String(formData.get("about") ?? ""),
     certifications: formData.getAll("certifications").map(String),
     languages: formData.getAll("languages").map(String),
@@ -205,9 +206,9 @@ export async function updateRestaurant(
       opening_time: parsed.data.openingTime,
       closing_time: parsed.data.closingTime,
       price_currency: parsed.data.priceCurrency,
-      price_min: PRICE_OPTIONS[parsed.data.priceCurrency][parsed.data.priceOptionIdx].min,
-      price_max: PRICE_OPTIONS[parsed.data.priceCurrency][parsed.data.priceOptionIdx].max,
-      price_range: PRICE_OPTIONS[parsed.data.priceCurrency][parsed.data.priceOptionIdx].priceRange,
+      price_min: parsed.data.priceMin,
+      price_max: parsed.data.priceMax,
+      price_range: priceRangeFromMinMax(parsed.data.priceCurrency, parsed.data.priceMin, parsed.data.priceMax),
       description: parsed.data.about || null,
       certifications: parsed.data.certifications,
       languages: parsed.data.languages,
