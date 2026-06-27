@@ -5,7 +5,14 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IconChevronLeft, IconSparkles } from "@tabler/icons-react";
 import type { Category, Certification, Language, PriceCurrency } from "@/types";
-import { PRICE_OPTIONS } from "@/lib/price";
+import {
+  PRICE_STEPS,
+  getPriceMinItems,
+  getPriceMaxItems,
+  findMinStepIdx,
+  findMaxStepIdx,
+} from "@/lib/price";
+import WheelPicker from "@/components/ui/WheelPicker";
 import StepIndicator from "@/components/register/StepIndicator";
 import CategoryGrid from "@/components/register/CategoryGrid";
 import CertToggle from "@/components/register/CertToggle";
@@ -27,7 +34,8 @@ interface RegisterForm {
   openingTime: string | null;
   closingTime: string | null;
   priceCurrency: PriceCurrency;
-  priceOptionIdx: number;
+  priceMin: number | null;
+  priceMax: number | null;
   about: string;
   certifications: Certification[];
   languages: Language[];
@@ -47,7 +55,8 @@ const INITIAL_FORM: RegisterForm = {
   openingTime: null,
   closingTime: null,
   priceCurrency: "KRW",
-  priceOptionIdx: 1,
+  priceMin: 10000,
+  priceMax: 30000,
   about: "",
   certifications: [],
   languages: [],
@@ -102,7 +111,8 @@ export default function RegisterPage() {
     if (form.openingTime) payload.set("openingTime", form.openingTime);
     if (form.closingTime) payload.set("closingTime", form.closingTime);
     payload.set("priceCurrency", form.priceCurrency);
-    payload.set("priceOptionIdx", String(form.priceOptionIdx));
+    payload.set("priceMin", form.priceMin != null ? String(form.priceMin) : "");
+    payload.set("priceMax", form.priceMax != null ? String(form.priceMax) : "");
     payload.set("about", form.about);
     form.certifications.forEach((c) => payload.append("certifications", c));
     form.languages.forEach((l) => payload.append("languages", l));
@@ -259,7 +269,8 @@ export default function RegisterPage() {
                     type="button"
                     onClick={() => {
                       set("priceCurrency", c);
-                      set("priceOptionIdx", 1);
+                      set("priceMin", c === "KRW" ? 10000 : 10);
+                      set("priceMax", c === "KRW" ? 30000 : 30);
                     }}
                     className={`flex-1 rounded-xl py-2 text-[12px] font-extrabold transition-colors ${
                       form.priceCurrency === c
@@ -271,21 +282,28 @@ export default function RegisterPage() {
                   </button>
                 ))}
               </div>
-              <div className="grid grid-cols-2 gap-2">
-                {PRICE_OPTIONS[form.priceCurrency].map((opt, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => set("priceOptionIdx", i)}
-                    className={`rounded-xl py-2.5 text-[12px] font-bold transition-colors ${
-                      form.priceOptionIdx === i
-                        ? "bg-[#FF6B35] text-white"
-                        : "bg-[#FFF5EE] text-[#8A6040]"
-                    }`}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
+              <div className="flex items-end gap-2">
+                <div className="flex-1">
+                  <WheelPicker
+                    label="시작"
+                    items={getPriceMinItems(form.priceCurrency)}
+                    selectedIndex={findMinStepIdx(form.priceCurrency, form.priceMin)}
+                    onChange={(idx) =>
+                      set("priceMin", PRICE_STEPS[form.priceCurrency].min[idx] ?? null)
+                    }
+                  />
+                </div>
+                <span className="mb-6 text-[16px] font-bold text-[#B07040]">~</span>
+                <div className="flex-1">
+                  <WheelPicker
+                    label="끝"
+                    items={getPriceMaxItems(form.priceCurrency)}
+                    selectedIndex={findMaxStepIdx(form.priceCurrency, form.priceMax)}
+                    onChange={(idx) =>
+                      set("priceMax", PRICE_STEPS[form.priceCurrency].max[idx] ?? null)
+                    }
+                  />
+                </div>
               </div>
             </div>
             <div>

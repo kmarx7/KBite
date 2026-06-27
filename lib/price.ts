@@ -22,6 +22,91 @@ export const PRICE_OPTIONS: Record<PriceCurrency, readonly PriceOption[]> = {
   ],
 };
 
+export type PriceSteps = {
+  min: ReadonlyArray<number | null>;
+  max: ReadonlyArray<number | null>;
+};
+
+export const PRICE_STEPS: Record<PriceCurrency, PriceSteps> = {
+  KRW: {
+    min: [null, 5000, 10000, 15000, 20000, 30000, 50000, 70000, 100000],
+    max: [5000, 10000, 15000, 20000, 30000, 50000, 70000, 100000, null],
+  },
+  USD: {
+    min: [null, 5, 10, 15, 20, 30, 50, 100],
+    max: [5, 10, 15, 20, 30, 50, 100, null],
+  },
+};
+
+function formatStepValue(currency: PriceCurrency, val: number): string {
+  if (currency === "KRW") return `₩${val.toLocaleString("ko-KR")}`;
+  return `$${val}`;
+}
+
+export function getPriceMinItems(currency: PriceCurrency): string[] {
+  return PRICE_STEPS[currency].min.map((v) =>
+    v === null ? "없음" : formatStepValue(currency, v),
+  );
+}
+
+export function getPriceMaxItems(currency: PriceCurrency): string[] {
+  return PRICE_STEPS[currency].max.map((v) =>
+    v === null ? "∞" : formatStepValue(currency, v),
+  );
+}
+
+export function findMinStepIdx(currency: PriceCurrency, val: number | null): number {
+  if (val === null) return 0;
+  const steps = PRICE_STEPS[currency].min;
+  const exact = steps.findIndex((s) => s === val);
+  if (exact >= 0) return exact;
+  let bestIdx = 1;
+  let bestDist = Infinity;
+  for (let i = 1; i < steps.length; i++) {
+    const s = steps[i];
+    if (s == null) continue;
+    const d = Math.abs(s - val);
+    if (d < bestDist) { bestDist = d; bestIdx = i; }
+  }
+  return bestIdx;
+}
+
+export function findMaxStepIdx(currency: PriceCurrency, val: number | null): number {
+  const steps = PRICE_STEPS[currency].max;
+  if (val === null) return steps.length - 1;
+  const exact = steps.findIndex((s) => s === val);
+  if (exact >= 0) return exact;
+  let bestIdx = 0;
+  let bestDist = Infinity;
+  for (let i = 0; i < steps.length - 1; i++) {
+    const s = steps[i];
+    if (s == null) continue;
+    const d = Math.abs(s - val);
+    if (d < bestDist) { bestDist = d; bestIdx = i; }
+  }
+  return bestIdx;
+}
+
+export function priceRangeFromMinMax(
+  currency: PriceCurrency,
+  min: number | null,
+  max: number | null,
+): "budget" | "moderate" | "upscale" {
+  if (max === null) {
+    const m = min ?? 0;
+    if (currency === "KRW") return m >= 30000 ? "upscale" : "moderate";
+    return m >= 30 ? "upscale" : "moderate";
+  }
+  if (currency === "KRW") {
+    if (max >= 50000) return "upscale";
+    if (max >= 30000) return "moderate";
+    return "budget";
+  }
+  if (max >= 50) return "upscale";
+  if (max >= 30) return "moderate";
+  return "budget";
+}
+
 export function formatPriceDisplay(
   currency: PriceCurrency | null | undefined,
   min: number | null | undefined,
@@ -42,17 +127,3 @@ export function formatPriceDisplay(
   return "";
 }
 
-/** price_range 기반으로 기본 옵션 인덱스를 역추론 (구 데이터 호환) */
-export function inferPriceOptionIdx(
-  currency: PriceCurrency,
-  min: number | null,
-  max: number | null,
-  priceRange: "budget" | "moderate" | "upscale" | null,
-): number {
-  const opts = PRICE_OPTIONS[currency];
-  const byValues = opts.findIndex((o) => o.min === min && o.max === max);
-  if (byValues >= 0) return byValues;
-  if (priceRange === "upscale") return 3;
-  if (priceRange === "moderate") return 2;
-  return 1;
-}
