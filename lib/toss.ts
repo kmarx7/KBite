@@ -40,8 +40,8 @@ interface ChargeParams {
   amount: number;
   orderId: string;
   orderName: string;
-  customerEmail: string;
-  customerName: string;
+  customerEmail?: string;
+  customerName?: string;
 }
 
 export async function chargeBillingKey(
@@ -58,8 +58,8 @@ export async function chargeBillingKey(
       amount: params.amount,
       orderId: params.orderId,
       orderName: params.orderName,
-      customerEmail: params.customerEmail,
-      customerName: params.customerName,
+      ...(params.customerEmail && { customerEmail: params.customerEmail }),
+      ...(params.customerName && { customerName: params.customerName }),
     }),
   });
   if (!res.ok) {
