@@ -32,6 +32,7 @@ export default function MapView({
   );
   const myLocOverlayRef = useRef<kakao.maps.CustomOverlay | null>(null);
   const [sdkReady, setSdkReady] = useState(false);
+  const [sdkError, setSdkError] = useState(false);
   /* 지도 인스턴스 생성 완료 — 위치 점 등 후속 작업의 기준 (SDK 로드와 별개) */
   const [mapReady, setMapReady] = useState(false);
 
@@ -97,8 +98,15 @@ export default function MapView({
         src={`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&autoload=false`}
         strategy="afterInteractive"
         onReady={() => setSdkReady(true)}
+        onError={() => setSdkError(true)}
       />
-      <div ref={containerRef} className="h-full w-full bg-[#FFF5EE]" />
+      {sdkError ? (
+        <div className="flex h-full w-full items-center justify-center bg-[#FFF5EE]">
+          <p className="text-[12px] font-semibold text-[#B07040]">지도를 불러올 수 없습니다</p>
+        </div>
+      ) : (
+        <div ref={containerRef} className="h-full w-full bg-[#FFF5EE]" />
+      )}
     </>
   );
 }

@@ -58,6 +58,7 @@ export default function ExploreScreen({
   const [locationError, setLocationError] = useState<
     "locationDenied" | "locationUnavailable" | null
   >(null);
+  const [mounted, setMounted] = useState(false);
 
   /* 버튼 클릭 — 권한 재요청, 거부 상태면 안내 배너 */
   const requestLocation = () => {
@@ -83,6 +84,8 @@ export default function ExploreScreen({
       { enableHighAccuracy: false, timeout: 8000 },
     );
   };
+
+  useEffect(() => { setMounted(true); }, []);
 
   /* 최초 자동 요청 — 실패 시 조용히 이태원 폴백 (콜백에서만 상태 갱신) */
   useEffect(() => {
@@ -153,7 +156,7 @@ export default function ExploreScreen({
       .map((r) => ({
         restaurant: r,
         distanceKm: haversineKm(origin, r),
-        isOpen: isOpenNow(r.opening_time, r.closing_time),
+        isOpen: mounted ? isOpenNow(r.opening_time, r.closing_time) : false,
       }));
 
     /* 유료 플랜 검색 상단 노출(searchBoost) 우선, 그 안에서 선택한 기준으로 정렬 */
@@ -189,7 +192,7 @@ export default function ExploreScreen({
         items.sort((a, b) => boostDiff(a, b) || a.distanceKm - b.distanceKm);
     }
     return items;
-  }, [restaurants, selectedCats, search, filter, origin]);
+  }, [restaurants, selectedCats, search, filter, origin, mounted]);
 
   const allSelected = selectedCats.length === 0;
 
@@ -209,8 +212,8 @@ export default function ExploreScreen({
         <LanguageButton />
       </header>
 
-      {/* MapArea (220px) */}
-      <div className="relative h-[220px] shrink-0">
+      {/* MapArea */}
+      <div className="relative h-[45dvh] min-h-[200px] shrink-0">
         <MapView
           restaurants={restaurants}
           visibleCategories={selectedCats}
