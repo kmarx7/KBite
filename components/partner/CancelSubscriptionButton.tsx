@@ -33,7 +33,7 @@ export default function CancelSubscriptionButton({ restaurantId }: Props) {
       type="button"
       onClick={handleCancel}
       disabled={loading}
-      className="w-full rounded-2xl border border-[#FFE8D6] py-2.5 text-[12px] font-bold text-[#B07040] disabled:opacity-60"
+      className="w-full rounded-2xl border border-[#FECACA] bg-[#FEE2E2] py-3 text-[13px] font-extrabold text-[#B91C1C] disabled:opacity-50"
     >
       {loading ? "처리 중..." : "구독 취소"}
     </button>
