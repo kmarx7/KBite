@@ -45,11 +45,14 @@ export const step1Schema = z.object({
   category: z.enum(CATEGORY_VALUES, { message: "requiredField" }),
 });
 
+export const CURRENCY_VALUES = ["KRW", "USD"] as const;
+
 export const step2Schema = z.object({
   address: z.string().trim().min(1, "requiredField").max(200, "requiredField"),
   openingTime: z.string().regex(TIME_PATTERN).nullable(),
   closingTime: z.string().regex(TIME_PATTERN).nullable(),
-  priceRange: z.enum(["budget", "moderate", "upscale"]),
+  priceCurrency: z.enum(CURRENCY_VALUES),
+  priceOptionIdx: z.coerce.number().int().min(0).max(3),
   about: z.string().trim().max(1000, "requiredField"),
   certifications: z.array(z.enum(CERT_VALUES)).max(CERT_VALUES.length),
   languages: z.array(z.enum(LANGUAGE_VALUES)).max(LANGUAGE_VALUES.length),

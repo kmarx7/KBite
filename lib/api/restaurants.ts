@@ -12,6 +12,7 @@ import type {
   Language,
   MenuItem,
   Plan,
+  PriceCurrency,
   PriceRange,
   RestaurantListItem,
   ReviewDisplay,
@@ -34,6 +35,9 @@ type StatsRow = {
   opening_time: string | null;
   closing_time: string | null;
   price_range: PriceRange | null;
+  price_currency: PriceCurrency | null;
+  price_min: number | null;
+  price_max: number | null;
   cover_emoji: string | null;
   photo_url: string | null;
   cuisine: string | null;
@@ -85,6 +89,9 @@ function mockToItem(m: MockRestaurant): RestaurantListItem {
     avg_rating: m.rating,
     review_count: m.reviewCount,
     created_at: "2026-06-01T00:00:00Z",
+    price_currency: null,
+    price_min: null,
+    price_max: null,
   };
 }
 

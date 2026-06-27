@@ -44,6 +44,7 @@ export const LANGUAGES: Record<
 };
 
 export type PriceRange = "budget" | "moderate" | "upscale";
+export type PriceCurrency = "KRW" | "USD";
 export type RestaurantStatus = "pending" | "approved" | "rejected";
 export type Plan = "free" | "basic" | "premium";
 
@@ -57,6 +58,9 @@ export interface Restaurant {
   opening_time: string | null; // "HH:MM"
   closing_time: string | null;
   price_range: PriceRange | null;
+  price_currency: PriceCurrency | null;
+  price_min: number | null;
+  price_max: number | null;
   description: string | null;
   photo_url: string | null;
   certifications: Certification[];
@@ -82,6 +86,9 @@ export interface RestaurantListItem {
   opening_time: string | null; // "HH:MM"
   closing_time: string | null;
   price_range: PriceRange | null;
+  price_currency: PriceCurrency | null;
+  price_min: number | null;
+  price_max: number | null;
   cover_emoji: string;
   photo_url: string | null;
   cuisine: string | null;

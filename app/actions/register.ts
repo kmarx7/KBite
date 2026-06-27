@@ -2,6 +2,7 @@
 
 import { randomUUID } from "crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 import {
   step1Schema,
   step2Schema,
@@ -9,6 +10,7 @@ import {
   validateFile,
   ALLOWED_IMAGE_TYPES,
 } from "@/lib/validation/register";
+import { PRICE_OPTIONS } from "@/lib/price";
 
 export interface RegisterResult {
   ok: boolean;
@@ -45,7 +47,8 @@ export async function registerRestaurant(
     address: String(formData.get("address") ?? ""),
     openingTime: (formData.get("openingTime") as string | null) || null,
     closingTime: (formData.get("closingTime") as string | null) || null,
-    priceRange: String(formData.get("priceRange") ?? "moderate"),
+    priceCurrency: String(formData.get("priceCurrency") ?? "KRW"),
+    priceOptionIdx: Number(formData.get("priceOptionIdx") ?? "1"),
     about: String(formData.get("about") ?? ""),
     certifications: formData.getAll("certifications").map(String),
     languages: formData.getAll("languages").map(String),
@@ -68,6 +71,11 @@ export async function registerRestaurant(
   }
 
   const supabase = createAdminClient();
+
+  /* 로그인된 사용자면 owner_id 자동 연결 */
+  const userClient = await createClient();
+  const { data: { user } } = await userClient.auth.getUser();
+  const ownerId = user?.id ?? null;
 
   /* 사진 업로드 — 서버에서 크기·타입 재검증 후 랜덤 파일명으로 저장 */
   let photoUrl: string | null = null;
@@ -96,15 +104,21 @@ export async function registerRestaurant(
     phone: parsed1.data.phone || null,
     category: parsed1.data.category,
     address: parsed2.data.address,
+    lat: 37.534,
+    lng: 126.9948,
     opening_time: parsed2.data.openingTime,
     closing_time: parsed2.data.closingTime,
-    price_range: parsed2.data.priceRange,
+    price_currency: parsed2.data.priceCurrency,
+    price_min: PRICE_OPTIONS[parsed2.data.priceCurrency][parsed2.data.priceOptionIdx].min,
+    price_max: PRICE_OPTIONS[parsed2.data.priceCurrency][parsed2.data.priceOptionIdx].max,
+    price_range: PRICE_OPTIONS[parsed2.data.priceCurrency][parsed2.data.priceOptionIdx].priceRange,
     description: parsed2.data.about || null,
     certifications: parsed2.data.certifications,
     languages: parsed2.data.languages,
     photo_url: photoUrl,
     biz_reg_no: parsed3.data.bizRegNo,
     sns_url: parsed3.data.snsUrl || null,
+    owner_id: ownerId,
     status: "pending",
     plan: "free",
   });

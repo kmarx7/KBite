@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IconStarFilled } from "@tabler/icons-react";
 import { CATEGORIES, type RestaurantListItem } from "@/types";
+import { formatPriceDisplay } from "@/lib/price";
 import { PLAN_FEATURES } from "@/lib/features";
 import CertBadge from "@/components/ui/CertBadge";
 
@@ -73,13 +74,9 @@ export default function RestaurantCard({
           <span className="text-[10px] text-[#B07040]">
             {tc("reviews", { count: r.review_count })}
           </span>
-          {r.price_range && (
+          {(r.price_range || r.price_min != null || r.price_max != null) && (
             <span className="text-[10px] font-bold text-[#8A6040]">
-              {r.price_range === "budget"
-                ? "₩"
-                : r.price_range === "moderate"
-                  ? "₩₩"
-                  : "₩₩₩"}
+              {formatPriceDisplay(r.price_currency, r.price_min, r.price_max, r.price_range)}
             </span>
           )}
           {PLAN_FEATURES[r.plan].certBadgeEnabled && (

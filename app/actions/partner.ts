@@ -10,6 +10,7 @@ import {
   validateFile,
   ALLOWED_IMAGE_TYPES,
 } from "@/lib/validation/register";
+import { PRICE_OPTIONS } from "@/lib/price";
 
 export interface PartnerResult {
   ok: boolean;
@@ -147,7 +148,8 @@ export async function updateRestaurant(
     address: String(formData.get("address") ?? ""),
     openingTime: (formData.get("openingTime") as string | null) || null,
     closingTime: (formData.get("closingTime") as string | null) || null,
-    priceRange: String(formData.get("priceRange") ?? "moderate"),
+    priceCurrency: String(formData.get("priceCurrency") ?? "KRW"),
+    priceOptionIdx: Number(formData.get("priceOptionIdx") ?? "1"),
     about: String(formData.get("about") ?? ""),
     certifications: formData.getAll("certifications").map(String),
     languages: formData.getAll("languages").map(String),
@@ -202,7 +204,10 @@ export async function updateRestaurant(
       address: parsed.data.address,
       opening_time: parsed.data.openingTime,
       closing_time: parsed.data.closingTime,
-      price_range: parsed.data.priceRange,
+      price_currency: parsed.data.priceCurrency,
+      price_min: PRICE_OPTIONS[parsed.data.priceCurrency][parsed.data.priceOptionIdx].min,
+      price_max: PRICE_OPTIONS[parsed.data.priceCurrency][parsed.data.priceOptionIdx].max,
+      price_range: PRICE_OPTIONS[parsed.data.priceCurrency][parsed.data.priceOptionIdx].priceRange,
       description: parsed.data.about || null,
       certifications: parsed.data.certifications,
       languages: parsed.data.languages,

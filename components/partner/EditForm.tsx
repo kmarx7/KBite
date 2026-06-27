@@ -2,7 +2,8 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import type { Certification, Language, Plan, PriceRange } from "@/types";
+import type { Certification, Language, Plan, PriceCurrency } from "@/types";
+import { PRICE_OPTIONS } from "@/lib/price";
 import { PLAN_FEATURES } from "@/lib/features";
 import { updateRestaurant } from "@/app/actions/partner";
 import CertToggle from "@/components/register/CertToggle";
@@ -10,6 +11,7 @@ import LangToggle from "@/components/register/LangToggle";
 import UploadBox from "@/components/register/UploadBox";
 import DateTimeButton from "@/components/ui/DateTimeButton";
 import UpgradeSheet from "@/components/partner/UpgradeSheet";
+import { formatPhone } from "@/lib/utils";
 
 export interface EditableRestaurant {
   id: string;
@@ -18,7 +20,8 @@ export interface EditableRestaurant {
   address: string;
   openingTime: string | null;
   closingTime: string | null;
-  priceRange: PriceRange;
+  priceCurrency: PriceCurrency;
+  priceOptionIdx: number;
   about: string;
   certifications: Certification[];
   languages: Language[];
@@ -76,7 +79,8 @@ export default function EditForm({
     payload.set("address", form.address);
     if (form.openingTime) payload.set("openingTime", form.openingTime);
     if (form.closingTime) payload.set("closingTime", form.closingTime);
-    payload.set("priceRange", form.priceRange);
+    payload.set("priceCurrency", form.priceCurrency);
+    payload.set("priceOptionIdx", String(form.priceOptionIdx));
     payload.set("about", form.about);
     form.certifications.forEach((c) => payload.append("certifications", c));
     form.languages.forEach((l) => payload.append("languages", l));
@@ -120,7 +124,7 @@ export default function EditForm({
           type="tel"
           className={inputClass}
           value={form.phone}
-          onChange={(e) => set("phone", e.target.value)}
+          onChange={(e) => set("phone", formatPhone(e.target.value))}
         />
       </div>
       <div>
@@ -148,19 +152,42 @@ export default function EditForm({
         />
       </div>
       <div>
-        <label className={labelClass} htmlFor="edit-price">
-          {tr("priceRange")}
-        </label>
-        <select
-          id="edit-price"
-          className={inputClass}
-          value={form.priceRange}
-          onChange={(e) => set("priceRange", e.target.value as PriceRange)}
-        >
-          <option value="budget">₩</option>
-          <option value="moderate">₩₩</option>
-          <option value="upscale">₩₩₩</option>
-        </select>
+        <span className={labelClass}>{tr("priceRange")}</span>
+        <div className="mb-2 flex gap-2">
+          {(["KRW", "USD"] as const).map((c) => (
+            <button
+              key={c}
+              type="button"
+              onClick={() => {
+                set("priceCurrency", c);
+                set("priceOptionIdx", 1);
+              }}
+              className={`flex-1 rounded-xl py-2 text-[12px] font-extrabold transition-colors ${
+                form.priceCurrency === c
+                  ? "bg-[#FF6B35] text-white"
+                  : "bg-[#FFF5EE] text-[#8A6040]"
+              }`}
+            >
+              {c === "KRW" ? "₩ 원화" : "$ 달러"}
+            </button>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          {PRICE_OPTIONS[form.priceCurrency].map((opt, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => set("priceOptionIdx", i)}
+              className={`rounded-xl py-2.5 text-[12px] font-bold transition-colors ${
+                form.priceOptionIdx === i
+                  ? "bg-[#FF6B35] text-white"
+                  : "bg-[#FFF5EE] text-[#8A6040]"
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
       </div>
       <div>
         <label className={labelClass} htmlFor="edit-about">

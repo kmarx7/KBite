@@ -14,7 +14,7 @@ import {
   incrementViewCount,
 } from "@/lib/api/restaurants";
 import { DEFAULT_LOCATION, haversineKm, isOpenNow } from "@/lib/utils";
-import type { PriceRange } from "@/types";
+import { formatPriceDisplay } from "@/lib/price";
 import DetailCover from "@/components/restaurant/DetailCover";
 import MenuList from "@/components/restaurant/MenuList";
 import LanguageAvailable from "@/components/restaurant/LanguageAvailable";
@@ -27,11 +27,6 @@ import { TRACK_EVENTS } from "@/lib/analytics";
 import { PLAN_FEATURES } from "@/lib/features";
 import TabBar from "@/components/ui/TabBar";
 
-const PRICE_SYMBOL: Record<PriceRange, string> = {
-  budget: "₩",
-  moderate: "₩₩",
-  upscale: "₩₩₩",
-};
 
 export default async function RestaurantDetailPage({
   params,
@@ -72,9 +67,13 @@ export default async function RestaurantDetailPage({
     {
       Icon: IconCoin,
       label: t("price"),
-      value: restaurant.price_range
-        ? PRICE_SYMBOL[restaurant.price_range]
-        : "—",
+      value:
+        formatPriceDisplay(
+          restaurant.price_currency,
+          restaurant.price_min,
+          restaurant.price_max,
+          restaurant.price_range,
+        ) || "—",
     },
   ];
 

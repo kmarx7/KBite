@@ -3,7 +3,8 @@ import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { createClient } from "@/lib/supabase/server";
-import type { Certification, Language, MenuItemRow, Plan, PriceRange } from "@/types";
+import type { Certification, Language, MenuItemRow, Plan, PriceCurrency, PriceRange } from "@/types";
+import { inferPriceOptionIdx } from "@/lib/price";
 import EditForm, {
   type EditableRestaurant,
 } from "@/components/partner/EditForm";
@@ -27,7 +28,7 @@ export default async function EditRestaurantPage({
   const { data } = await supabase
     .from("restaurants")
     .select(
-      "id, name, phone, address, opening_time, closing_time, price_range, description, certifications, languages, booking_url, sns_url, photo_url, plan",
+      "id, name, phone, address, opening_time, closing_time, price_range, price_currency, price_min, price_max, description, certifications, languages, booking_url, sns_url, photo_url, plan",
     )
     .eq("id", id)
     .eq("owner_id", user.id)
@@ -57,7 +58,13 @@ export default async function EditRestaurantPage({
     address: (data.address as string) ?? "",
     openingTime: (data.opening_time as string | null)?.slice(0, 5) ?? null,
     closingTime: (data.closing_time as string | null)?.slice(0, 5) ?? null,
-    priceRange: ((data.price_range as PriceRange | null) ?? "moderate"),
+    priceCurrency: ((data.price_currency as PriceCurrency | null) ?? "KRW"),
+    priceOptionIdx: inferPriceOptionIdx(
+      (data.price_currency as PriceCurrency | null) ?? "KRW",
+      data.price_min as number | null,
+      data.price_max as number | null,
+      (data.price_range as PriceRange | null),
+    ),
     about: (data.description as string | null) ?? "",
     certifications: (data.certifications as Certification[] | null) ?? [],
     languages: (data.languages as Language[] | null) ?? [],

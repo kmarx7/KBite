@@ -4,7 +4,8 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IconChevronLeft, IconSparkles } from "@tabler/icons-react";
-import type { Category, Certification, Language, PriceRange } from "@/types";
+import type { Category, Certification, Language, PriceCurrency } from "@/types";
+import { PRICE_OPTIONS } from "@/lib/price";
 import StepIndicator from "@/components/register/StepIndicator";
 import CategoryGrid from "@/components/register/CategoryGrid";
 import CertToggle from "@/components/register/CertToggle";
@@ -15,6 +16,7 @@ import DateTimeButton from "@/components/ui/DateTimeButton";
 import { validateStep, ALLOWED_DOC_TYPES } from "@/lib/validation/register";
 import { registerRestaurant } from "@/app/actions/register";
 import { TRACK_EVENTS, track } from "@/lib/analytics";
+import { formatPhone, formatBizRegNo } from "@/lib/utils";
 
 interface RegisterForm {
   name: string;
@@ -24,7 +26,8 @@ interface RegisterForm {
   address: string;
   openingTime: string | null;
   closingTime: string | null;
-  priceRange: PriceRange;
+  priceCurrency: PriceCurrency;
+  priceOptionIdx: number;
   about: string;
   certifications: Certification[];
   languages: Language[];
@@ -43,7 +46,8 @@ const INITIAL_FORM: RegisterForm = {
   address: "",
   openingTime: null,
   closingTime: null,
-  priceRange: "moderate",
+  priceCurrency: "KRW",
+  priceOptionIdx: 1,
   about: "",
   certifications: [],
   languages: [],
@@ -96,7 +100,8 @@ export default function RegisterPage() {
     payload.set("address", form.address);
     if (form.openingTime) payload.set("openingTime", form.openingTime);
     if (form.closingTime) payload.set("closingTime", form.closingTime);
-    payload.set("priceRange", form.priceRange);
+    payload.set("priceCurrency", form.priceCurrency);
+    payload.set("priceOptionIdx", String(form.priceOptionIdx));
     payload.set("about", form.about);
     form.certifications.forEach((c) => payload.append("certifications", c));
     form.languages.forEach((l) => payload.append("languages", l));
@@ -201,7 +206,7 @@ export default function RegisterPage() {
                 className={inputClass}
                 placeholder="02-1234-5678"
                 value={form.phone}
-                onChange={(e) => set("phone", e.target.value)}
+                onChange={(e) => set("phone", formatPhone(e.target.value))}
               />
             </div>
             <div>
@@ -245,21 +250,42 @@ export default function RegisterPage() {
               />
             </div>
             <div>
-              <label className={labelClass} htmlFor="reg-price">
-                {t("priceRange")}
-              </label>
-              <select
-                id="reg-price"
-                className={inputClass}
-                value={form.priceRange}
-                onChange={(e) =>
-                  set("priceRange", e.target.value as PriceRange)
-                }
-              >
-                <option value="budget">₩</option>
-                <option value="moderate">₩₩</option>
-                <option value="upscale">₩₩₩</option>
-              </select>
+              <span className={labelClass}>{t("priceRange")}</span>
+              <div className="mb-2 flex gap-2">
+                {(["KRW", "USD"] as const).map((c) => (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => {
+                      set("priceCurrency", c);
+                      set("priceOptionIdx", 1);
+                    }}
+                    className={`flex-1 rounded-xl py-2 text-[12px] font-extrabold transition-colors ${
+                      form.priceCurrency === c
+                        ? "bg-[#FF6B35] text-white"
+                        : "bg-[#FFF5EE] text-[#8A6040]"
+                    }`}
+                  >
+                    {c === "KRW" ? "₩ 원화" : "$ 달러"}
+                  </button>
+                ))}
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {PRICE_OPTIONS[form.priceCurrency].map((opt, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => set("priceOptionIdx", i)}
+                    className={`rounded-xl py-2.5 text-[12px] font-bold transition-colors ${
+                      form.priceOptionIdx === i
+                        ? "bg-[#FF6B35] text-white"
+                        : "bg-[#FFF5EE] text-[#8A6040]"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
             </div>
             <div>
               <label className={labelClass} htmlFor="reg-about">
@@ -313,7 +339,7 @@ export default function RegisterPage() {
                 className={inputClass}
                 placeholder="000-00-00000"
                 value={form.bizRegNo}
-                onChange={(e) => set("bizRegNo", e.target.value)}
+                onChange={(e) => set("bizRegNo", formatBizRegNo(e.target.value))}
               />
             </div>
             <div>
