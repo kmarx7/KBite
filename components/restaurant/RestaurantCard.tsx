@@ -73,6 +73,15 @@ export default function RestaurantCard({
           <span className="text-[10px] text-[#B07040]">
             {tc("reviews", { count: r.review_count })}
           </span>
+          {r.price_range && (
+            <span className="text-[10px] font-bold text-[#8A6040]">
+              {r.price_range === "budget"
+                ? "₩"
+                : r.price_range === "moderate"
+                  ? "₩₩"
+                  : "₩₩₩"}
+            </span>
+          )}
           {PLAN_FEATURES[r.plan].certBadgeEnabled && (
             <span className="ms-auto flex gap-1">
               {r.certifications.slice(0, 3).map((cert) => (
