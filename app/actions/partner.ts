@@ -107,7 +107,6 @@ export async function claimRestaurant(id: string): Promise<PartnerResult> {
     .is("owner_id", null);
 
   if (error) {
-    console.error("claim failed:", error.code);
     return { ok: false, error: "claimFailed" };
   }
   revalidatePath("/partner");
@@ -219,7 +218,6 @@ export async function updateRestaurant(
     .eq("id", parsedId.data);
 
   if (error) {
-    console.error("restaurant update failed:", error.code);
     return { ok: false, error: "saveFailed" };
   }
   revalidatePath("/partner");

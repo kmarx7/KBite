@@ -72,7 +72,7 @@ export default async function EditRestaurantPage({
   return (
     <div className="flex min-h-dvh flex-col">
       <header className="sticky top-0 z-30 flex items-center gap-2 border-b border-[#FFE8D6] bg-[#FFFAF5]/95 px-3 py-2 backdrop-blur">
-        <Link href="/partner" aria-label="Back">
+        <Link href={`/partner/restaurant/${id}`} aria-label="Back">
           <IconChevronLeft size={18} color="#8A6040" />
         </Link>
         <h1 className="text-[15px] font-extrabold text-[#1A0800]">

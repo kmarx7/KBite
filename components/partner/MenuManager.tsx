@@ -75,12 +75,12 @@ export default function MenuManager({
 
   const handleDelete = (id: string) => {
     if (isPending) return;
+    const previous = items;
     setItems((prev) => prev.filter((m) => m.id !== id));
     startTransition(async () => {
       const result = await deleteMenuItem(id, restaurantId);
       if (!result.ok) {
-        /* 실패하면 목록 복원 */
-        setItems(initialItems);
+        setItems(previous);
         setError(result.error ?? "saveFailed");
       }
     });

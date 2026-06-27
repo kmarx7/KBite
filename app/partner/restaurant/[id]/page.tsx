@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import {
   IconChevronLeft,
   IconStarFilled,
+  IconMessage,
   IconHeart,
   IconEye,
   IconEdit,
@@ -171,7 +172,7 @@ export default async function PartnerRestaurantDashboard({
         {/* 통계 카드 4개 */}
         <div className="grid grid-cols-4 gap-2">
           {[
-            { icon: IconStarFilled, value: reviewCount, label: t("statsReviews"), color: "#F59E0B" },
+            { icon: IconMessage, value: reviewCount, label: t("statsReviews"), color: "#F59E0B" },
             { icon: IconStarFilled, value: avgRating > 0 ? avgRating.toFixed(1) : "—", label: t("statsRating"), color: "#FF6B35" },
             { icon: IconHeart, value: saveCount, label: t("statsSaves"), color: "#EF4444" },
             { icon: IconEye, value: viewCount, label: t("statsViews"), color: "#8B5CF6" },
