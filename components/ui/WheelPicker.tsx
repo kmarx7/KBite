@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const ITEM_H = 44;
+const ITEM_H = 36;
 const DEFAULT_VISIBLE = 5;
 
 interface WheelPickerProps {
@@ -84,31 +84,15 @@ export default function WheelPicker({
         className="relative w-full overflow-hidden rounded-2xl bg-[#FFF5EE]"
         style={{ height: ITEM_H * VISIBLE }}
       >
-        {/* Center highlight bar */}
+        {/* Center highlight bar — z-[1], behind scroll content */}
         <div
-          className="pointer-events-none absolute inset-x-2 z-10 rounded-xl border-2 border-[#FFB899] bg-[#FFE8D6]"
+          className="pointer-events-none absolute inset-x-2 z-[1] rounded-xl border-2 border-[#FFB899] bg-[#FFE8D6]"
           style={{ top: ITEM_H * SIDE, height: ITEM_H }}
         />
-        {/* Top fade */}
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 z-20"
-          style={{
-            height: ITEM_H * SIDE,
-            background: "linear-gradient(to bottom, #FFF5EE 20%, transparent)",
-          }}
-        />
-        {/* Bottom fade */}
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-20"
-          style={{
-            height: ITEM_H * SIDE,
-            background: "linear-gradient(to top, #FFF5EE 20%, transparent)",
-          }}
-        />
-        {/* Scrollable list */}
+        {/* Scrollable list — z-[2], above highlight */}
         <div
           ref={ref}
-          className="absolute inset-0 overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="absolute inset-0 z-[2] overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           style={{ scrollSnapType: "y mandatory", scrollPaddingTop: `${ITEM_H * SIDE}px` }}
         >
           <div style={{ height: ITEM_H * SIDE }} aria-hidden />
@@ -117,7 +101,7 @@ export default function WheelPicker({
               key={i}
               style={{ height: ITEM_H, scrollSnapAlign: "start" }}
               className={`flex items-center justify-center text-[13px] font-bold transition-colors ${
-                i === displayIdx ? "text-[#FF6B35]" : "text-[#8A6040]/70"
+                i === displayIdx ? "text-[#FF6B35]" : "text-[#8A6040]/60"
               }`}
             >
               {item}
@@ -125,6 +109,22 @@ export default function WheelPicker({
           ))}
           <div style={{ height: ITEM_H * SIDE }} aria-hidden />
         </div>
+        {/* Top fade — z-[3], above scroll */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 z-[3]"
+          style={{
+            height: ITEM_H * SIDE,
+            background: "linear-gradient(to bottom, #FFF5EE 20%, transparent)",
+          }}
+        />
+        {/* Bottom fade — z-[3], above scroll */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[3]"
+          style={{
+            height: ITEM_H * SIDE,
+            background: "linear-gradient(to top, #FFF5EE 20%, transparent)",
+          }}
+        />
       </div>
     </div>
   );
