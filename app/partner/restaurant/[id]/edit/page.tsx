@@ -3,10 +3,11 @@ import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { createClient } from "@/lib/supabase/server";
-import type { Certification, Language, PriceRange } from "@/types";
+import type { Certification, Language, MenuItemRow, Plan, PriceRange } from "@/types";
 import EditForm, {
   type EditableRestaurant,
 } from "@/components/partner/EditForm";
+import MenuManager from "@/components/partner/MenuManager";
 
 export const dynamic = "force-dynamic";
 
@@ -26,12 +27,26 @@ export default async function EditRestaurantPage({
   const { data } = await supabase
     .from("restaurants")
     .select(
-      "id, name, phone, address, opening_time, closing_time, price_range, description, certifications, languages, booking_url, sns_url, photo_url",
+      "id, name, phone, address, opening_time, closing_time, price_range, description, certifications, languages, booking_url, sns_url, photo_url, plan",
     )
     .eq("id", id)
     .eq("owner_id", user.id)
     .maybeSingle();
   if (!data) notFound();
+
+  const { data: menuRows } = await supabase
+    .from("menu_items")
+    .select("id, name, description, price, emoji")
+    .eq("restaurant_id", id)
+    .order("sort_order")
+    .order("created_at");
+  const menuItems: MenuItemRow[] = (menuRows ?? []).map((m) => ({
+    id: m.id as string,
+    name: m.name as string,
+    description: (m.description as string | null) ?? "",
+    price: m.price as number,
+    emoji: (m.emoji as string | null) ?? "🍽️",
+  }));
 
   const t = await getTranslations("partner");
 
@@ -49,6 +64,7 @@ export default async function EditRestaurantPage({
     bookingUrl: (data.booking_url as string | null) ?? "",
     snsUrl: (data.sns_url as string | null) ?? "",
     photoUrl: (data.photo_url as string | null) ?? null,
+    plan: ((data.plan as Plan | null) ?? "free"),
   };
 
   return (
@@ -62,6 +78,16 @@ export default async function EditRestaurantPage({
         </h1>
       </header>
       <EditForm restaurant={restaurant} />
+      <div className="mx-auto w-full max-w-2xl px-4 pb-8">
+        <h2 className="mb-3 text-[15px] font-extrabold text-[#1A0800]">
+          {t("menuSection")}
+        </h2>
+        <MenuManager
+          restaurantId={id}
+          plan={restaurant.plan}
+          initialItems={menuItems}
+        />
+      </div>
     </div>
   );
 }

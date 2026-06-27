@@ -11,6 +11,7 @@ interface DetailCoverProps {
   restaurantId: string;
   category: Category;
   certifications: Certification[];
+  showCertBadges: boolean;
   coverEmoji: string;
   photoUrl?: string | null;
 }
@@ -19,6 +20,7 @@ export default function DetailCover({
   restaurantId,
   category,
   certifications,
+  showCertBadges,
   coverEmoji,
   photoUrl,
 }: DetailCoverProps) {
@@ -57,12 +59,14 @@ export default function DetailCover({
         {CATEGORIES[category].emoji} {t(category)}
       </span>
 
-      {/* 인증 pill — 우상단 */}
-      <div className="absolute end-3 top-3 flex flex-col items-end gap-1">
-        {certifications.map((cert) => (
-          <CertBadge key={cert} cert={cert} />
-        ))}
-      </div>
+      {/* 인증 pill — 우상단 (Premium 이상만 표시) */}
+      {showCertBadges && (
+        <div className="absolute end-3 top-3 flex flex-col items-end gap-1">
+          {certifications.map((cert) => (
+            <CertBadge key={cert} cert={cert} />
+          ))}
+        </div>
+      )}
 
       {/* 찜 버튼 — 우하단 */}
       <button

@@ -172,6 +172,17 @@
     "registerNew": "登记新餐厅",
     "statusPending": "审核中",
     "statusApproved": "已上线",
-    "statusRejected": "已拒绝"
+    "statusRejected": "已拒绝",
+    "menuSection": "Menu management",
+    "menuLockedBasic": "Menu management is available on Basic plan and above",
+    "menuName": "Item name",
+    "menuNamePlaceholder": "e.g. Shawarma",
+    "menuDescription": "Description",
+    "menuDescriptionPlaceholder": "Short description (optional)",
+    "menuPrice": "Price",
+    "addMenuItem": "Add menu item",
+    "addMenuItemSubmit": "Add",
+    "delete": "Delete",
+    "upgradeForMorePhotos": "Upgrade to add more photos"
   }
 }

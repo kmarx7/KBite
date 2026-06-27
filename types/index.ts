@@ -114,6 +114,10 @@ export interface MenuItem {
   emoji: string;
 }
 
+export interface MenuItemRow extends MenuItem {
+  id: string;
+}
+
 export interface Review {
   id: string;
   restaurant_id: string;

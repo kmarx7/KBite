@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IconStarFilled } from "@tabler/icons-react";
 import { CATEGORIES, type RestaurantListItem } from "@/types";
+import { PLAN_FEATURES } from "@/lib/features";
 import CertBadge from "@/components/ui/CertBadge";
 
 interface RestaurantCardProps {
@@ -72,11 +73,13 @@ export default function RestaurantCard({
           <span className="text-[10px] text-[#B07040]">
             {tc("reviews", { count: r.review_count })}
           </span>
-          <span className="ms-auto flex gap-1">
-            {r.certifications.slice(0, 3).map((cert) => (
-              <CertBadge key={cert} cert={cert} variant="compact" />
-            ))}
-          </span>
+          {PLAN_FEATURES[r.plan].certBadgeEnabled && (
+            <span className="ms-auto flex gap-1">
+              {r.certifications.slice(0, 3).map((cert) => (
+                <CertBadge key={cert} cert={cert} variant="compact" />
+              ))}
+            </span>
+          )}
         </div>
       </div>
     </Link>

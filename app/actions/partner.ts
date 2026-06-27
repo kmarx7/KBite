@@ -222,6 +222,83 @@ export async function updateRestaurant(
   return { ok: true };
 }
 
+/* ───────────── 메뉴 관리 (Basic 이상) ───────────── */
+
+const menuItemSchema = z.object({
+  restaurantId: z.string().uuid(),
+  name: z.string().trim().min(1, "requiredField").max(100),
+  description: z.string().trim().max(300).optional(),
+  price: z.coerce.number().int().min(0).max(1_000_000),
+  emoji: z.string().trim().max(10).default("🍽️"),
+});
+
+export async function addMenuItem(
+  restaurantId: string,
+  formData: FormData,
+): Promise<PartnerResult> {
+  const parsed = menuItemSchema.safeParse({
+    restaurantId,
+    name: String(formData.get("name") ?? ""),
+    description: String(formData.get("description") ?? ""),
+    price: formData.get("price"),
+    emoji: String(formData.get("emoji") ?? "🍽️"),
+  });
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "loginFailed" };
+
+  /* RLS menu_owner_crud가 plan 검사 + 소유권 검사를 강제 */
+  const { error } = await supabase.from("menu_items").insert({
+    restaurant_id: parsed.data.restaurantId,
+    name: parsed.data.name,
+    description: parsed.data.description || null,
+    price: parsed.data.price,
+    emoji: parsed.data.emoji,
+  });
+
+  if (error) {
+    return { ok: false, error: "saveFailed" };
+  }
+  revalidatePath(`/restaurant/${restaurantId}`);
+  revalidatePath(`/partner/restaurant/${restaurantId}/edit`);
+  return { ok: true };
+}
+
+export async function deleteMenuItem(
+  menuItemId: string,
+  restaurantId: string,
+): Promise<PartnerResult> {
+  const parsedIds = z
+    .object({ menuItemId: z.string().uuid(), restaurantId: z.string().uuid() })
+    .safeParse({ menuItemId, restaurantId });
+  if (!parsedIds.success) return { ok: false, error: "saveFailed" };
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "loginFailed" };
+
+  const { error } = await supabase
+    .from("menu_items")
+    .delete()
+    .eq("id", parsedIds.data.menuItemId)
+    .eq("restaurant_id", parsedIds.data.restaurantId);
+
+  if (error) {
+    return { ok: false, error: "saveFailed" };
+  }
+  revalidatePath(`/restaurant/${restaurantId}`);
+  revalidatePath(`/partner/restaurant/${restaurantId}/edit`);
+  return { ok: true };
+}
+
 /* ───────────── 리뷰 답글 ───────────── */
 
 const replySchema = z.object({
