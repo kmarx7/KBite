@@ -7,12 +7,57 @@ function getResend(): Resend | null {
   return new Resend(key);
 }
 
-const FROM = "KBite <noreply@kbite.kr>";
+const FROM = "KBite <onboarding@resend.dev>";
 
 const PLAN_LABELS: Record<"basic" | "premium", string> = {
   basic: "베이직",
   premium: "프리미엄",
 };
+
+export async function sendApprovalNotification(params: {
+  to: string;
+  restaurantName: string;
+}): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
+
+  await resend.emails.send({
+    from: FROM,
+    to: params.to,
+    subject: `[KBite] "${params.restaurantName}" 등록이 승인되었습니다`,
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:24px;">
+        <h2 style="color:#FF6B35;margin-bottom:4px;">등록 승인 완료 🎉</h2>
+        <p style="color:#8A6040;margin-top:0;margin-bottom:24px;">${params.restaurantName}</p>
+        <p style="color:#1A0800;"><strong>${params.restaurantName}</strong>이(가) KBite에 정상 등록되었습니다. 이제 KBite 앱에서 사용자들에게 노출됩니다.</p>
+        <a href="https://kbite.vercel.app/partner" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:12px 24px;border-radius:12px;font-weight:700;margin-top:16px;">파트너 대시보드 바로가기</a>
+      </div>
+    `,
+  });
+}
+
+export async function sendRejectionNotification(params: {
+  to: string;
+  restaurantName: string;
+}): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
+
+  await resend.emails.send({
+    from: FROM,
+    to: params.to,
+    subject: `[KBite] "${params.restaurantName}" 등록 검토 결과 안내`,
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:24px;">
+        <h2 style="color:#1A0800;margin-bottom:4px;">등록 검토 결과 안내</h2>
+        <p style="color:#8A6040;margin-top:0;margin-bottom:24px;">${params.restaurantName}</p>
+        <p style="color:#1A0800;">신청하신 <strong>${params.restaurantName}</strong>이(가) 검토 기준에 맞지 않아 이번 등록이 보류되었습니다.</p>
+        <p style="color:#8A6040;">내용을 수정하여 다시 신청하거나, 문의사항은 파트너 대시보드를 통해 연락해 주세요.</p>
+        <a href="https://kbite.vercel.app/partner" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:12px 24px;border-radius:12px;font-weight:700;margin-top:16px;">파트너 대시보드 바로가기</a>
+      </div>
+    `,
+  });
+}
 
 export async function sendPaymentReceipt(params: {
   to: string;

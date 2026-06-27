@@ -57,7 +57,7 @@ export default function UploadBox({
         ref={inputRef}
         type="file"
         accept={accept}
-        className="hidden"
+        className="sr-only"
         onChange={(e) => handleFile(e.target.files?.[0] ?? null)}
       />
       {value ? (

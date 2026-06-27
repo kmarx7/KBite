@@ -10,6 +10,10 @@ import {
   verifyAdminSession,
 } from "@/lib/admin/auth";
 import { createAdminClient } from "@/lib/supabase/admin";
+import {
+  sendApprovalNotification,
+  sendRejectionNotification,
+} from "@/lib/email";
 
 /* ───────────── 로그인 / 로그아웃 ───────────── */
 
@@ -52,6 +56,13 @@ export async function setRestaurantStatus(
   if (!parsedId.success || !parsedStatus.success) return { ok: false };
 
   const supabase = createAdminClient();
+
+  const { data: restaurant } = await supabase
+    .from("restaurants")
+    .select("name, owner_email")
+    .eq("id", parsedId.data)
+    .single();
+
   const { error } = await supabase
     .from("restaurants")
     .update({ status: parsedStatus.data })
@@ -62,7 +73,24 @@ export async function setRestaurantStatus(
     return { ok: false };
   }
 
-  /* TODO: RESEND_API_KEY 입력 후 승인/거절 알림 이메일 발송 */
+  if (restaurant?.owner_email) {
+    try {
+      if (parsedStatus.data === "approved") {
+        await sendApprovalNotification({
+          to: restaurant.owner_email,
+          restaurantName: restaurant.name,
+        });
+      } else if (parsedStatus.data === "rejected") {
+        await sendRejectionNotification({
+          to: restaurant.owner_email,
+          restaurantName: restaurant.name,
+        });
+      }
+    } catch {
+      /* 이메일 실패가 상태 업데이트를 막지 않음 */
+    }
+  }
+
   revalidatePath("/admin");
   revalidatePath("/");
   return { ok: true };
