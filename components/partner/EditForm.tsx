@@ -2,7 +2,8 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import type { Certification, Language, PriceRange } from "@/types";
+import type { Certification, Language, Plan, PriceRange } from "@/types";
+import { PLAN_FEATURES } from "@/lib/features";
 import { updateRestaurant } from "@/app/actions/partner";
 import CertToggle from "@/components/register/CertToggle";
 import LangToggle from "@/components/register/LangToggle";
@@ -23,6 +24,7 @@ export interface EditableRestaurant {
   bookingUrl: string;
   snsUrl: string;
   photoUrl: string | null;
+  plan: Plan;
 }
 
 const inputClass =
@@ -212,6 +214,14 @@ export default function EditForm({
       </div>
       <div>
         <span className={labelClass}>{tr("restaurantPhoto")}</span>
+        <p className="mb-1.5 text-[10px] text-[#B07040]">
+          {`${form.photoUrl || photo ? 1 : 0} / ${PLAN_FEATURES[restaurant.plan].maxPhotos}`}
+          {restaurant.plan === "free" && (
+            <span className="ms-1 font-bold text-[#FF6B35]">
+              · {t("upgradeForMorePhotos")}
+            </span>
+          )}
+        </p>
         {form.photoUrl && !photo && (
           // eslint-disable-next-line @next/next/no-img-element
           <img

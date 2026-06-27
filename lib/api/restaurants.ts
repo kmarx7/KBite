@@ -170,8 +170,21 @@ export async function getRestaurantDetail(
       date: (v.created_at as string).slice(0, 10),
     }));
 
-    /* 메뉴 테이블은 Phase 2(Basic 플랜 기능) — 그 전까지 빈 목록 */
-    return { ...rowToItem(data as StatsRow), menu: [], reviews };
+    const { data: menuRows } = await supabase
+      .from("menu_items")
+      .select("name, description, price, emoji")
+      .eq("restaurant_id", id)
+      .order("sort_order")
+      .order("created_at");
+
+    const menu: MenuItem[] = (menuRows ?? []).map((m) => ({
+      name: m.name as string,
+      description: (m.description as string | null) ?? "",
+      price: m.price as number,
+      emoji: (m.emoji as string | null) ?? "🍽️",
+    }));
+
+    return { ...rowToItem(data as StatsRow), menu, reviews };
   } catch {
     return null;
   }

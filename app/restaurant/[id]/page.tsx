@@ -24,6 +24,7 @@ import ShareButton from "@/components/restaurant/ShareButton";
 import DetailCTA from "@/components/restaurant/DetailCTA";
 import TrackOnMount from "@/components/analytics/TrackOnMount";
 import { TRACK_EVENTS } from "@/lib/analytics";
+import { PLAN_FEATURES } from "@/lib/features";
 import TabBar from "@/components/ui/TabBar";
 
 const PRICE_SYMBOL: Record<PriceRange, string> = {
@@ -106,6 +107,7 @@ export default async function RestaurantDetailPage({
           restaurantId={restaurant.id}
           category={restaurant.category}
           certifications={restaurant.certifications}
+          showCertBadges={PLAN_FEATURES[restaurant.plan].certBadgeEnabled}
           coverEmoji={restaurant.cover_emoji}
           photoUrl={restaurant.photo_url}
         />

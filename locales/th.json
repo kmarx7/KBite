@@ -172,6 +172,17 @@
     "registerNew": "ลงทะเบียนร้านใหม่",
     "statusPending": "กำลังตรวจสอบ",
     "statusApproved": "เผยแพร่แล้ว",
-    "statusRejected": "ถูกปฏิเสธ"
+    "statusRejected": "ถูกปฏิเสธ",
+    "menuSection": "Menu management",
+    "menuLockedBasic": "Menu management is available on Basic plan and above",
+    "menuName": "Item name",
+    "menuNamePlaceholder": "e.g. Shawarma",
+    "menuDescription": "Description",
+    "menuDescriptionPlaceholder": "Short description (optional)",
+    "menuPrice": "Price",
+    "addMenuItem": "Add menu item",
+    "addMenuItemSubmit": "Add",
+    "delete": "Delete",
+    "upgradeForMorePhotos": "Upgrade to add more photos"
   }
 }

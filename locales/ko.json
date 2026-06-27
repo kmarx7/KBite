@@ -212,7 +212,18 @@
     "featAnalytics": "방문자 분석",
     "featBadge": "인증 배지",
     "planYes": "✓",
-    "planNo": "—"
+    "planNo": "—",
+    "menuSection": "메뉴 관리",
+    "menuLockedBasic": "메뉴 관리는 베이직 이상 플랜에서 이용할 수 있어요",
+    "menuName": "메뉴 이름",
+    "menuNamePlaceholder": "예) 샤와르마",
+    "menuDescription": "설명",
+    "menuDescriptionPlaceholder": "간단한 설명 (선택)",
+    "menuPrice": "가격",
+    "addMenuItem": "메뉴 추가",
+    "addMenuItemSubmit": "추가",
+    "delete": "삭제",
+    "upgradeForMorePhotos": "업그레이드하면 더 많은 사진 등록 가능"
   },
   "pricing": {
     "title": "투명한 가격 정책",
