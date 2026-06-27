@@ -285,7 +285,7 @@ export default function RegisterPage() {
               <div className="flex items-end gap-2">
                 <div className="flex-1">
                   <WheelPicker
-                    label="시작"
+                    label="최소"
                     items={getPriceMinItems(form.priceCurrency)}
                     selectedIndex={findMinStepIdx(form.priceCurrency, form.priceMin)}
                     onChange={(idx) =>
@@ -296,7 +296,7 @@ export default function RegisterPage() {
                 <span className="mb-6 text-[16px] font-bold text-[#B07040]">~</span>
                 <div className="flex-1">
                   <WheelPicker
-                    label="끝"
+                    label="최대"
                     items={getPriceMaxItems(form.priceCurrency)}
                     selectedIndex={findMaxStepIdx(form.priceCurrency, form.priceMax)}
                     onChange={(idx) =>
