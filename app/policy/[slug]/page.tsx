@@ -5,7 +5,9 @@ import { IconChevronLeft } from "@tabler/icons-react";
 import {
   POLICIES,
   POLICY_SLUGS,
+  POLICY_LOCALES,
   isPolicySlug,
+  type SupportedPolicyLocale,
 } from "@/lib/policies/content";
 
 export function generateStaticParams() {
@@ -20,7 +22,10 @@ export async function generateMetadata({
   const { slug } = await params;
   if (!isPolicySlug(slug)) return {};
   const locale = await getLocale();
-  const doc = POLICIES[slug][locale === "ko" ? "ko" : "en"];
+  const lang = (POLICY_LOCALES as string[]).includes(locale)
+    ? (locale as SupportedPolicyLocale)
+    : "en";
+  const doc = POLICIES[slug][lang] ?? POLICIES[slug]["en"];
   return { title: `${doc.title} — KBite` };
 }
 
@@ -32,9 +37,11 @@ export default async function PolicyPage({
   const { slug } = await params;
   if (!isPolicySlug(slug)) notFound();
 
-  /* ko만 한국어 — 나머지 8개 언어는 영어 폴백 */
   const locale = await getLocale();
-  const doc = POLICIES[slug][locale === "ko" ? "ko" : "en"];
+  const lang = (POLICY_LOCALES as string[]).includes(locale)
+    ? (locale as SupportedPolicyLocale)
+    : "en";
+  const doc = POLICIES[slug][lang] ?? POLICIES[slug]["en"];
 
   return (
     <div className="min-h-dvh bg-[#FFFAF5]">
