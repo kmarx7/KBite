@@ -9,6 +9,7 @@ import CertToggle from "@/components/register/CertToggle";
 import LangToggle from "@/components/register/LangToggle";
 import UploadBox from "@/components/register/UploadBox";
 import DateTimeButton from "@/components/ui/DateTimeButton";
+import UpgradeSheet from "@/components/partner/UpgradeSheet";
 
 export interface EditableRestaurant {
   id: string;
@@ -48,6 +49,7 @@ export default function EditForm({
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
 
   const set = <K extends keyof EditableRestaurant>(
     key: K,
@@ -217,9 +219,13 @@ export default function EditForm({
         <p className="mb-1.5 text-[10px] text-[#B07040]">
           {`${form.photoUrl || photo ? 1 : 0} / ${PLAN_FEATURES[restaurant.plan].maxPhotos}`}
           {restaurant.plan === "free" && (
-            <span className="ms-1 font-bold text-[#FF6B35]">
+            <button
+              type="button"
+              onClick={() => setUpgradeOpen(true)}
+              className="ms-1 font-bold text-[#FF6B35] underline-offset-2 hover:underline"
+            >
               · {t("upgradeForMorePhotos")}
-            </span>
+            </button>
           )}
         </p>
         {form.photoUrl && !photo && (
@@ -259,6 +265,13 @@ export default function EditForm({
       >
         {t("save")}
       </button>
+
+      <UpgradeSheet
+        restaurantId={restaurant.id}
+        requiredPlan="basic"
+        open={upgradeOpen}
+        onClose={() => setUpgradeOpen(false)}
+      />
     </form>
   );
 }

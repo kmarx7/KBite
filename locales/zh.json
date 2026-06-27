@@ -184,5 +184,28 @@
     "addMenuItemSubmit": "Add",
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos"
+  },
+  "pricing": {
+    "title": "简单透明的定价",
+    "subtitle": "免费开始，准备好了再升级。",
+    "mostPopular": "最受欢迎",
+    "getStarted": "免费开始",
+    "upgradeBasic": "升级到基础版",
+    "upgradePremium": "升级到高级版",
+    "comingSoon": "支付系统准备中",
+    "freeDesc": "您被发现所需的一切。",
+    "basicDesc": "通过更多照片和回复评论提升存在感。",
+    "premiumDesc": "完整分析套件和最高搜索可见度。",
+    "ctaPartner": "注册您的餐厅",
+    "ctaLogin": "合作伙伴登录",
+    "faqTitle": "常见问题",
+    "faq1Q": "有合同或承诺吗？",
+    "faq1A": "没有。您可以随时从仪表板取消。",
+    "faq2Q": "什么时候可以升级到付费计划？",
+    "faq2A": "付费计划即将推出。立即注册以确保您的列表。",
+    "upgradeModalTitle": "升级解锁",
+    "upgradeModalDesc": "此功能在{plan}及更高版本中可用。",
+    "upgradeModalCta": "查看计划并升级",
+    "upgradeModalDismiss": "稍后再说"
   }
 }
