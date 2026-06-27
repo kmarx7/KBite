@@ -6,6 +6,12 @@ import TrackOnMount from "@/components/analytics/TrackOnMount";
 import { TRACK_EVENTS } from "@/lib/analytics";
 import type { Plan } from "@/types";
 
+const PLAN_CTA_HREF: Record<Plan, string> = {
+  free: "/register",
+  basic: "/partner/login",
+  premium: "/partner/login",
+};
+
 const PLAN_COLOR: Record<Plan, { bg: string; text: string; border: string; btnBg: string }> = {
   free:    { bg: "#F9FAFB", text: "#6B7280", border: "#E5E7EB", btnBg: "#6B7280" },
   basic:   { bg: "#EFF6FF", text: "#1D4ED8", border: "#BFDBFE", btnBg: "#1D4ED8" },
@@ -72,14 +78,17 @@ export default async function PricingPage() {
                 <p className="mt-2 text-[12px] leading-relaxed text-[#8A6040]">
                   {t((`${plan}Desc`) as Parameters<typeof t>[0])}
                 </p>
-                <button
-                  type="button"
-                  disabled
-                  className="mt-4 w-full rounded-xl py-2 text-[12px] font-extrabold text-white disabled:opacity-50"
+                <Link
+                  href={PLAN_CTA_HREF[plan]}
+                  className="mt-4 flex items-center justify-center rounded-xl py-2 text-[12px] font-extrabold text-white"
                   style={{ backgroundColor: c.btnBg }}
                 >
-                  {plan === "free" ? t("getStarted") : t("comingSoon")}
-                </button>
+                  {plan === "free"
+                    ? t("getStarted")
+                    : plan === "basic"
+                      ? t("upgradeBasic")
+                      : t("upgradePremium")}
+                </Link>
               </div>
             );
           })}

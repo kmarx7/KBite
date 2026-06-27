@@ -184,5 +184,28 @@
     "addMenuItemSubmit": "Add",
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos"
+  },
+  "pricing": {
+    "title": "Giá cả minh bạch, đơn giản",
+    "subtitle": "Bắt đầu miễn phí. Nâng cấp khi bạn sẵn sàng.",
+    "mostPopular": "Phổ biến nhất",
+    "getStarted": "Bắt đầu miễn phí",
+    "upgradeBasic": "Nâng cấp lên Cơ bản",
+    "upgradePremium": "Nâng cấp lên Cao cấp",
+    "comingSoon": "Hệ thống thanh toán đang chuẩn bị",
+    "freeDesc": "Tất cả những gì bạn cần để được tìm thấy.",
+    "basicDesc": "Phát triển sự hiện diện với nhiều ảnh và trả lời đánh giá.",
+    "premiumDesc": "Bộ phân tích đầy đủ và khả năng hiển thị tìm kiếm tối đa.",
+    "ctaPartner": "Đăng ký nhà hàng",
+    "ctaLogin": "Đăng nhập đối tác",
+    "faqTitle": "Câu hỏi thường gặp",
+    "faq1Q": "Có hợp đồng hoặc cam kết không?",
+    "faq1A": "Không. Bạn có thể hủy bất cứ lúc nào từ bảng điều khiển.",
+    "faq2Q": "Khi nào tôi có thể nâng cấp lên gói trả phí?",
+    "faq2A": "Các gói trả phí sắp ra mắt. Đăng ký ngay để đảm bảo vị trí.",
+    "upgradeModalTitle": "Nâng cấp để mở khóa",
+    "upgradeModalDesc": "Tính năng này có trên {plan} và cao hơn.",
+    "upgradeModalCta": "Xem gói và nâng cấp",
+    "upgradeModalDismiss": "Để sau"
   }
 }

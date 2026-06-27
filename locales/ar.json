@@ -184,5 +184,28 @@
     "addMenuItemSubmit": "Add",
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos"
+  },
+  "pricing": {
+    "title": "تسعير بسيط وشفاف",
+    "subtitle": "ابدأ مجاناً. قم بالترقية عندما تكون مستعداً.",
+    "mostPopular": "الأكثر شيوعاً",
+    "getStarted": "ابدأ مجاناً",
+    "upgradeBasic": "الترقية إلى الأساسي",
+    "upgradePremium": "الترقية إلى المميز",
+    "comingSoon": "نظام الدفع قيد الإعداد",
+    "freeDesc": "كل ما تحتاجه ليتم اكتشافك.",
+    "basicDesc": "نمّ حضورك بمزيد من الصور والردود على التقييمات.",
+    "premiumDesc": "مجموعة تحليلات كاملة وأقصى ظهور في البحث.",
+    "ctaPartner": "سجّل مطعمك",
+    "ctaLogin": "تسجيل دخول الشريك",
+    "faqTitle": "الأسئلة الشائعة",
+    "faq1Q": "هل هناك عقد أو التزام؟",
+    "faq1A": "لا. يمكنك الإلغاء في أي وقت من لوحة التحكم.",
+    "faq2Q": "متى يمكنني الترقية إلى خطة مدفوعة؟",
+    "faq2A": "الخطط المدفوعة ستطلق قريباً. سجّل الآن لتأمين قائمتك.",
+    "upgradeModalTitle": "قم بالترقية لإلغاء القفل",
+    "upgradeModalDesc": "هذه الميزة متاحة في {plan} وما فوقه.",
+    "upgradeModalCta": "عرض الخطط والترقية",
+    "upgradeModalDismiss": "ربما لاحقاً"
   }
 }

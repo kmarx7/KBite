@@ -184,5 +184,28 @@
     "addMenuItemSubmit": "Add",
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos"
+  },
+  "pricing": {
+    "title": "シンプルな料金プラン",
+    "subtitle": "無料で始めて、準備ができたらアップグレードしましょう。",
+    "mostPopular": "人気",
+    "getStarted": "無料で始める",
+    "upgradeBasic": "ベーシックにアップグレード",
+    "upgradePremium": "プレミアムにアップグレード",
+    "comingSoon": "決済システム準備中",
+    "freeDesc": "発見されるために必要なすべての機能。",
+    "basicDesc": "より多くの写真とレビュー返信で存在感を高める。",
+    "premiumDesc": "詳細な分析と最高の検索表示。",
+    "ctaPartner": "レストランを登録する",
+    "ctaLogin": "パートナーログイン",
+    "faqTitle": "よくある質問",
+    "faq1Q": "契約や縛りはありますか？",
+    "faq1A": "いいえ。ダッシュボードからいつでもキャンセルできます。",
+    "faq2Q": "有料プランはいつ利用できますか？",
+    "faq2A": "有料プランは近日公開予定です。今すぐ登録してリストを確保してください。",
+    "upgradeModalTitle": "アップグレードして解除",
+    "upgradeModalDesc": "{plan}以上のプランでご利用いただけます。",
+    "upgradeModalCta": "プランを見てアップグレード",
+    "upgradeModalDismiss": "後で"
   }
 }

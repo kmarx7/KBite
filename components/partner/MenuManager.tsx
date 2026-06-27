@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import type { MenuItemRow, Plan } from "@/types";
 import { addMenuItem, deleteMenuItem } from "@/app/actions/partner";
+import UpgradeSheet from "@/components/partner/UpgradeSheet";
 
 const inputClass =
   "w-full min-w-0 rounded-xl border border-[#FFD4B8] bg-white px-3 py-2.5 text-[13px] font-semibold text-[#1A0800] placeholder:text-[#C0A080] focus:border-[#FF6B35] focus:outline-none";
@@ -25,14 +26,30 @@ export default function MenuManager({
   const [form, setForm] = useState(EMPTY_FORM);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   if (plan === "free") {
     return (
-      <div className="rounded-2xl border border-[#FFE8D6] bg-[#FFF5EE] p-4 text-center">
-        <p className="text-[13px] font-bold text-[#8A6040]">
-          🔒 {t("menuLockedBasic")}
-        </p>
-      </div>
+      <>
+        <button
+          type="button"
+          onClick={() => setSheetOpen(true)}
+          className="w-full rounded-2xl border border-[#FFE8D6] bg-[#FFF5EE] p-4 text-center"
+        >
+          <p className="text-[13px] font-bold text-[#8A6040]">
+            🔒 {t("menuLockedBasic")}
+          </p>
+          <p className="mt-1 text-[11px] font-bold text-[#FF6B35]">
+            {t("planUpgrade", { plan: t("planBasic") })} →
+          </p>
+        </button>
+        <UpgradeSheet
+          restaurantId={restaurantId}
+          requiredPlan="basic"
+          open={sheetOpen}
+          onClose={() => setSheetOpen(false)}
+        />
+      </>
     );
   }
 
