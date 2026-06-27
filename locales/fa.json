@@ -105,6 +105,8 @@
     "halalCertificate": "گواهی حلال",
     "uploadCertificate": "بارگذاری گواهی",
     "websiteSns": "وب‌سایت / شبکه‌های اجتماعی",
+    "snsNone": "ندارم",
+    "snsEnter": "وارد کردن URL",
     "verifyNotice": "رستوران شما ظرف ۲ روز کاری بررسی می‌شود. ممکن است برای تأیید بیشتر با شما تماس بگیریم.",
     "submitDone": "ارسال",
     "stepOf": "{current}/{total}",

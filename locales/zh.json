@@ -105,6 +105,8 @@
     "halalCertificate": "清真认证证书",
     "uploadCertificate": "上传证书",
     "websiteSns": "网站 / 社交媒体",
+    "snsNone": "无",
+    "snsEnter": "输入网址",
     "verifyNotice": "您的餐厅将在 2 个工作日内完成审核。我们可能会联系您进行补充验证。",
     "submitDone": "提交",
     "stepOf": "{current}/{total}",

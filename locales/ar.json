@@ -105,6 +105,8 @@
     "halalCertificate": "شهادة الحلال",
     "uploadCertificate": "رفع الشهادة",
     "websiteSns": "الموقع الإلكتروني / وسائل التواصل",
+    "snsNone": "لا يوجد",
+    "snsEnter": "أدخل الرابط",
     "verifyNotice": "ستتم مراجعة مطعمك خلال يومي عمل. قد نتواصل معك للتحقق الإضافي.",
     "submitDone": "إرسال",
     "stepOf": "{current}/{total}",

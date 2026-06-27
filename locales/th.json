@@ -105,6 +105,8 @@
     "halalCertificate": "ใบรับรองฮาลาล",
     "uploadCertificate": "อัปโหลดใบรับรอง",
     "websiteSns": "เว็บไซต์ / โซเชียลมีเดีย",
+    "snsNone": "ไม่มี",
+    "snsEnter": "ป้อน URL",
     "verifyNotice": "ร้านของคุณจะได้รับการตรวจสอบภายใน 2 วันทำการ เราอาจติดต่อคุณเพื่อยืนยันเพิ่มเติม",
     "submitDone": "ส่ง",
     "stepOf": "{current}/{total}",

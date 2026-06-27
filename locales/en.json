@@ -105,6 +105,8 @@
     "halalCertificate": "Halal Certificate",
     "uploadCertificate": "Upload certificate",
     "websiteSns": "Website / SNS",
+    "snsNone": "None",
+    "snsEnter": "Enter URL",
     "verifyNotice": "Your restaurant will be reviewed within 2 business days. We may contact you for additional verification.",
     "submitDone": "Submit",
     "stepOf": "{current}/{total}",

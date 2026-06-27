@@ -105,6 +105,8 @@
     "halalCertificate": "Chứng chỉ Halal",
     "uploadCertificate": "Tải chứng chỉ lên",
     "websiteSns": "Website / Mạng xã hội",
+    "snsNone": "Không có",
+    "snsEnter": "Nhập URL",
     "verifyNotice": "Nhà hàng của bạn sẽ được xét duyệt trong vòng 2 ngày làm việc. Chúng tôi có thể liên hệ để xác minh thêm.",
     "submitDone": "Gửi",
     "stepOf": "{current}/{total}",

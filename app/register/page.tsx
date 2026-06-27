@@ -70,6 +70,7 @@ export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [snsNone, setSnsNone] = useState(true);
 
   const set = <K extends keyof RegisterForm>(key: K, value: RegisterForm[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -353,17 +354,36 @@ export default function RegisterPage() {
               />
             </div>
             <div>
-              <label className={labelClass} htmlFor="reg-sns">
-                {t("websiteSns")}
-              </label>
-              <input
-                id="reg-sns"
-                type="url"
-                className={inputClass}
-                placeholder="https://instagram.com/..."
-                value={form.snsUrl}
-                onChange={(e) => set("snsUrl", e.target.value)}
-              />
+              <span className={labelClass}>{t("websiteSns")}</span>
+              <div className="mb-2 flex gap-2">
+                {([true, false] as const).map((isNone) => (
+                  <button
+                    key={String(isNone)}
+                    type="button"
+                    onClick={() => {
+                      setSnsNone(isNone);
+                      if (isNone) set("snsUrl", "");
+                    }}
+                    className={`flex-1 rounded-xl py-2 text-[12px] font-extrabold transition-colors ${
+                      snsNone === isNone
+                        ? "bg-[#FF6B35] text-white"
+                        : "bg-[#FFF5EE] text-[#8A6040]"
+                    }`}
+                  >
+                    {isNone ? t("snsNone") : t("snsEnter")}
+                  </button>
+                ))}
+              </div>
+              {!snsNone && (
+                <input
+                  id="reg-sns"
+                  type="url"
+                  className={inputClass}
+                  placeholder="https://instagram.com/..."
+                  value={form.snsUrl}
+                  onChange={(e) => set("snsUrl", e.target.value)}
+                />
+              )}
             </div>
             <p className="rounded-xl bg-[#FFF5EE] p-3 text-[11px] leading-relaxed text-[#8A6040]">
               {t("verifyNotice")}

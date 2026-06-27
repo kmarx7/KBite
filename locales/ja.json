@@ -105,6 +105,8 @@
     "halalCertificate": "ハラール認証書",
     "uploadCertificate": "証明書をアップロード",
     "websiteSns": "ウェブサイト / SNS",
+    "snsNone": "なし",
+    "snsEnter": "URL入力",
     "verifyNotice": "ご登録のレストランは2営業日以内に審査されます。追加確認のためご連絡する場合があります。",
     "submitDone": "送信",
     "stepOf": "{current}/{total}",

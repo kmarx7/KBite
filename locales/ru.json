@@ -105,6 +105,8 @@
     "halalCertificate": "Сертификат халяль",
     "uploadCertificate": "Загрузить сертификат",
     "websiteSns": "Сайт / Соцсети",
+    "snsNone": "Нет",
+    "snsEnter": "Ввести URL",
     "verifyNotice": "Ваш ресторан будет проверен в течение 2 рабочих дней. Мы можем связаться с вами для дополнительной проверки.",
     "submitDone": "Отправить",
     "stepOf": "{current}/{total}",

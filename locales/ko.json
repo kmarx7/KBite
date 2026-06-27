@@ -105,6 +105,8 @@
     "halalCertificate": "할랄 인증서",
     "uploadCertificate": "인증서 업로드",
     "websiteSns": "웹사이트 / SNS",
+    "snsNone": "없음",
+    "snsEnter": "URL 입력",
     "verifyNotice": "등록하신 식당은 영업일 기준 2일 이내에 검토됩니다. 추가 확인을 위해 연락드릴 수 있습니다.",
     "submitDone": "등록 완료",
     "stepOf": "{current}/{total}",
