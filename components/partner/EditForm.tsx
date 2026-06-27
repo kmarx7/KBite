@@ -53,6 +53,7 @@ export default function EditForm({
   const [saved, setSaved] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [upgradeOpen, setUpgradeOpen] = useState(false);
+  const [snsNone, setSnsNone] = useState(!restaurant.snsUrl);
 
   const set = <K extends keyof EditableRestaurant>(
     key: K,
@@ -229,17 +230,36 @@ export default function EditForm({
         />
       </div>
       <div>
-        <label className={labelClass} htmlFor="edit-sns">
-          {tr("websiteSns")}
-        </label>
-        <input
-          id="edit-sns"
-          type="url"
-          className={inputClass}
-          placeholder="https://instagram.com/..."
-          value={form.snsUrl}
-          onChange={(e) => set("snsUrl", e.target.value)}
-        />
+        <span className={labelClass}>{tr("websiteSns")}</span>
+        <div className="mb-2 flex gap-2">
+          {([true, false] as const).map((isNone) => (
+            <button
+              key={String(isNone)}
+              type="button"
+              onClick={() => {
+                setSnsNone(isNone);
+                if (isNone) set("snsUrl", "");
+              }}
+              className={`flex-1 rounded-xl py-2 text-[12px] font-extrabold transition-colors ${
+                snsNone === isNone
+                  ? "bg-[#FF6B35] text-white"
+                  : "bg-[#FFF5EE] text-[#8A6040]"
+              }`}
+            >
+              {isNone ? tr("snsNone") : tr("snsEnter")}
+            </button>
+          ))}
+        </div>
+        {!snsNone && (
+          <input
+            id="edit-sns"
+            type="url"
+            className={inputClass}
+            placeholder="https://instagram.com/..."
+            value={form.snsUrl}
+            onChange={(e) => set("snsUrl", e.target.value)}
+          />
+        )}
       </div>
       <div>
         <span className={labelClass}>{tr("restaurantPhoto")}</span>
