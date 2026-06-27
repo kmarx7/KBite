@@ -24,6 +24,11 @@ export const metadata: Metadata = {
   title: "KBite — Find Your Home Food in Korea",
   description:
     "Location-based restaurant discovery for foreigners in Korea. Find halal, vegan, and authentic home cuisine near you.",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "KBite",
+  },
 };
 
 export const viewport: Viewport = {
