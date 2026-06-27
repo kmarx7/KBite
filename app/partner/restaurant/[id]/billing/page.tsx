@@ -6,6 +6,8 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { Plan } from "@/types";
 import { PLAN_FEATURES, PLAN_PRICES } from "@/lib/features";
+import BillingUpgradeButton from "@/components/partner/BillingUpgradeButton";
+import CancelSubscriptionButton from "@/components/partner/CancelSubscriptionButton";
 
 export const dynamic = "force-dynamic";
 
@@ -202,27 +204,26 @@ export default async function PartnerBillingPage({
           </div>
         </section>
 
-        {/* 업그레이드 버튼 */}
-        {currentPlan !== "premium" && (
-          <div className="flex flex-col gap-2">
-            {planOrder
+        {/* 업그레이드 / 취소 버튼 */}
+        <div className="flex flex-col gap-2">
+          {currentPlan !== "premium" &&
+            planOrder
               .filter((p) => p !== "free" && p !== currentPlan)
               .map((plan) => (
-                <button
+                <BillingUpgradeButton
                   key={plan}
-                  type="button"
-                  disabled
-                  className="flex w-full items-center justify-center gap-1.5 rounded-2xl py-3 text-[13px] font-extrabold text-white disabled:opacity-60"
-                  style={{ backgroundColor: "#FF6B35" }}
-                >
-                  {t("planUpgrade", { plan: planLabels[plan] })}
-                </button>
+                  restaurantId={id}
+                  plan={plan as "basic" | "premium"}
+                  planLabel={planLabels[plan]}
+                  price={PLAN_PRICES[plan as Exclude<Plan, "free">]}
+                  restaurantName={restaurant.name ?? ""}
+                  userEmail={user.email ?? ""}
+                />
               ))}
-            <p className="text-center text-[11px] text-[#B07040]">
-              {t("planComingSoon")}
-            </p>
-          </div>
-        )}
+          {currentPlan !== "free" && (
+            <CancelSubscriptionButton restaurantId={id} />
+          )}
+        </div>
 
         {/* 결제 내역 */}
         <section>
