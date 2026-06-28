@@ -20,10 +20,28 @@ const notoSansKR = Noto_Sans_KR({
   weight: ["400", "500", "600", "700", "900"],
 });
 
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL ?? "https://kbite.vercel.app";
+
 export const metadata: Metadata = {
   title: "KBite — Find Your Home Food in Korea",
   description:
     "Location-based restaurant discovery for foreigners in Korea. Find halal, vegan, and authentic home cuisine near you.",
+  metadataBase: new URL(APP_URL),
+  openGraph: {
+    title: "KBite — Find Your Home Food in Korea",
+    description:
+      "Find halal, vegan, and authentic home cuisine restaurants in Korea. Available in 9 languages.",
+    url: APP_URL,
+    siteName: "KBite",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "KBite — Find Your Home Food in Korea",
+    description:
+      "Find halal, vegan, and authentic home cuisine restaurants in Korea.",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

@@ -12,6 +12,7 @@ import {
 } from "@/lib/validation/register";
 import { priceRangeFromMinMax } from "@/lib/price";
 import { sendRegistrationConfirmation } from "@/lib/email";
+import { checkRateLimit } from "@/lib/ratelimit";
 
 export interface RegisterResult {
   ok: boolean;
@@ -35,6 +36,9 @@ const EXT_BY_MIME: Record<string, string> = {
 export async function registerRestaurant(
   formData: FormData,
 ): Promise<RegisterResult> {
+  const rl = await checkRateLimit("register");
+  if (!rl.ok) return { ok: false, error: "rateLimited" };
+
   /* 약관 동의 — 서버에서도 강제 */
   if (formData.get("consent") !== "true") {
     return { ok: false, error: "consentRequired" };
