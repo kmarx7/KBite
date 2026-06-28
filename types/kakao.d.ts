@@ -12,6 +12,8 @@ declare namespace kakao.maps {
       options: { center: LatLng; level: number },
     );
     setCenter(latlng: LatLng): void;
+    panTo(latlng: LatLng): void;
+    setLevel(level: number, options?: { animate?: boolean | { duration: number } }): void;
     relayout(): void;
   }
 
@@ -24,6 +26,7 @@ declare namespace kakao.maps {
       clickable?: boolean;
     });
     setMap(map: Map | null): void;
+    setPosition(latlng: LatLng): void;
   }
 }
 

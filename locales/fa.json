@@ -46,8 +46,12 @@
     "found": "{count} مورد",
     "filterSort": "فیلتر · مرتب‌سازی",
     "myLocation": "موقعیت من",
-    "locationDenied": "دسترسی به موقعیت خاموش است. لطفاً در نوار آدرس مرورگر (نماد قفل) یا تنظیمات سایت، موقعیت را مجاز کنید و صفحه را تازه‌سازی کنید.",
-    "locationUnavailable": "موقعیت شما دریافت نشد. لطفاً دوباره تلاش کنید."
+    "locationDenied": "دسترسی به موقعیت خاموش است. برای راهنمایی ضربه بزنید",
+    "locationUnavailable": "موقعیت شما دریافت نشد. لطفاً دوباره تلاش کنید.",
+    "locationGuideTitle": "نحوه فعال‌سازی دسترسی به موقعیت",
+    "locationGuideIOS": "1. به Settings > Privacy & Security بروید\n2. Location Services را باز کنید\n3. Safari یا مرورگر خود را پیدا کنید ← ضربه بزنید\n4. «While Using the App» را انتخاب کنید\n5. KBite را بازنشانی کنید",
+    "locationGuideOther": "1. روی آیکون قفل در نوار آدرس ضربه بزنید\n2. دسترسی به موقعیت را به «اجازه» تغییر دهید\n3. صفحه را بازنشانی کنید",
+    "locationGuideConfirm": "متوجه شدم"
   },
   "filterSheet": {
     "title": "فیلتر و مرتب‌سازی",
