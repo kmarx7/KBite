@@ -214,6 +214,7 @@
     "planPerMonth": "/mo",
     "planUpgrade": "Upgrade to {plan}",
     "planCancel": "Cancel subscription",
+    "subCancelledNotice": "Subscription cancelled — benefits active until {date}",
     "planComingSoon": "Payment setup in progress",
     "billingHistory": "Payment History",
     "noBillingHistory": "No payments yet",

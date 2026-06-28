@@ -214,6 +214,7 @@
     "planPerMonth": "/월",
     "planUpgrade": "{plan}으로 업그레이드",
     "planCancel": "구독 해지",
+    "subCancelledNotice": "구독 취소 예정 — {date}까지 혜택 유지",
     "planComingSoon": "결제 기능 준비 중이에요",
     "billingHistory": "결제 내역",
     "noBillingHistory": "아직 결제 내역이 없어요",

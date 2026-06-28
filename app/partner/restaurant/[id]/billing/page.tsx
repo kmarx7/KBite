@@ -225,7 +225,7 @@ export default async function PartnerBillingPage({
           {subStatus === "cancelled" && periodEnd && (
             <div className="rounded-2xl border border-[#FDE68A] bg-[#FFFBEB] px-4 py-3 text-center">
               <p className="text-[12px] font-bold text-[#D97706]">
-                구독 취소 예정 — {periodEnd.slice(0, 10)}까지 혜택 유지
+                {t("subCancelledNotice", { date: periodEnd.slice(0, 10) })}
               </p>
             </div>
           )}
