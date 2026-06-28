@@ -18,6 +18,7 @@ import { CATEGORIES, type Category } from "@/types";
 import type { Plan } from "@/types";
 import { PLAN_FEATURES } from "@/lib/features";
 import ReviewReplyForm from "@/components/partner/ReviewReplyForm";
+import LockedNavItem from "@/components/partner/LockedNavItem";
 import { IconLock } from "@tabler/icons-react";
 
 export const dynamic = "force-dynamic";
@@ -194,24 +195,30 @@ export default async function PartnerRestaurantDashboard({
 
         {/* 빠른 메뉴 */}
         <nav className="flex flex-col gap-2">
-          {navItems.map(({ href, icon: Icon, label, locked }) => (
-            <Link
-              key={href}
-              href={href}
-              className="flex items-center gap-2.5 rounded-2xl border border-[#FFE8D6] bg-white px-4 py-3"
-            >
-              <Icon size={18} color={locked ? "#C0A080" : "#FF6B35"} />
-              <span className="flex-1 text-[13px] font-bold text-[#1A0800]">
-                {label}
-              </span>
-              {locked && (
-                <span className="rounded-full bg-[#FEF3C7] px-2 py-0.5 text-[9px] font-extrabold text-[#D97706]">
-                  Premium
+          {navItems.map(({ href, icon: Icon, label, locked }) =>
+            locked ? (
+              <LockedNavItem
+                key={href}
+                restaurantId={id}
+                requiredPlan="premium"
+                icon={<Icon size={18} color="#C0A080" />}
+                label={label}
+                badgeLabel="Premium"
+              />
+            ) : (
+              <Link
+                key={href}
+                href={href}
+                className="flex items-center gap-2.5 rounded-2xl border border-[#FFE8D6] bg-white px-4 py-3"
+              >
+                <Icon size={18} color="#FF6B35" />
+                <span className="flex-1 text-[13px] font-bold text-[#1A0800]">
+                  {label}
                 </span>
-              )}
-              <IconChevronRight size={15} color="#C0A080" />
-            </Link>
-          ))}
+                <IconChevronRight size={15} color="#C0A080" />
+              </Link>
+            ),
+          )}
         </nav>
 
         {/* 최근 리뷰 */}
