@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import {
   IconBuildingStore,
+  IconChevronLeft,
   IconChevronRight,
   IconPlus,
   IconRocket,
@@ -63,8 +64,11 @@ export default async function PartnerPage() {
 
   return (
     <div className="min-h-dvh bg-[#F5EDE0]">
-      <header className="sticky top-0 z-30 flex items-center justify-between border-b border-[#FFE8D6] bg-[#FFFAF5] px-4 py-3">
-        <h1 className="text-[16px] font-extrabold text-[#1A0800]">
+      <header className="sticky top-0 z-30 flex items-center gap-2 border-b border-[#FFE8D6] bg-[#FFFAF5] px-3 py-2">
+        <Link href="/profile" aria-label="Back">
+          <IconChevronLeft size={18} color="#8A6040" />
+        </Link>
+        <h1 className="flex-1 text-[15px] font-extrabold text-[#1A0800]">
           <span className="text-[#FF6B35]">KBite</span> {t("title")}
         </h1>
         <LogoutButton />
