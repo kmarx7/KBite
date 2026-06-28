@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { checkRateLimit } from "@/lib/ratelimit";
 
 export interface ReviewResult {
   ok: boolean;
@@ -21,11 +22,12 @@ const reviewSchema = z.object({
     .optional(),
 });
 
-// TODO: Add rate limiting (Vercel WAF or upstash/ratelimit) before launch
-// AGENTS.md: "Rate limiting required on public write endpoints (reviews)"
 export async function submitReview(
   formData: FormData,
 ): Promise<ReviewResult> {
+  const rl = await checkRateLimit("review");
+  if (!rl.ok) return { ok: false, error: "rateLimited" };
+
   const raw = {
     restaurantId: String(formData.get("restaurantId") ?? ""),
     rating: formData.get("rating"),
