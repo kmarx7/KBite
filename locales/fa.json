@@ -79,7 +79,17 @@
     "directions": "مسیریابی",
     "reserve": "رزرو",
     "distanceAway": "در فاصله {distance}",
-    "mapPlaceholder": "نقشه تعاملی به‌زودی"
+    "mapPlaceholder": "نقشه تعاملی به‌زودی",
+    "writeReview": "نظر بنویسید",
+    "ratingLabel": "امتیاز",
+    "commentLabel": "نظر (اختیاری)",
+    "commentPlaceholder": "چه چیزی را پسندیدید؟",
+    "nationalityLabel": "ملیت",
+    "selectNationality": "انتخاب ملیت",
+    "submitReview": "ثبت",
+    "reviewThanks": "ممنون از نظر شما!",
+    "reviewError": "ارسال ناموفق بود. دوباره امتحان کنید.",
+    "cancel": "لغو"
   },
   "register": {
     "title": "ثبت رستوران",

@@ -79,7 +79,17 @@
     "directions": "Dir",
     "reserve": "Reserve",
     "distanceAway": "{distance} away",
-    "mapPlaceholder": "Interactive map coming soon"
+    "mapPlaceholder": "Interactive map coming soon",
+    "writeReview": "Write a Review",
+    "ratingLabel": "Rating",
+    "commentLabel": "Comment (optional)",
+    "commentPlaceholder": "What did you enjoy?",
+    "nationalityLabel": "Nationality",
+    "selectNationality": "Select nationality",
+    "submitReview": "Submit",
+    "reviewThanks": "Thank you for your review!",
+    "reviewError": "Failed to submit. Please try again.",
+    "cancel": "Cancel"
   },
   "register": {
     "title": "Add Restaurant",

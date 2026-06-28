@@ -79,7 +79,17 @@
     "directions": "経路",
     "reserve": "予約",
     "distanceAway": "{distance} 先",
-    "mapPlaceholder": "インタラクティブマップは近日公開"
+    "mapPlaceholder": "インタラクティブマップは近日公開",
+    "writeReview": "レビューを書く",
+    "ratingLabel": "評価",
+    "commentLabel": "コメント（任意）",
+    "commentPlaceholder": "気に入った点は？",
+    "nationalityLabel": "国籍",
+    "selectNationality": "国籍を選択",
+    "submitReview": "投稿する",
+    "reviewThanks": "レビューありがとうございます！",
+    "reviewError": "投稿に失敗しました。もう一度お試しください。",
+    "cancel": "キャンセル"
   },
   "register": {
     "title": "レストラン登録",

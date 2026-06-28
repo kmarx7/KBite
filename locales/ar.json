@@ -79,7 +79,17 @@
     "directions": "الاتجاهات",
     "reserve": "حجز",
     "distanceAway": "على بُعد {distance}",
-    "mapPlaceholder": "الخريطة التفاعلية قريباً"
+    "mapPlaceholder": "الخريطة التفاعلية قريباً",
+    "writeReview": "اكتب تقييمًا",
+    "ratingLabel": "التقييم",
+    "commentLabel": "تعليق (اختياري)",
+    "commentPlaceholder": "ما الذي أعجبك؟",
+    "nationalityLabel": "الجنسية",
+    "selectNationality": "اختر الجنسية",
+    "submitReview": "إرسال",
+    "reviewThanks": "شكرًا على تقييمك!",
+    "reviewError": "فشل الإرسال. يرجى المحاولة مرة أخرى.",
+    "cancel": "إلغاء"
   },
   "register": {
     "title": "إضافة مطعم",

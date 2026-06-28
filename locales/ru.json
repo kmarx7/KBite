@@ -79,7 +79,17 @@
     "directions": "Маршрут",
     "reserve": "Забронировать",
     "distanceAway": "В {distance} от вас",
-    "mapPlaceholder": "Интерактивная карта скоро появится"
+    "mapPlaceholder": "Интерактивная карта скоро появится",
+    "writeReview": "Написать отзыв",
+    "ratingLabel": "Оценка",
+    "commentLabel": "Комментарий (необязательно)",
+    "commentPlaceholder": "Что вам понравилось?",
+    "nationalityLabel": "Национальность",
+    "selectNationality": "Выберите национальность",
+    "submitReview": "Отправить",
+    "reviewThanks": "Спасибо за ваш отзыв!",
+    "reviewError": "Ошибка отправки. Попробуйте ещё раз.",
+    "cancel": "Отмена"
   },
   "register": {
     "title": "Добавить ресторан",
