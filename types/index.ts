@@ -112,6 +112,7 @@ export interface ReviewDisplay {
   rating: number;
   content: string;
   date: string;
+  replyText?: string;
 }
 
 export interface MenuItem {

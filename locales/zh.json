@@ -89,7 +89,8 @@
     "submitReview": "提交",
     "reviewThanks": "感谢您的评论！",
     "reviewError": "提交失败，请重试。",
-    "cancel": "取消"
+    "cancel": "取消",
+    "ownerReply": "商家回复"
   },
   "register": {
     "title": "登记餐厅",
@@ -201,7 +202,13 @@
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos",
     "invalidBizNo": "营业执照号码格式: 000-00-00000",
-    "bizRegNoPlaceholder": "营业执照号码 000-00-00000"
+    "bizRegNoPlaceholder": "营业执照号码 000-00-00000",
+    "replyPlaceholder": "回复此评论...",
+    "replySubmit": "回复",
+    "replyEdit": "编辑回复",
+    "replySaved": "回复已保存！",
+    "replyFailed": "无法保存回复，请重试。",
+    "ownerReply": "商家回复"
   },
   "pricing": {
     "title": "简单透明的定价",

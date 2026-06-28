@@ -38,6 +38,16 @@ export default async function ReviewList({
               {review.content}
             </p>
             <p className="mt-1 text-[10px] text-[#C0A080]">{review.date}</p>
+            {review.replyText && (
+              <div className="mt-2 rounded-xl bg-[#FFF7F0] px-3 py-2">
+                <p className="mb-0.5 text-[10px] font-extrabold text-[#FF6B35]">
+                  {t("ownerReply")}
+                </p>
+                <p className="text-[12px] leading-relaxed text-[#1A0800]">
+                  {review.replyText}
+                </p>
+              </div>
+            )}
           </li>
         ))}
       </ul>

@@ -89,7 +89,8 @@
     "submitReview": "إرسال",
     "reviewThanks": "شكرًا على تقييمك!",
     "reviewError": "فشل الإرسال. يرجى المحاولة مرة أخرى.",
-    "cancel": "إلغاء"
+    "cancel": "إلغاء",
+    "ownerReply": "رد صاحب المطعم"
   },
   "register": {
     "title": "إضافة مطعم",
@@ -201,7 +202,13 @@
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos",
     "invalidBizNo": "تنسيق رقم تسجيل الأعمال: 000-00-00000",
-    "bizRegNoPlaceholder": "رقم تسجيل الأعمال 000-00-00000"
+    "bizRegNoPlaceholder": "رقم تسجيل الأعمال 000-00-00000",
+    "replyPlaceholder": "الرد على هذه المراجعة...",
+    "replySubmit": "رد",
+    "replyEdit": "تعديل الرد",
+    "replySaved": "تم حفظ الرد!",
+    "replyFailed": "تعذر حفظ الرد. يرجى المحاولة مرة أخرى.",
+    "ownerReply": "رد صاحب المطعم"
   },
   "pricing": {
     "title": "تسعير بسيط وشفاف",
