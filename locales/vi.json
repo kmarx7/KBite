@@ -79,7 +79,17 @@
     "directions": "Chỉ đường",
     "reserve": "Đặt bàn",
     "distanceAway": "Cách {distance}",
-    "mapPlaceholder": "Bản đồ tương tác sắp ra mắt"
+    "mapPlaceholder": "Bản đồ tương tác sắp ra mắt",
+    "writeReview": "Viết đánh giá",
+    "ratingLabel": "Đánh giá",
+    "commentLabel": "Nhận xét (tùy chọn)",
+    "commentPlaceholder": "Bạn thích điều gì?",
+    "nationalityLabel": "Quốc tịch",
+    "selectNationality": "Chọn quốc tịch",
+    "submitReview": "Gửi",
+    "reviewThanks": "Cảm ơn bạn đã đánh giá!",
+    "reviewError": "Gửi thất bại. Vui lòng thử lại.",
+    "cancel": "Hủy"
   },
   "register": {
     "title": "Đăng ký nhà hàng",

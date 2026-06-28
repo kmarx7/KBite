@@ -79,7 +79,17 @@
     "directions": "导航",
     "reserve": "预订",
     "distanceAway": "距离 {distance}",
-    "mapPlaceholder": "互动地图即将上线"
+    "mapPlaceholder": "互动地图即将上线",
+    "writeReview": "写评论",
+    "ratingLabel": "评分",
+    "commentLabel": "评论（选填）",
+    "commentPlaceholder": "您喜欢哪些方面？",
+    "nationalityLabel": "国籍",
+    "selectNationality": "选择国籍",
+    "submitReview": "提交",
+    "reviewThanks": "感谢您的评论！",
+    "reviewError": "提交失败，请重试。",
+    "cancel": "取消"
   },
   "register": {
     "title": "登记餐厅",

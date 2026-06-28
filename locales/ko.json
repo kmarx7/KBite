@@ -79,7 +79,17 @@
     "directions": "길찾기",
     "reserve": "예약",
     "distanceAway": "{distance} 거리",
-    "mapPlaceholder": "지도는 곧 제공될 예정이에요"
+    "mapPlaceholder": "지도는 곧 제공될 예정이에요",
+    "writeReview": "리뷰 쓰기",
+    "ratingLabel": "별점",
+    "commentLabel": "후기 (선택)",
+    "commentPlaceholder": "어떤 점이 좋으셨나요?",
+    "nationalityLabel": "국적",
+    "selectNationality": "국적 선택",
+    "submitReview": "등록하기",
+    "reviewThanks": "리뷰 감사합니다!",
+    "reviewError": "등록에 실패했습니다. 다시 시도해 주세요.",
+    "cancel": "취소"
   },
   "register": {
     "title": "식당 등록",

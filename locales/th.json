@@ -79,7 +79,17 @@
     "directions": "นำทาง",
     "reserve": "จอง",
     "distanceAway": "ห่าง {distance}",
-    "mapPlaceholder": "แผนที่แบบโต้ตอบเร็ว ๆ นี้"
+    "mapPlaceholder": "แผนที่แบบโต้ตอบเร็ว ๆ นี้",
+    "writeReview": "เขียนรีวิว",
+    "ratingLabel": "คะแนน",
+    "commentLabel": "ความคิดเห็น (ไม่บังคับ)",
+    "commentPlaceholder": "คุณชอบอะไรบ้าง?",
+    "nationalityLabel": "สัญชาติ",
+    "selectNationality": "เลือกสัญชาติ",
+    "submitReview": "ส่งรีวิว",
+    "reviewThanks": "ขอบคุณสำหรับรีวิวของคุณ!",
+    "reviewError": "ส่งไม่สำเร็จ กรุณาลองใหม่",
+    "cancel": "ยกเลิก"
   },
   "register": {
     "title": "ลงทะเบียนร้านอาหาร",
