@@ -14,6 +14,31 @@ const PLAN_LABELS: Record<"basic" | "premium", string> = {
   premium: "프리미엄",
 };
 
+export async function sendRegistrationConfirmation(params: {
+  to: string;
+  restaurantName: string;
+}): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
+
+  await resend.emails.send({
+    from: FROM,
+    to: params.to,
+    subject: `[KBite] "${params.restaurantName}" 등록 신청이 접수되었습니다`,
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:24px;">
+        <h2 style="color:#FF6B35;margin-bottom:4px;">등록 신청 접수 완료</h2>
+        <p style="color:#8A6040;margin-top:0;margin-bottom:24px;">${params.restaurantName}</p>
+        <p style="color:#1A0800;"><strong>${params.restaurantName}</strong>의 등록 신청이 접수되었습니다.</p>
+        <p style="color:#1A0800;">영업일 기준 2일 이내에 검토 후 결과를 이메일로 안내드립니다.</p>
+        <p style="color:#8A6040;font-size:13px;margin-top:16px;">추가 서류가 필요한 경우 별도 연락드릴 수 있습니다.</p>
+        <hr style="border:none;border-top:1px solid #F0E6D6;margin:24px 0;" />
+        <p style="color:#C0A080;font-size:12px;margin:0;">KBite — Find Your Home Food in Korea</p>
+      </div>
+    `,
+  });
+}
+
 export async function sendApprovalNotification(params: {
   to: string;
   restaurantName: string;

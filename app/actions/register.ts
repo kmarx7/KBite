@@ -11,6 +11,7 @@ import {
   ALLOWED_IMAGE_TYPES,
 } from "@/lib/validation/register";
 import { priceRangeFromMinMax } from "@/lib/price";
+import { sendRegistrationConfirmation } from "@/lib/email";
 
 export interface RegisterResult {
   ok: boolean;
@@ -130,6 +131,15 @@ export async function registerRestaurant(
     return { ok: false, error: "submitFailed" };
   }
 
-  /* TODO(작업 8 마무리): RESEND_API_KEY 채워지면 확인 이메일 발송 */
+  /* 등록 접수 확인 이메일 — 실패해도 등록은 성공으로 처리 */
+  try {
+    await sendRegistrationConfirmation({
+      to: parsed1.data.ownerEmail,
+      restaurantName: parsed1.data.name,
+    });
+  } catch {
+    /* 이메일 실패가 등록을 막지 않음 */
+  }
+
   return { ok: true };
 }
