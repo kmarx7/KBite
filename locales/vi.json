@@ -89,7 +89,8 @@
     "submitReview": "Gửi",
     "reviewThanks": "Cảm ơn bạn đã đánh giá!",
     "reviewError": "Gửi thất bại. Vui lòng thử lại.",
-    "cancel": "Hủy"
+    "cancel": "Hủy",
+    "ownerReply": "Phản hồi của chủ nhà hàng"
   },
   "register": {
     "title": "Đăng ký nhà hàng",
@@ -201,7 +202,13 @@
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos",
     "invalidBizNo": "Định dạng số đăng ký kinh doanh: 000-00-00000",
-    "bizRegNoPlaceholder": "Số đăng ký kinh doanh 000-00-00000"
+    "bizRegNoPlaceholder": "Số đăng ký kinh doanh 000-00-00000",
+    "replyPlaceholder": "Trả lời đánh giá này...",
+    "replySubmit": "Trả lời",
+    "replyEdit": "Chỉnh sửa phản hồi",
+    "replySaved": "Đã lưu phản hồi!",
+    "replyFailed": "Không thể lưu phản hồi. Vui lòng thử lại.",
+    "ownerReply": "Phản hồi của chủ nhà hàng"
   },
   "pricing": {
     "title": "Giá cả minh bạch, đơn giản",

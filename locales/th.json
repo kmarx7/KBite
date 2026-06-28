@@ -89,7 +89,8 @@
     "submitReview": "ส่งรีวิว",
     "reviewThanks": "ขอบคุณสำหรับรีวิวของคุณ!",
     "reviewError": "ส่งไม่สำเร็จ กรุณาลองใหม่",
-    "cancel": "ยกเลิก"
+    "cancel": "ยกเลิก",
+    "ownerReply": "การตอบกลับของเจ้าของ"
   },
   "register": {
     "title": "ลงทะเบียนร้านอาหาร",
@@ -201,7 +202,13 @@
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos",
     "invalidBizNo": "รูปแบบเลขทะเบียนธุรกิจ: 000-00-00000",
-    "bizRegNoPlaceholder": "เลขทะเบียนธุรกิจ 000-00-00000"
+    "bizRegNoPlaceholder": "เลขทะเบียนธุรกิจ 000-00-00000",
+    "replyPlaceholder": "ตอบกลับรีวิวนี้...",
+    "replySubmit": "ตอบกลับ",
+    "replyEdit": "แก้ไขการตอบกลับ",
+    "replySaved": "บันทึกการตอบกลับแล้ว!",
+    "replyFailed": "ไม่สามารถบันทึกการตอบกลับได้ กรุณาลองใหม่",
+    "ownerReply": "การตอบกลับของเจ้าของ"
   },
   "pricing": {
     "title": "ราคาเรียบง่าย โปร่งใส",

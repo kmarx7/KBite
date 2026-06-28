@@ -89,7 +89,8 @@
     "submitReview": "Отправить",
     "reviewThanks": "Спасибо за ваш отзыв!",
     "reviewError": "Ошибка отправки. Попробуйте ещё раз.",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "ownerReply": "Ответ владельца"
   },
   "register": {
     "title": "Добавить ресторан",
@@ -201,7 +202,13 @@
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos",
     "invalidBizNo": "Формат регистрационного номера: 000-00-00000",
-    "bizRegNoPlaceholder": "Рег. номер бизнеса 000-00-00000"
+    "bizRegNoPlaceholder": "Рег. номер бизнеса 000-00-00000",
+    "replyPlaceholder": "Ответить на этот отзыв...",
+    "replySubmit": "Ответить",
+    "replyEdit": "Изменить ответ",
+    "replySaved": "Ответ сохранён!",
+    "replyFailed": "Не удалось сохранить ответ. Попробуйте ещё раз.",
+    "ownerReply": "Ответ владельца"
   },
   "pricing": {
     "title": "Простые прозрачные цены",

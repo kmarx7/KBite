@@ -89,7 +89,8 @@
     "submitReview": "ثبت",
     "reviewThanks": "ممنون از نظر شما!",
     "reviewError": "ارسال ناموفق بود. دوباره امتحان کنید.",
-    "cancel": "لغو"
+    "cancel": "لغو",
+    "ownerReply": "پاسخ صاحب رستوران"
   },
   "register": {
     "title": "ثبت رستوران",
@@ -201,7 +202,13 @@
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos",
     "invalidBizNo": "قالب شماره ثبت کسب‌وکار: 000-00-00000",
-    "bizRegNoPlaceholder": "شماره ثبت کسب‌وکار 000-00-00000"
+    "bizRegNoPlaceholder": "شماره ثبت کسب‌وکار 000-00-00000",
+    "replyPlaceholder": "پاسخ به این نظر...",
+    "replySubmit": "پاسخ",
+    "replyEdit": "ویرایش پاسخ",
+    "replySaved": "پاسخ ذخیره شد!",
+    "replyFailed": "ذخیره پاسخ ناموفق بود. دوباره امتحان کنید.",
+    "ownerReply": "پاسخ صاحب رستوران"
   },
   "pricing": {
     "title": "قیمت‌گذاری ساده و شفاف",

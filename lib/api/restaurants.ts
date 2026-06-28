@@ -162,7 +162,7 @@ export async function getRestaurantDetail(
 
     const { data: reviewRows } = await supabase
       .from("reviews")
-      .select("id, rating, content, nationality, created_at")
+      .select("id, rating, content, nationality, created_at, reply_text")
       .eq("restaurant_id", id)
       .order("created_at", { ascending: false })
       .limit(50);
@@ -175,6 +175,7 @@ export async function getRestaurantDetail(
       rating: v.rating as number,
       content: (v.content as string | null) ?? "",
       date: (v.created_at as string).slice(0, 10),
+      replyText: (v.reply_text as string | null) ?? undefined,
     }));
 
     const { data: menuRows } = await supabase

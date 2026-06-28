@@ -89,7 +89,8 @@
     "submitReview": "投稿する",
     "reviewThanks": "レビューありがとうございます！",
     "reviewError": "投稿に失敗しました。もう一度お試しください。",
-    "cancel": "キャンセル"
+    "cancel": "キャンセル",
+    "ownerReply": "オーナー返信"
   },
   "register": {
     "title": "レストラン登録",
@@ -201,7 +202,13 @@
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos",
     "invalidBizNo": "事業者登録番号の形式: 000-00-00000",
-    "bizRegNoPlaceholder": "事業者登録番号 000-00-00000"
+    "bizRegNoPlaceholder": "事業者登録番号 000-00-00000",
+    "replyPlaceholder": "このレビューに返信...",
+    "replySubmit": "返信する",
+    "replyEdit": "返信を編集",
+    "replySaved": "返信が保存されました！",
+    "replyFailed": "返信を保存できませんでした。もう一度お試しください。",
+    "ownerReply": "オーナー返信"
   },
   "pricing": {
     "title": "シンプルな料金プラン",

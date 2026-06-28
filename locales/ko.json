@@ -89,7 +89,8 @@
     "submitReview": "등록하기",
     "reviewThanks": "리뷰 감사합니다!",
     "reviewError": "등록에 실패했습니다. 다시 시도해 주세요.",
-    "cancel": "취소"
+    "cancel": "취소",
+    "ownerReply": "사장님 답글"
   },
   "register": {
     "title": "식당 등록",

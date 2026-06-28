@@ -89,7 +89,8 @@
     "submitReview": "Submit",
     "reviewThanks": "Thank you for your review!",
     "reviewError": "Failed to submit. Please try again.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "ownerReply": "Owner Reply"
   },
   "register": {
     "title": "Add Restaurant",
