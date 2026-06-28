@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { IconBuildingStore, IconChevronLeft } from "@tabler/icons-react";
 import { partnerLogin, partnerSignUp } from "@/app/actions/partner";
 import { TRACK_EVENTS, track } from "@/lib/analytics";
+import { formatBizRegNo } from "@/lib/utils";
 
 const inputClass =
   "w-full rounded-xl border border-[#FFD4B8] bg-white px-3 py-3 text-[14px] font-semibold text-[#1A0800] placeholder:text-[#C0A080] focus:border-[#FF6B35] focus:outline-none";
@@ -18,6 +19,7 @@ export default function PartnerLoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [bizRegNo, setBizRegNo] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -111,6 +113,16 @@ export default function PartnerLoginPage() {
             minLength={8}
             className={inputClass}
           />
+          {mode === "signup" && (
+            <input
+              name="bizRegNo"
+              value={bizRegNo}
+              onChange={(e) => setBizRegNo(formatBizRegNo(e.target.value))}
+              placeholder={t("bizRegNoPlaceholder")}
+              required
+              className={inputClass}
+            />
+          )}
           {error && (
             <p className="text-[12px] font-bold text-[#B91C1C]">{t(error)}</p>
           )}

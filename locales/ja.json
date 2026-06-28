@@ -189,7 +189,9 @@
     "addMenuItem": "Add menu item",
     "addMenuItemSubmit": "Add",
     "delete": "Delete",
-    "upgradeForMorePhotos": "Upgrade to add more photos"
+    "upgradeForMorePhotos": "Upgrade to add more photos",
+    "invalidBizNo": "事業者登録番号の形式: 000-00-00000",
+    "bizRegNoPlaceholder": "事業者登録番号 000-00-00000"
   },
   "pricing": {
     "title": "シンプルな料金プラン",

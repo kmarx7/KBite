@@ -25,21 +25,35 @@ const credentialsSchema = z.object({
   password: z.string().min(8, "passwordMin").max(72),
 });
 
+const signupSchema = credentialsSchema.extend({
+  bizRegNo: z
+    .string()
+    .trim()
+    .regex(/^\d{3}-\d{2}-\d{5}$/, "invalidBizNo"),
+});
+
 /* ───────────── 가입 / 로그인 / 로그아웃 ───────────── */
 
 export async function partnerSignUp(
   formData: FormData,
 ): Promise<PartnerResult> {
-  const parsed = credentialsSchema.safeParse({
+  const parsed = signupSchema.safeParse({
     email: String(formData.get("email") ?? ""),
     password: String(formData.get("password") ?? ""),
+    bizRegNo: String(formData.get("bizRegNo") ?? ""),
   });
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message };
   }
 
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.signUp(parsed.data);
+  const { data, error } = await supabase.auth.signUp({
+    email: parsed.data.email,
+    password: parsed.data.password,
+    options: {
+      data: { biz_reg_no: parsed.data.bizRegNo, role: "partner" },
+    },
+  });
   if (error) {
     /* 이미 가입된 이메일 등 — 상세 사유는 노출하지 않음 (계정 열거 방지) */
     return { ok: false, error: "signupFailed" };
