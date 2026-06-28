@@ -189,7 +189,9 @@
     "addMenuItem": "Add menu item",
     "addMenuItemSubmit": "Add",
     "delete": "Delete",
-    "upgradeForMorePhotos": "Upgrade to add more photos"
+    "upgradeForMorePhotos": "Upgrade to add more photos",
+    "invalidBizNo": "Формат регистрационного номера: 000-00-00000",
+    "bizRegNoPlaceholder": "Рег. номер бизнеса 000-00-00000"
   },
   "pricing": {
     "title": "Простые прозрачные цены",

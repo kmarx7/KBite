@@ -189,7 +189,9 @@
     "addMenuItem": "Add menu item",
     "addMenuItemSubmit": "Add",
     "delete": "Delete",
-    "upgradeForMorePhotos": "Upgrade to add more photos"
+    "upgradeForMorePhotos": "Upgrade to add more photos",
+    "invalidBizNo": "รูปแบบเลขทะเบียนธุรกิจ: 000-00-00000",
+    "bizRegNoPlaceholder": "เลขทะเบียนธุรกิจ 000-00-00000"
   },
   "pricing": {
     "title": "ราคาเรียบง่าย โปร่งใส",

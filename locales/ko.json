@@ -229,7 +229,9 @@
     "addMenuItem": "메뉴 추가",
     "addMenuItemSubmit": "추가",
     "delete": "삭제",
-    "upgradeForMorePhotos": "업그레이드하면 더 많은 사진 등록 가능"
+    "upgradeForMorePhotos": "업그레이드하면 더 많은 사진 등록 가능",
+    "invalidBizNo": "사업자등록번호 형식: 000-00-00000",
+    "bizRegNoPlaceholder": "사업자등록번호 000-00-00000"
   },
   "pricing": {
     "title": "투명한 가격 정책",

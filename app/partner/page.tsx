@@ -5,6 +5,7 @@ import {
   IconBuildingStore,
   IconChevronRight,
   IconPlus,
+  IconRocket,
 } from "@tabler/icons-react";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -157,6 +158,14 @@ export default async function PartnerPage() {
         >
           <IconPlus size={15} stroke={2.5} />
           {t("registerNew")}
+        </Link>
+
+        <Link
+          href="/pricing"
+          className="flex items-center justify-center gap-1.5 rounded-2xl border border-[#FFD4B8] bg-white py-3 text-[13px] font-extrabold text-[#8A6040]"
+        >
+          <IconRocket size={15} stroke={2} />
+          {t("navBilling")}
         </Link>
       </main>
     </div>

@@ -189,7 +189,9 @@
     "addMenuItem": "Add menu item",
     "addMenuItemSubmit": "Add",
     "delete": "Delete",
-    "upgradeForMorePhotos": "Upgrade to add more photos"
+    "upgradeForMorePhotos": "Upgrade to add more photos",
+    "invalidBizNo": "Định dạng số đăng ký kinh doanh: 000-00-00000",
+    "bizRegNoPlaceholder": "Số đăng ký kinh doanh 000-00-00000"
   },
   "pricing": {
     "title": "Giá cả minh bạch, đơn giản",
