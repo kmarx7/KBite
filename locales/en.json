@@ -46,8 +46,12 @@
     "found": "{count} found",
     "filterSort": "Filter · Sort",
     "myLocation": "My Location",
-    "locationDenied": "Location permission is off. Allow location in your browser's address bar (lock icon) or site settings, then refresh.",
-    "locationUnavailable": "Couldn't get your location. Please try again."
+    "locationDenied": "Location permission is off. Tap here for help.",
+    "locationUnavailable": "Couldn't get your location. Please try again.",
+    "locationGuideTitle": "How to Enable Location",
+    "locationGuideIOS": "1. Open iPhone Settings\n2. Privacy & Security → Location Services\n3. Find Safari (or your browser) and tap it\n4. Choose \"While Using the App\"\n5. Refresh KBite",
+    "locationGuideOther": "1. Tap the lock icon in your browser's address bar\n2. Set Location to \"Allow\"\n3. Refresh the page",
+    "locationGuideConfirm": "Got it"
   },
   "filterSheet": {
     "title": "Filter & Sort",

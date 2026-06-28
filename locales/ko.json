@@ -46,8 +46,12 @@
     "found": "{count}곳",
     "filterSort": "필터 · 정렬",
     "myLocation": "내 위치",
-    "locationDenied": "위치 권한이 꺼져 있어요. 브라우저 주소창의 자물쇠 아이콘(또는 사이트 설정)에서 위치를 허용한 뒤 새로고침해주세요.",
-    "locationUnavailable": "위치를 가져오지 못했어요. 다시 시도해주세요."
+    "locationDenied": "위치 권한이 꺼져 있어요. 탭해서 해결 방법 보기",
+    "locationUnavailable": "위치를 가져오지 못했어요. 다시 시도해주세요.",
+    "locationGuideTitle": "위치 권한 허용하는 방법",
+    "locationGuideIOS": "1. iPhone 설정 앱을 열어주세요\n2. 개인 정보 보호 및 보안 → 위치 서비스\n3. Safari(또는 사용 중인 브라우저)를 찾아 탭\n4. '앱을 사용하는 동안' 선택\n5. KBite 새로고침",
+    "locationGuideOther": "1. 주소창 왼쪽 자물쇠 아이콘을 탭하세요\n2. 위치를 '허용'으로 변경하세요\n3. 페이지를 새로고침하세요",
+    "locationGuideConfirm": "확인"
   },
   "filterSheet": {
     "title": "필터 & 정렬",

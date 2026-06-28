@@ -58,16 +58,21 @@ export default function ExploreScreen({
   const [locationError, setLocationError] = useState<
     "locationDenied" | "locationUnavailable" | null
   >(null);
+  const [showLocationGuide, setShowLocationGuide] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  /* 버튼 클릭 — 권한 재요청, 거부 상태면 안내 배너 */
+  const isIOS =
+    typeof navigator !== "undefined" &&
+    /iPhone|iPad|iPod/.test(navigator.userAgent);
+
+  /* 버튼 클릭 — 사용자 제스처에서 권한 요청 (iOS에서 대화상자 표시) */
   const requestLocation = () => {
     if (!navigator.geolocation) return;
     setLocating(true);
+    setLocationError(null);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         setLocating(false);
-        setLocationError(null);
         setMyLocation({
           lat: pos.coords.latitude,
           lng: pos.coords.longitude,
@@ -81,24 +86,45 @@ export default function ExploreScreen({
             : "locationUnavailable",
         );
       },
-      { enableHighAccuracy: false, timeout: 8000 },
+      { enableHighAccuracy: true, timeout: 10000 },
     );
   };
 
   useEffect(() => { setMounted(true); }, []);
 
-  /* 최초 자동 요청 — 실패 시 조용히 이태원 폴백 (콜백에서만 상태 갱신) */
+  /* 최초 자동 요청 — 이미 허가된 경우만 조용히 위치 가져오기
+     iOS Safari에서 'prompt' 상태일 때 useEffect 자동 요청은 대화상자를 표시하지 않을 수 있어
+     권한 상태를 먼저 확인 후 granted일 때만 자동 요청 */
   useEffect(() => {
     if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(
-      (pos) =>
-        setMyLocation({
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude,
-        }),
-      () => {},
-      { enableHighAccuracy: false, timeout: 8000 },
-    );
+
+    const silentGet = () => {
+      navigator.geolocation.getCurrentPosition(
+        (pos) =>
+          setMyLocation({
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+          }),
+        () => {},
+        { enableHighAccuracy: false, timeout: 8000 },
+      );
+    };
+
+    if ("permissions" in navigator) {
+      navigator.permissions
+        .query({ name: "geolocation" as PermissionName })
+        .then((result) => {
+          if (result.state === "granted") {
+            silentGet();
+          } else if (result.state === "denied") {
+            setLocationError("locationDenied");
+          }
+          // 'prompt' 상태 → 자동 요청 건너뜀, 사용자가 버튼을 탭해야 함
+        })
+        .catch(silentGet); // permissions API 미지원 → 기존 방식 폴백
+    } else {
+      silentGet(); // 구버전 브라우저 폴백
+    }
   }, []);
 
   const origin = myLocation ?? DEFAULT_LOCATION;
@@ -273,9 +299,17 @@ export default function ExploreScreen({
       {/* 위치 권한 안내 배너 */}
       {locationError && (
         <div className="flex items-start gap-2 border-b border-[#FDE047] bg-[#FEF9C3] px-4 py-2.5">
-          <p className="min-w-0 flex-1 text-[11px] font-semibold leading-relaxed text-[#854D0E]">
+          <button
+            type="button"
+            onClick={
+              locationError === "locationDenied"
+                ? () => setShowLocationGuide(true)
+                : requestLocation
+            }
+            className="min-w-0 flex-1 text-start text-[11px] font-semibold leading-relaxed text-[#854D0E] underline decoration-[#854D0E]/50 underline-offset-2"
+          >
             {t(locationError)}
-          </p>
+          </button>
           <button
             type="button"
             onClick={() => setLocationError(null)}
@@ -284,6 +318,43 @@ export default function ExploreScreen({
           >
             <IconX size={14} color="#854D0E" />
           </button>
+        </div>
+      )}
+
+      {/* 위치 권한 안내 모달 */}
+      {showLocationGuide && (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/40"
+          onClick={() => setShowLocationGuide(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-t-2xl bg-white p-5 pb-8 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-1 h-1 w-10 rounded-full bg-[#E5E7EB] mx-auto" />
+            <h3 className="mb-4 mt-3 text-[15px] font-extrabold text-[#1A0800]">
+              {t("locationGuideTitle")}
+            </h3>
+            <div className="space-y-2">
+              {t(isIOS ? "locationGuideIOS" : "locationGuideOther")
+                .split("\n")
+                .map((step, i) => (
+                  <p
+                    key={i}
+                    className="text-[12px] leading-relaxed text-[#4A3020]"
+                  >
+                    {step}
+                  </p>
+                ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowLocationGuide(false)}
+              className="mt-5 w-full rounded-full bg-[#FF6B35] py-3 text-[13px] font-bold text-white"
+            >
+              {t("locationGuideConfirm")}
+            </button>
+          </div>
         </div>
       )}
 

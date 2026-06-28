@@ -88,8 +88,11 @@ export default function MapView({
         zIndex: 10,
       });
       myLocOverlayRef.current.setMap(map);
+    } else {
+      myLocOverlayRef.current.setPosition(pos);
     }
-    map.setCenter(pos);
+    map.setLevel(4, { animate: true });
+    map.panTo(pos);
   }, [myLocation, mapReady]);
 
   return (

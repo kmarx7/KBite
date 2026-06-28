@@ -46,8 +46,12 @@
     "found": "共 {count} 家",
     "filterSort": "筛选 · 排序",
     "myLocation": "我的位置",
-    "locationDenied": "位置权限已关闭。请在浏览器地址栏（锁图标）或网站设置中允许位置访问，然后刷新页面。",
-    "locationUnavailable": "无法获取您的位置，请重试。"
+    "locationDenied": "位置权限已关闭。点击查看解决方法",
+    "locationUnavailable": "无法获取您的位置，请重试。",
+    "locationGuideTitle": "如何开启位置权限",
+    "locationGuideIOS": "1. 打开iPhone设置\n2. 隐私与安全性 → 定位服务\n3. 找到Safari或你的浏览器 → 点击\n4. 选择“使用App期间”\n5. 刷新KBite",
+    "locationGuideOther": "1. 点击浏览器地址栏的锁图标\n2. 将位置改为“允许”\n3. 刷新页面",
+    "locationGuideConfirm": "知道了"
   },
   "filterSheet": {
     "title": "筛选与排序",

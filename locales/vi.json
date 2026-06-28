@@ -46,8 +46,12 @@
     "found": "{count} kết quả",
     "filterSort": "Lọc · Sắp xếp",
     "myLocation": "Vị trí của tôi",
-    "locationDenied": "Quyền vị trí đang tắt. Hãy cho phép vị trí trong thanh địa chỉ trình duyệt (biểu tượng ổ khóa) hoặc cài đặt trang web, rồi tải lại trang.",
-    "locationUnavailable": "Không lấy được vị trí của bạn. Vui lòng thử lại."
+    "locationDenied": "Quyền vị trí đang tắt. Nhấn để xem hướng dẫn bật",
+    "locationUnavailable": "Không lấy được vị trí của bạn. Vui lòng thử lại.",
+    "locationGuideTitle": "Cách bật quyền vị trí",
+    "locationGuideIOS": "1. Mở Ứng dụng Cài đặt trên iPhone\n2. Quyền riêng tư & Bảo mật → Dịch vụ vị trí\n3. Tìm Safari hoặc trình duyệt → nhấn vào\n4. Chọn \"Khi sử dụng ứng dụng\"\n5. Tải lại KBite",
+    "locationGuideOther": "1. Nhấn vào biểu tượng ổ khóa trên thanh địa chỉ\n2. Đổi vị trí thành \"Cho phép\"\n3. Tải lại trang",
+    "locationGuideConfirm": "Đã hiểu"
   },
   "filterSheet": {
     "title": "Lọc & Sắp xếp",

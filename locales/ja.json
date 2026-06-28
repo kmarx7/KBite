@@ -46,8 +46,12 @@
     "found": "{count} 件",
     "filterSort": "絞り込み · 並べ替え",
     "myLocation": "現在地",
-    "locationDenied": "位置情報の許可がオフになっています。ブラウザのアドレスバー（鍵アイコン）またはサイト設定で位置情報を許可してから、ページを更新してください。",
-    "locationUnavailable": "現在地を取得できませんでした。もう一度お試しください。"
+    "locationDenied": "位置情報の許可がオフです。タップして解決方法を見る",
+    "locationUnavailable": "現在地を取得できませんでした。もう一度お試しください。",
+    "locationGuideTitle": "位置情報の許可の方法",
+    "locationGuideIOS": "1. iPhoneの設定アプリを開く\n2. プライバシーとセキュリティ → 位置情報サービス\n3. Safariまたは使用中のブラウザをタップ\n4. 「このAppの使用中のみ」を選択\n5. KBiteを再読み込み",
+    "locationGuideOther": "1. アドレスバーの鍵アイコンをタップ\n2. 位置情報を「許可」に変更\n3. ページを再読み込み",
+    "locationGuideConfirm": "確認"
   },
   "filterSheet": {
     "title": "絞り込みと並べ替え",
