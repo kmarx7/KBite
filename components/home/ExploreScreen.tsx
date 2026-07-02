@@ -386,7 +386,7 @@ export default function ExploreScreen({
               <span
                 key={cat}
                 className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-extrabold text-white"
-                style={{ backgroundColor: CATEGORIES[cat].color }}
+                style={{ backgroundColor: CATEGORIES[cat].colorDark }}
               >
                 {CATEGORIES[cat].emoji} {tc(cat)}
               </span>

@@ -57,9 +57,14 @@ export default function RestaurantCard({
       <div className="flex min-w-0 flex-1 flex-col justify-center gap-1 py-3 pe-3 ps-3">
         {/* 이름 + 오픈 dot */}
         <div className="flex items-center gap-2">
+          {/* 색약 사용자용 이중 부호화: 영업 중 = 채움, 마감 = 빈 원 */}
           <span
             className="h-[7px] w-[7px] shrink-0 rounded-full"
-            style={{ backgroundColor: isOpen ? "#22C55E" : "#F87171" }}
+            style={
+              isOpen
+                ? { backgroundColor: "#22C55E" }
+                : { border: "1.5px solid #EF4444" }
+            }
             aria-label={isOpen ? tc("openNow") : tc("closed")}
           />
           <h3 className="min-w-0 flex-1 truncate text-[16px] font-extrabold leading-tight text-[#1A0800]">
