@@ -137,9 +137,11 @@ export default function RegisterPage() {
   useEffect(() => {
     if (submitted) return;
     const id = setTimeout(() => {
-      const { photo: _photo, certFile: _certFile, ...rest } = form;
+      const draft: Record<string, unknown> = { ...form, step };
+      delete draft.photo;
+      delete draft.certFile;
       try {
-        localStorage.setItem(DRAFT_KEY, JSON.stringify({ ...rest, step }));
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
       } catch {
         /* 저장 공간 부족 등 — 드래프트는 편의 기능이라 무시 */
       }
