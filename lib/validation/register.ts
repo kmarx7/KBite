@@ -97,6 +97,23 @@ export function validateStep(
   return result.error.issues[0]?.message ?? "requiredField";
 }
 
+/** 단계별 검증 (필드 단위) — 필드명 → 첫 에러 i18n 키. 통과 시 빈 객체 */
+export function validateStepFields(
+  step: 1 | 2 | 3,
+  data: unknown,
+): Record<string, string> {
+  const schema =
+    step === 1 ? step1Schema : step === 2 ? step2Schema : step3Schema;
+  const result = schema.safeParse(data);
+  if (result.success) return {};
+  const errors: Record<string, string> = {};
+  for (const issue of result.error.issues) {
+    const field = String(issue.path[0] ?? "");
+    if (field && !errors[field]) errors[field] = issue.message;
+  }
+  return errors;
+}
+
 /** 업로드 파일 제한 — 클라이언트 UX용. 서버 측에서도 동일 제한 적용 필수 */
 export const MAX_UPLOAD_MB = 5;
 export const ALLOWED_IMAGE_TYPES = [

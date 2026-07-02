@@ -126,7 +126,11 @@ function PartnerLoginInner() {
           onSubmit={handleSubmit}
           className="flex w-full max-w-xs flex-col gap-3"
         >
+          <label className="sr-only" htmlFor="partner-email">
+            {t("email")}
+          </label>
           <input
+            id="partner-email"
             type="email"
             name="email"
             autoComplete="email"
@@ -135,7 +139,12 @@ function PartnerLoginInner() {
             className={inputClass}
           />
           {mode !== "reset" && (
+            <>
+            <label className="sr-only" htmlFor="partner-password">
+              {t("password")}
+            </label>
             <input
+              id="partner-password"
               type="password"
               name="password"
               autoComplete={
@@ -146,9 +155,15 @@ function PartnerLoginInner() {
               minLength={8}
               className={inputClass}
             />
+            </>
           )}
           {mode === "signup" && (
+            <>
+            <label className="sr-only" htmlFor="partner-bizno">
+              {t("bizRegNoPlaceholder")}
+            </label>
             <input
+              id="partner-bizno"
               name="bizRegNo"
               value={bizRegNo}
               onChange={(e) => setBizRegNo(formatBizRegNo(e.target.value))}
@@ -156,6 +171,7 @@ function PartnerLoginInner() {
               required
               className={inputClass}
             />
+            </>
           )}
           {error && (
             <p className="text-[12px] font-bold text-[#B91C1C]">{t(error)}</p>

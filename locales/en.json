@@ -140,7 +140,10 @@
     "addressGeocoding": "Locating address…",
     "addressDetailPlaceholder": "Unit, floor, etc. (optional)",
     "geocodeFailed": "We couldn't locate this address on the map. Please search again.",
-    "addressSearchRequired": "Please select your address using the address search."
+    "addressSearchRequired": "Please select your address using the address search.",
+    "ownerEmailHint": "The owner signs up for the KBite Partner Center with this email to manage the restaurant directly.",
+    "draftRestored": "We restored your unfinished registration.",
+    "draftClear": "Start over"
   },
   "language": {
     "select": "Select Language"
