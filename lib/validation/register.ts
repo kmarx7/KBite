@@ -31,12 +31,14 @@ const TIME_PATTERN = /^([01]\d|2[0-3]):[0-5]\d$/;
 
 export const step1Schema = z.object({
   name: z.string().trim().min(1, "requiredField").max(100, "requiredField"),
+  /* 소문자 정규화 — 파트너 claim이 이메일 일치로 소유권을 판단하므로 저장 시점에 통일 */
   ownerEmail: z
     .string()
     .trim()
     .min(1, "requiredField")
     .max(254, "invalidEmail")
-    .email("invalidEmail"),
+    .email("invalidEmail")
+    .toLowerCase(),
   phone: z
     .string()
     .trim()

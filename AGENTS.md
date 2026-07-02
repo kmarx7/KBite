@@ -21,6 +21,10 @@ Security is a hard requirement on this project. Every feature must follow these 
 - Every server action and API route validates its input with zod before touching the DB. Client-side validation (lib/validation/) is UX only — the server is the security boundary.
 - File uploads: enforce MAX_UPLOAD_MB and MIME whitelist (lib/validation/register.ts) on the server too; randomize storage filenames; never trust client-provided file names or types.
 
+## Partner auth & ownership
+- Supabase Auth **email confirmation must stay ON**. Restaurant ownership (claim) is granted by matching the login email to `owner_email` — with confirmation off, anyone could sign up as someone else's email and take over their restaurant. Never disable it for "signup friction" reasons.
+- `owner_email` is stored lowercased; claim comparison is exact-match on lowercase. Any query matching user-supplied strings with `like`/`ilike` must escape `%`, `_`, `\`.
+
 ## Payments (Phase 2)
 - Card data never touches our code or DB — Toss Payments handles PCI DSS. Store only billing keys, payment keys, and amounts.
 - Verify payment results server-side against the Toss API (never trust client callbacks alone). Amounts come from server-side plan definitions, never from the client.
