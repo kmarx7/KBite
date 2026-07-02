@@ -120,6 +120,7 @@ export default function RegisterPage() {
     payload.set("snsUrl", form.snsUrl);
     payload.set("consent", String(form.consent));
     if (form.photo) payload.set("photo", form.photo);
+    if (form.certFile) payload.set("certFile", form.certFile);
 
     startTransition(async () => {
       const result = await registerRestaurant(payload);
