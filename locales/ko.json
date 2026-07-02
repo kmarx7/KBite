@@ -249,7 +249,18 @@
     "delete": "삭제",
     "upgradeForMorePhotos": "업그레이드하면 더 많은 사진 등록 가능",
     "invalidBizNo": "사업자등록번호 형식: 000-00-00000",
-    "bizRegNoPlaceholder": "사업자등록번호 000-00-00000"
+    "bizRegNoPlaceholder": "사업자등록번호 000-00-00000",
+    "forgotPassword": "비밀번호를 잊으셨나요?",
+    "resetTitle": "새 비밀번호 설정",
+    "resetDesc": "가입하신 이메일을 입력하면 비밀번호 재설정 링크를 보내드려요.",
+    "resetSend": "재설정 링크 보내기",
+    "resetSent": "해당 이메일로 가입된 계정이 있다면 재설정 링크를 보냈어요.",
+    "newPassword": "새 비밀번호",
+    "newPasswordConfirm": "새 비밀번호 확인",
+    "passwordMismatch": "비밀번호가 서로 달라요.",
+    "resetSubmit": "비밀번호 변경",
+    "resetExpired": "링크가 만료됐거나 유효하지 않아요. 다시 요청해 주세요.",
+    "backToLogin": "로그인으로 돌아가기"
   },
   "pricing": {
     "title": "투명한 가격 정책",
