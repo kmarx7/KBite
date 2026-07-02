@@ -134,7 +134,13 @@
     "invalidBizNo": "사업자등록번호 형식: 000-00-00000",
     "submitFailed": "제출 중 문제가 발생했어요. 다시 시도해주세요.",
     "consent": "<terms>이용약관</terms>, <privacy>개인정보처리방침</privacy>, <partner>파트너 약관</partner>을 읽었으며 동의합니다.",
-    "consentRequired": "약관에 동의해야 등록할 수 있어요"
+    "consentRequired": "약관에 동의해야 등록할 수 있어요",
+    "addressSearchPlaceholder": "주소 검색",
+    "addressSearchTitle": "주소 찾기",
+    "addressGeocoding": "주소 위치 확인 중…",
+    "addressDetailPlaceholder": "상세 주소 (동·호수 등, 선택)",
+    "geocodeFailed": "주소의 지도 위치를 확인하지 못했어요. 다시 검색해 주세요.",
+    "addressSearchRequired": "주소 검색으로 주소를 선택해 주세요."
   },
   "language": {
     "select": "언어 선택"

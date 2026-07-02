@@ -134,7 +134,13 @@
     "invalidBizNo": "Business registration number format: 000-00-00000",
     "submitFailed": "Something went wrong while submitting. Please try again.",
     "consent": "I have read and agree to the <terms>Terms of Service</terms>, <privacy>Privacy Policy</privacy> and <partner>Partner Terms</partner>.",
-    "consentRequired": "Please agree to the terms to continue"
+    "consentRequired": "Please agree to the terms to continue",
+    "addressSearchPlaceholder": "Search address",
+    "addressSearchTitle": "Find your address",
+    "addressGeocoding": "Locating address…",
+    "addressDetailPlaceholder": "Unit, floor, etc. (optional)",
+    "geocodeFailed": "We couldn't locate this address on the map. Please search again.",
+    "addressSearchRequired": "Please select your address using the address search."
   },
   "language": {
     "select": "Select Language"

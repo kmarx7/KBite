@@ -7,6 +7,7 @@ import {
   step1Schema,
   step2Schema,
   step3Schema,
+  coordsSchema,
   validateFile,
   ALLOWED_IMAGE_TYPES,
   ALLOWED_DOC_TYPES,
@@ -78,6 +79,15 @@ export async function registerRestaurant(
     return { ok: false, error: "requiredField" };
   }
 
+  /* 좌표 — 주소 검색(지오코딩)으로만 확정됨. 범위 밖/누락은 거부 */
+  const parsedCoords = coordsSchema.safeParse({
+    lat: formData.get("lat"),
+    lng: formData.get("lng"),
+  });
+  if (!parsedCoords.success) {
+    return { ok: false, error: "addressSearchRequired" };
+  }
+
   const supabase = createAdminClient();
 
   /* 로그인된 사용자면 owner_id 자동 연결 */
@@ -133,8 +143,8 @@ export async function registerRestaurant(
     phone: parsed1.data.phone || null,
     category: parsed1.data.category,
     address: parsed2.data.address,
-    lat: 37.534,
-    lng: 126.9948,
+    lat: parsedCoords.data.lat,
+    lng: parsedCoords.data.lng,
     opening_time: parsed2.data.openingTime,
     closing_time: parsed2.data.closingTime,
     price_currency: parsed2.data.priceCurrency,

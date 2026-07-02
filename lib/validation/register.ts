@@ -77,6 +77,12 @@ export const step3Schema = z.object({
     .regex(/^$|^https?:\/\/\S+$/i, "invalidUrl"),
 });
 
+/** 좌표 — 클라이언트 지오코딩 결과를 서버에서 재검증 (한국 영토 범위) */
+export const coordsSchema = z.object({
+  lat: z.coerce.number().min(33, "addressSearchRequired").max(39, "addressSearchRequired"),
+  lng: z.coerce.number().min(124, "addressSearchRequired").max(132, "addressSearchRequired"),
+});
+
 /** 단계별 검증 — 통과 시 null, 실패 시 첫 에러의 i18n 키 반환 */
 export function validateStep(
   step: 1 | 2 | 3,

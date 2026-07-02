@@ -14,6 +14,7 @@ import {
 } from "@/lib/price";
 import WheelPicker from "@/components/ui/WheelPicker";
 import StepIndicator from "@/components/register/StepIndicator";
+import AddressSearch from "@/components/register/AddressSearch";
 import CategoryGrid from "@/components/register/CategoryGrid";
 import CertToggle from "@/components/register/CertToggle";
 import LangToggle from "@/components/register/LangToggle";
@@ -31,6 +32,9 @@ interface RegisterForm {
   phone: string;
   category: Category | null;
   address: string;
+  addressDetail: string;
+  lat: number | null;
+  lng: number | null;
   openingTime: string | null;
   closingTime: string | null;
   priceCurrency: PriceCurrency;
@@ -52,6 +56,9 @@ const INITIAL_FORM: RegisterForm = {
   phone: "",
   category: null,
   address: "",
+  addressDetail: "",
+  lat: null,
+  lng: null,
   openingTime: null,
   closingTime: null,
   priceCurrency: "KRW",
@@ -91,6 +98,11 @@ export default function RegisterPage() {
       setError(errorKey);
       return;
     }
+    /* 주소는 검색으로 선택해야 좌표가 확정됨 — 좌표 없으면 지도에 못 올림 */
+    if (step === 2 && (form.lat == null || form.lng == null)) {
+      setError("addressSearchRequired");
+      return;
+    }
     setError(null);
     if (step < 3) {
       setStep((s) => (s + 1) as 1 | 2 | 3);
@@ -107,7 +119,14 @@ export default function RegisterPage() {
     payload.set("ownerEmail", form.ownerEmail);
     payload.set("phone", form.phone);
     payload.set("category", form.category ?? "");
-    payload.set("address", form.address);
+    payload.set(
+      "address",
+      form.addressDetail
+        ? `${form.address}, ${form.addressDetail}`
+        : form.address,
+    );
+    payload.set("lat", form.lat != null ? String(form.lat) : "");
+    payload.set("lng", form.lng != null ? String(form.lng) : "");
     if (form.openingTime) payload.set("openingTime", form.openingTime);
     if (form.closingTime) payload.set("closingTime", form.closingTime);
     payload.set("priceCurrency", form.priceCurrency);
@@ -237,16 +256,28 @@ export default function RegisterPage() {
               {t("restaurantDetail")}
             </h2>
             <div>
-              <label className={labelClass} htmlFor="reg-address">
-                {t("address")} *
-              </label>
-              <input
-                id="reg-address"
-                className={inputClass}
-                placeholder={t("addressPlaceholder")}
-                value={form.address}
-                onChange={(e) => set("address", e.target.value)}
+              <span className={labelClass}>{t("address")} *</span>
+              <AddressSearch
+                value={{ address: form.address, lat: form.lat, lng: form.lng }}
+                onChange={(v) =>
+                  setForm((f) => ({
+                    ...f,
+                    address: v.address,
+                    lat: v.lat,
+                    lng: v.lng,
+                  }))
+                }
               />
+              {form.address && (
+                <input
+                  id="reg-address-detail"
+                  className={`${inputClass} mt-2`}
+                  placeholder={t("addressDetailPlaceholder")}
+                  value={form.addressDetail}
+                  onChange={(e) => set("addressDetail", e.target.value)}
+                  maxLength={100}
+                />
+              )}
             </div>
             {/* 2열 그리드 — min-width:0 필수 */}
             <div className="grid grid-cols-2 gap-2">
