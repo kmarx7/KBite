@@ -263,7 +263,8 @@
     "statsSaves": "الحفظ",
     "statsViews": "المشاهدات",
     "subCancelledNotice": "تم إلغاء الاشتراك — المزايا سارية حتى {date}",
-    "upgradeNow": "الترقية إلى Premium"
+    "upgradeNow": "الترقية إلى Premium",
+    "subPastDueNotice": "فشل الدفع — سنعيد المحاولة حتى {date}، وبعدها ستتحول خطتك إلى المجانية. يرجى إعادة تسجيل بطاقتك."
   },
   "pricing": {
     "title": "تسعير بسيط وشفاف",

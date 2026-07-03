@@ -44,6 +44,28 @@ interface ChargeParams {
   customerName?: string;
 }
 
+export interface TossPayment {
+  paymentKey: string;
+  orderId: string;
+  /** DONE | CANCELED | ABORTED | EXPIRED | IN_PROGRESS ... */
+  status: string;
+}
+
+/** 주문 대사용 조회 — 주문이 없으면 null */
+export async function getPaymentByOrderId(
+  orderId: string,
+): Promise<TossPayment | null> {
+  const res = await fetch(`${BASE}/payments/orders/${orderId}`, {
+    headers: { Authorization: authHeader() },
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) {
+    const err = (await res.json().catch(() => ({}))) as { message?: string };
+    throw new Error(err.message ?? "주문 조회 실패");
+  }
+  return res.json() as Promise<TossPayment>;
+}
+
 export async function chargeBillingKey(
   params: ChargeParams,
 ): Promise<TossCharge> {
