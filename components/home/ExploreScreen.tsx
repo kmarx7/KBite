@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -59,7 +59,12 @@ export default function ExploreScreen({
     "locationDenied" | "locationUnavailable" | null
   >(null);
   const [showLocationGuide, setShowLocationGuide] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  /* 서버 false / 클라이언트 true — isOpenNow(시간 의존)의 하이드레이션 불일치 방지 */
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   const isIOS =
     typeof navigator !== "undefined" &&
@@ -89,8 +94,6 @@ export default function ExploreScreen({
       { enableHighAccuracy: true, timeout: 10000 },
     );
   };
-
-  useEffect(() => { setMounted(true); }, []);
 
   /* 최초 자동 요청 — 이미 허가된 경우만 조용히 위치 가져오기
      iOS Safari에서 'prompt' 상태일 때 useEffect 자동 요청은 대화상자를 표시하지 않을 수 있어
