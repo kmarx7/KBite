@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   restaurantId: string;
@@ -19,6 +20,7 @@ export default function BillingUpgradeButton({
   restaurantName,
   userEmail,
 }: Props) {
+  const t = useTranslations("partner");
   const [loading, setLoading] = useState(false);
 
   async function handleClick() {
@@ -52,8 +54,9 @@ export default function BillingUpgradeButton({
       style={{ backgroundColor: "#FF6B35" }}
     >
       {loading
-        ? "처리 중..."
-        : `${planLabel} 플랜으로 업그레이드 (₩${price.toLocaleString()}/월)`}
+        ? t("billingWorking")
+        : t("planUpgrade", { plan: planLabel }) +
+          ` (₩${price.toLocaleString()}${t("planPerMonth")})`}
     </button>
   );
 }

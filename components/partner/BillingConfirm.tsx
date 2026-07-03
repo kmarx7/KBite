@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { confirmBillingAuth } from "@/app/actions/billing";
 
 interface Props {
@@ -14,7 +15,7 @@ interface Props {
 type Phase =
   | { state: "processing" }
   | { state: "done"; amount?: number }
-  | { state: "error"; message: string };
+  | { state: "error"; messageKey: string; detail?: string };
 
 /** 카드 등록 리다이렉트 착지 후 결제 확정을 1회 호출 — GET 렌더 부수효과 제거 */
 export default function BillingConfirm({
@@ -23,6 +24,7 @@ export default function BillingConfirm({
   customerKey,
   plan,
 }: Props) {
+  const t = useTranslations("partner");
   const [phase, setPhase] = useState<Phase>({ state: "processing" });
   const startedRef = useRef(false);
 
@@ -35,7 +37,11 @@ export default function BillingConfirm({
         setPhase(
           result.ok
             ? { state: "done", amount: result.amount }
-            : { state: "error", message: result.error ?? "결제 오류" },
+            : {
+                state: "error",
+                messageKey: result.error ?? "paymentError",
+                detail: result.errorDetail,
+              },
         );
       },
     );
@@ -60,24 +66,35 @@ export default function BillingConfirm({
       </div>
 
       <p className="text-[20px] font-extrabold text-[#1A0800]">
-        {processing ? "결제 처리 중" : ok ? "결제 완료!" : "결제 실패"}
+        {processing
+          ? t("billingProcessing")
+          : ok
+            ? t("billingDone")
+            : t("billingFailed")}
       </p>
 
       {processing && (
         <p className="max-w-xs text-[13px] text-[#8A6040]">
-          잠시만 기다려 주세요. 이 화면을 닫지 마세요.
+          {t("billingProcessingDesc")}
         </p>
       )}
       {phase.state === "done" && (
         <p className="text-[13px] text-[#8A6040]">
-          {plan === "basic" ? "베이직" : "프리미엄"} 플랜
+          {plan === "basic" ? t("planBasic") : t("planPremium")}
           {phase.amount != null && (
-            <> · ₩{phase.amount.toLocaleString()}/월</>
+            <>
+              {" "}
+              · ₩{phase.amount.toLocaleString()}
+              {t("planPerMonth")}
+            </>
           )}
         </p>
       )}
       {phase.state === "error" && (
-        <p className="max-w-xs text-[13px] text-[#8A6040]">{phase.message}</p>
+        <p className="max-w-xs text-[13px] text-[#8A6040]">
+          {t(phase.messageKey)}
+          {phase.detail && <> — {phase.detail}</>}
+        </p>
       )}
 
       {!processing && (
@@ -85,7 +102,7 @@ export default function BillingConfirm({
           href={`/partner/restaurant/${restaurantId}/billing`}
           className="mt-4 rounded-2xl bg-[#FF6B35] px-6 py-3 text-[14px] font-extrabold text-white"
         >
-          {ok ? "구독 관리로 이동" : "돌아가기"}
+          {ok ? t("billingGoManage") : t("billingGoBack")}
         </Link>
       )}
     </div>

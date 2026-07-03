@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import BillingConfirm from "@/components/partner/BillingConfirm";
@@ -33,20 +34,23 @@ export default async function BillingSuccessPage({
 
   const parsed = searchParamsSchema.safeParse(sp);
   if (!parsed.success) {
+    const t = await getTranslations("partner");
     return (
       <div className="flex min-h-dvh flex-col items-center justify-center gap-4 bg-[#FFFAF5] p-6 text-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#FEE2E2] text-[28px] font-extrabold text-[#B91C1C]">
           ✕
         </div>
-        <p className="text-[20px] font-extrabold text-[#1A0800]">결제 실패</p>
+        <p className="text-[20px] font-extrabold text-[#1A0800]">
+          {t("billingFailed")}
+        </p>
         <p className="max-w-xs text-[13px] text-[#8A6040]">
-          잘못된 요청입니다.
+          {t("invalidRequest")}
         </p>
         <Link
           href={`/partner/restaurant/${restaurantId}/billing`}
           className="mt-4 rounded-2xl bg-[#FF6B35] px-6 py-3 text-[14px] font-extrabold text-white"
         >
-          돌아가기
+          {t("billingGoBack")}
         </Link>
       </div>
     );
