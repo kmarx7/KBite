@@ -90,7 +90,8 @@
     "reviewThanks": "Cảm ơn bạn đã đánh giá!",
     "reviewError": "Gửi thất bại. Vui lòng thử lại.",
     "cancel": "Hủy",
-    "ownerReply": "Phản hồi của chủ nhà hàng"
+    "ownerReply": "Phản hồi của chủ nhà hàng",
+    "loginToReview": "Đăng nhập để viết đánh giá"
   },
   "register": {
     "title": "Đăng ký nhà hàng",
@@ -169,9 +170,9 @@
     "addRestaurant": "Đăng ký nhà hàng của bạn",
     "legal": "Điều khoản & Chính sách",
     "contact": "Liên hệ",
-    "accountSoon": "Tài khoản sắp ra mắt — hiện các mục đã lưu được giữ trên thiết bị này.",
     "partnerLogin": "Đăng nhập đối tác",
-    "viewPlans": "Gói & giá"
+    "viewPlans": "Gói & giá",
+    "account": "Tài khoản"
   },
   "partner": {
     "title": "Trung tâm đối tác",
@@ -304,5 +305,30 @@
     "upgradeModalDesc": "Tính năng này có trên {plan} và cao hơn.",
     "upgradeModalCta": "Xem gói và nâng cấp",
     "upgradeModalDismiss": "Để sau"
+  },
+  "auth": {
+    "title": "Tài khoản",
+    "welcome": "Chào mừng đến với KBite",
+    "welcomeDesc": "Đăng nhập để viết đánh giá và giữ danh sách nhà hàng đã lưu trên mọi thiết bị.",
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "email": "Email",
+    "password": "Mật khẩu (từ 8 ký tự)",
+    "continueWithGoogle": "Tiếp tục với Google",
+    "or": "hoặc",
+    "forgotPassword": "Quên mật khẩu?",
+    "resetTitle": "Đặt lại mật khẩu",
+    "resetDesc": "Nhập email và chúng tôi sẽ gửi liên kết đặt lại mật khẩu.",
+    "resetSend": "Gửi liên kết đặt lại",
+    "resetSent": "Nếu email này đã có tài khoản, liên kết đặt lại đã được gửi.",
+    "emailConfirmSent": "Kiểm tra hộp thư — chúng tôi đã gửi liên kết xác nhận.",
+    "loginFailed": "Email hoặc mật khẩu không đúng.",
+    "signupFailed": "Không thể đăng ký. Hãy thử email khác.",
+    "passwordMin": "Mật khẩu phải có ít nhất 8 ký tự.",
+    "invalidEmail": "Vui lòng nhập email hợp lệ.",
+    "googleUnavailable": "Đăng nhập Google hiện không khả dụng — vui lòng dùng email.",
+    "backToLogin": "Quay lại đăng nhập",
+    "logout": "Đăng xuất",
+    "loginCta": "Đăng nhập / Đăng ký"
   }
 }

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 import { checkRateLimit } from "@/lib/ratelimit";
 
 export interface ReviewResult {
@@ -42,10 +42,15 @@ export async function submitReview(
 
   const { restaurantId, rating, content, nationality } = parsed.data;
 
-  // Use admin client: no consumer auth yet (AGENTS.md — temporary, pre-consumer-auth)
-  const admin = createAdminClient();
+  /* 리뷰는 로그인 필수 — 평점 조작(셀프 리뷰·테러) 방지의 최소 장치.
+     RLS reviews_insert_own이 user_id = auth.uid()를 강제한다 */
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "loginRequired" };
 
-  const { data: restaurant } = await admin
+  const { data: restaurant } = await supabase
     .from("restaurants")
     .select("id")
     .eq("id", restaurantId)
@@ -56,8 +61,9 @@ export async function submitReview(
     return { ok: false, error: "restaurantNotFound" };
   }
 
-  const { error } = await admin.from("reviews").insert({
+  const { error } = await supabase.from("reviews").insert({
     restaurant_id: restaurantId,
+    user_id: user.id,
     rating,
     content: content ?? null,
     nationality: nationality ?? null,

@@ -5,6 +5,7 @@ import { getLocale } from "next-intl/server";
 import { Analytics } from "@vercel/analytics/next";
 import { getDir } from "@/lib/i18n/config";
 import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
+import SavedSync from "@/components/SavedSync";
 import type { Language } from "@/types";
 import "./globals.css";
 
@@ -71,6 +72,7 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col font-sans bg-bg-tertiary text-text-primary">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
         <AnalyticsProvider />
+        <SavedSync />
         <Analytics />
       </body>
     </html>

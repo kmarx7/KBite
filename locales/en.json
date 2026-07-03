@@ -90,7 +90,8 @@
     "reviewThanks": "Thank you for your review!",
     "reviewError": "Failed to submit. Please try again.",
     "cancel": "Cancel",
-    "ownerReply": "Owner Reply"
+    "ownerReply": "Owner Reply",
+    "loginToReview": "Sign in to write a review"
   },
   "register": {
     "title": "Add Restaurant",
@@ -169,9 +170,9 @@
     "addRestaurant": "Add your restaurant",
     "legal": "Legal",
     "contact": "Contact us",
-    "accountSoon": "Accounts are coming soon — your saves are stored on this device for now.",
     "partnerLogin": "Partner login",
-    "viewPlans": "Plans & pricing"
+    "viewPlans": "Plans & pricing",
+    "account": "Account"
   },
   "partner": {
     "title": "Partner Center",
@@ -304,5 +305,30 @@
     "upgradeModalDesc": "This feature is available on {plan} and higher.",
     "upgradeModalCta": "View plans & upgrade",
     "upgradeModalDismiss": "Maybe later"
+  },
+  "auth": {
+    "title": "Account",
+    "welcome": "Welcome to KBite",
+    "welcomeDesc": "Sign in to write reviews and keep your saved restaurants on every device.",
+    "login": "Log in",
+    "signup": "Sign up",
+    "email": "Email",
+    "password": "Password (8+ characters)",
+    "continueWithGoogle": "Continue with Google",
+    "or": "or",
+    "forgotPassword": "Forgot your password?",
+    "resetTitle": "Reset password",
+    "resetDesc": "Enter your email and we'll send you a password reset link.",
+    "resetSend": "Send reset link",
+    "resetSent": "If an account exists for this email, a reset link has been sent.",
+    "emailConfirmSent": "Check your inbox — we sent you a confirmation link.",
+    "loginFailed": "Incorrect email or password.",
+    "signupFailed": "Could not sign up. Try a different email.",
+    "passwordMin": "Password must be at least 8 characters.",
+    "invalidEmail": "Please enter a valid email.",
+    "googleUnavailable": "Google sign-in is unavailable right now — please use email.",
+    "backToLogin": "Back to login",
+    "logout": "Log out",
+    "loginCta": "Sign in / Sign up"
   }
 }

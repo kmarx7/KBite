@@ -7,14 +7,16 @@ import { useLocale, useTranslations } from "next-intl";
 import {
   IconHeart,
   IconLogin2,
+  IconLogout,
   IconMail,
   IconCheck,
   IconChevronRight,
-  IconInfoCircle,
+  IconUserCircle,
 } from "@tabler/icons-react";
 import { LANGUAGES, type Language } from "@/types";
 import { LOCALES } from "@/lib/i18n/config";
 import { setLocale } from "@/app/actions/locale";
+import { consumerLogout } from "@/app/actions/account";
 import { TRACK_EVENTS, track } from "@/lib/analytics";
 import { useSavedIds } from "@/lib/saved";
 import TabBar from "@/components/ui/TabBar";
@@ -32,8 +34,13 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 const rowClass =
   "flex w-full items-center gap-2.5 rounded-2xl border border-[#FFE8D6] bg-white px-3.5 py-3 text-[13px] font-bold text-[#1A0800]";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({
+  userEmail,
+}: {
+  userEmail: string | null;
+}) {
   const t = useTranslations("profile");
+  const ta = useTranslations("auth");
   const tp = useTranslations("policies");
   const locale = useLocale() as Language;
   const router = useRouter();
@@ -49,6 +56,13 @@ export default function ProfileScreen() {
     });
   };
 
+  const handleLogout = () => {
+    startTransition(async () => {
+      await consumerLogout();
+      router.refresh();
+    });
+  };
+
   return (
     <div className="flex min-h-dvh flex-col">
       <header className="z-30 flex items-center border-b border-[#FFE8D6] bg-[#FFFAF5] px-4 py-2.5">
@@ -58,13 +72,33 @@ export default function ProfileScreen() {
       </header>
 
       <main className="flex-1 overflow-y-auto px-4 pb-6">
-        {/* 계정 도입 전 안내 */}
-        <div className="mt-4 flex items-start gap-2 rounded-2xl bg-[#FFE8D6] p-3">
-          <IconInfoCircle size={15} color="#CC4400" className="mt-0.5 shrink-0" />
-          <p className="text-[11px] leading-relaxed text-[#8A6040]">
-            {t("accountSoon")}
-          </p>
-        </div>
+        {/* 계정 */}
+        <SectionLabel>{t("account")}</SectionLabel>
+        {userEmail ? (
+          <div className="flex items-center gap-2.5 rounded-2xl border border-[#FFE8D6] bg-white px-3.5 py-3">
+            <IconUserCircle size={20} color="#FF6B35" className="shrink-0" />
+            <span className="min-w-0 flex-1 truncate text-[13px] font-bold text-[#1A0800]">
+              {userEmail}
+            </span>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="flex shrink-0 items-center gap-1 rounded-full border border-[#FFD4B8] px-2.5 py-1 text-[11px] font-bold text-[#8A6040]"
+            >
+              <IconLogout size={12} />
+              {ta("logout")}
+            </button>
+          </div>
+        ) : (
+          <Link
+            href="/login"
+            className="flex items-center gap-2.5 rounded-2xl bg-[#FF6B35] px-3.5 py-3 text-[13px] font-extrabold text-white"
+          >
+            <IconUserCircle size={20} />
+            <span className="flex-1">{ta("loginCta")}</span>
+            <IconChevronRight size={15} color="#FFE8D6" />
+          </Link>
+        )}
 
         {/* 언어 */}
         <SectionLabel>{t("language")}</SectionLabel>

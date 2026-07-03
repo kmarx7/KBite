@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { IconStarFilled, IconStar } from "@tabler/icons-react";
+import { IconStarFilled, IconStar, IconLogin2 } from "@tabler/icons-react";
 import { submitReview } from "@/app/actions/reviews";
 
 interface Props {
   restaurantId: string;
+  /** 비로그인 시 작성 대신 로그인 유도 (서버 액션이 재차 강제) */
+  isLoggedIn: boolean;
 }
 
 const NATIONALITY_OPTIONS = [
@@ -37,7 +40,7 @@ const NATIONALITY_OPTIONS = [
   { code: "KZ", flag: "🇰🇿", name: "Kazakhstan" },
 ];
 
-export default function ReviewForm({ restaurantId }: Props) {
+export default function ReviewForm({ restaurantId, isLoggedIn }: Props) {
   const t = useTranslations("detail");
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
@@ -82,6 +85,20 @@ export default function ReviewForm({ restaurantId }: Props) {
   }
 
   const activeRating = hover || rating;
+
+  if (!isLoggedIn) {
+    return (
+      <div className="px-4 pb-3">
+        <Link
+          href={`/login?next=/restaurant/${restaurantId}`}
+          className="flex w-full items-center justify-center gap-1.5 rounded-2xl border border-dashed border-[#FFD4B8] bg-white py-3 text-[13px] font-bold text-[#FF6B35]"
+        >
+          <IconLogin2 size={15} />
+          {t("loginToReview")}
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="px-4 pb-3">

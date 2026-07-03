@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
+import { ensureProfile } from "@/app/actions/account";
 
 const OTP_TYPES: readonly EmailOtpType[] = [
   "signup",
@@ -33,10 +34,16 @@ export async function GET(request: Request) {
       type: rawType as EmailOtpType,
       token_hash: tokenHash,
     });
-    if (!error) return NextResponse.redirect(new URL(safeNext, url.origin));
+    if (!error) {
+      await ensureProfile();
+      return NextResponse.redirect(new URL(safeNext, url.origin));
+    }
   } else if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) return NextResponse.redirect(new URL(safeNext, url.origin));
+    if (!error) {
+      await ensureProfile();
+      return NextResponse.redirect(new URL(safeNext, url.origin));
+    }
   }
 
   return NextResponse.redirect(
