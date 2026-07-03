@@ -7,7 +7,9 @@ function getResend(): Resend | null {
   return new Resend(key);
 }
 
-const FROM = "KBite <onboarding@resend.dev>";
+/* 실서비스 전 필수: Resend에 도메인 인증 후 EMAIL_FROM 설정.
+   기본값(resend.dev 샌드박스)은 Resend 계정 소유자에게만 발송됨 */
+const FROM = process.env.EMAIL_FROM ?? "KBite <onboarding@resend.dev>";
 
 const PLAN_LABELS: Record<"basic" | "premium", string> = {
   basic: "베이직",
@@ -55,7 +57,13 @@ export async function sendApprovalNotification(params: {
         <h2 style="color:#FF6B35;margin-bottom:4px;">등록 승인 완료 🎉</h2>
         <p style="color:#8A6040;margin-top:0;margin-bottom:24px;">${params.restaurantName}</p>
         <p style="color:#1A0800;"><strong>${params.restaurantName}</strong>이(가) KBite에 정상 등록되었습니다. 이제 KBite 앱에서 사용자들에게 노출됩니다.</p>
-        <a href="https://kbite.vercel.app/partner" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:12px 24px;border-radius:12px;font-weight:700;margin-top:16px;">파트너 대시보드 바로가기</a>
+        <p style="color:#1A0800;margin-top:16px;"><strong>사장님이신가요?</strong> 이 이메일 주소로 파트너 센터에 가입하시면 식당 정보 수정, 리뷰 답글, 통계를 직접 관리할 수 있습니다.</p>
+        <ol style="color:#8A6040;font-size:13px;padding-left:20px;">
+          <li>아래 버튼으로 파트너 센터 접속</li>
+          <li><strong>이 메일을 받은 이메일 주소로</strong> 가입</li>
+          <li>로그인하면 "${params.restaurantName}" 연결 버튼이 자동으로 표시됩니다</li>
+        </ol>
+        <a href="https://kbite.vercel.app/partner" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:12px 24px;border-radius:12px;font-weight:700;margin-top:8px;">파트너 센터에서 내 식당 관리하기</a>
       </div>
     `,
   });
