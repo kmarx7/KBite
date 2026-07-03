@@ -17,7 +17,8 @@ export default function CategoryChip({
   selected,
   onClick,
 }: ChipProps) {
-  const onColor = cat === "all" ? "#FF6B35" : CATEGORIES[cat].color;
+  // "all"은 Middle Eastern(오렌지)과 혼동되지 않도록 다크 브라운 사용
+  const onColor = cat === "all" ? "#1A0800" : CATEGORIES[cat].colorDark;
 
   return (
     <button

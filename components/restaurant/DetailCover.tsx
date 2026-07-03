@@ -54,7 +54,7 @@ export default function DetailCover({
       {/* 카테고리 pill — 좌상단 */}
       <span
         className="absolute start-3 top-3 rounded-full px-2.5 py-1 text-[10px] font-extrabold text-white"
-        style={{ backgroundColor: CATEGORIES[category].color }}
+        style={{ backgroundColor: CATEGORIES[category].colorDark }}
       >
         {CATEGORIES[category].emoji} {t(category)}
       </span>

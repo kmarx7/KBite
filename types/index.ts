@@ -3,14 +3,16 @@ export type Category = "me" | "as" | "cj" | "we" | "af" | "rc";
 
 export const CATEGORIES: Record<
   Category,
-  { label: string; emoji: string; color: string }
+  { label: string; emoji: string; color: string; colorDark: string }
 > = {
-  me: { label: "Middle Eastern", emoji: "🕌", color: "#FF6B35" },
-  as: { label: "Asian", emoji: "🌏", color: "#F59E0B" },
-  cj: { label: "China / Japan", emoji: "🥟", color: "#EF4444" },
-  we: { label: "Western", emoji: "🥐", color: "#5B8DEF" },
-  af: { label: "African", emoji: "🌍", color: "#8B5CF6" },
-  rc: { label: "Russia & Central Asia", emoji: "🏔️", color: "#0EA5E9" },
+  // color: 지도 핀·그라디언트 등 그래픽 전용
+  // colorDark: 흰 글자를 올리는 배경 전용 — 흰색과 4.5:1 이상(WCAG AA) 유지할 것
+  me: { label: "Middle Eastern", emoji: "🕌", color: "#FF6B35", colorDark: "#CC4400" },
+  as: { label: "Asian", emoji: "🌏", color: "#F59E0B", colorDark: "#B45309" },
+  cj: { label: "China / Japan", emoji: "🥟", color: "#EF4444", colorDark: "#B91C1C" },
+  we: { label: "Western", emoji: "🥐", color: "#5B8DEF", colorDark: "#2563EB" },
+  af: { label: "African", emoji: "🌍", color: "#8B5CF6", colorDark: "#7C3AED" },
+  rc: { label: "Russia & Central Asia", emoji: "🏔️", color: "#0EA5E9", colorDark: "#0369A1" },
 };
 
 /** 인증 배지 — 식당 카드에 표시 (카테고리 아님) */
