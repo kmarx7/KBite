@@ -76,6 +76,29 @@ export default function MapView({
     }
   }, [visibleCategories, restaurants]);
 
+  /* 컨테이너 크기 변화 → relayout — 모바일에서 주소창 접힘/펼침(dvh 변화),
+     회전 등으로 크기가 바뀌면 타일이 찌그러진 채 남는 문제 방지 */
+  useEffect(() => {
+    const container = containerRef.current;
+    const map = mapRef.current;
+    if (!mapReady || !container || !map) return;
+
+    let raf = 0;
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const center = map.getCenter();
+        map.relayout();
+        map.setCenter(center);
+      });
+    });
+    observer.observe(container);
+    return () => {
+      cancelAnimationFrame(raf);
+      observer.disconnect();
+    };
+  }, [mapReady]);
+
   /* 내 위치 갱신 — 지도 생성 완료(mapReady) 후에만 (위치 응답이 SDK보다 빨라도 안전) */
   useEffect(() => {
     const map = mapRef.current;

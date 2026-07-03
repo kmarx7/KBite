@@ -241,8 +241,8 @@ export default function ExploreScreen({
         <LanguageButton />
       </header>
 
-      {/* MapArea */}
-      <div className="relative h-[45dvh] min-h-[200px] shrink-0">
+      {/* MapArea — svh: 모바일 주소창 접힘/펼침에도 높이 고정 (지도 타일 왜곡 방지) */}
+      <div className="relative h-[45svh] min-h-[200px] shrink-0">
         <MapView
           restaurants={restaurants}
           visibleCategories={selectedCats}
