@@ -225,7 +225,7 @@ export default function ExploreScreen({
   return (
     <div className="flex h-dvh flex-col">
       {/* Header */}
-      <header className="z-30 flex items-center gap-2 border-b border-[#FFE8D6] bg-[#FFFAF5] px-4 py-2.5">
+      <header className="z-30 flex items-center gap-2 bg-[#FFFAF5]/90 px-4 py-2.5 backdrop-blur-sm">
         <h1 className="text-[20px] font-black text-[#FF6B35]">KBite</h1>
         <button
           type="button"

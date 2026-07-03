@@ -21,62 +21,81 @@ export default function RestaurantCard({
 }: RestaurantCardProps) {
   const t = useTranslations("categories");
   const tc = useTranslations("common");
+  const { color, emoji } = CATEGORIES[r.category];
 
   return (
     <Link
       href={`/restaurant/${r.id}`}
-      className="flex gap-3 rounded-2xl border border-[#FFE8D6] bg-white p-3 transition-shadow active:shadow-md"
+      className="flex overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow active:shadow-md"
     >
-      {/* 썸네일 + 거리 배지 */}
-      <div className="flex shrink-0 flex-col items-center gap-1">
-        <span
-          className="flex h-14 w-14 items-center justify-center rounded-xl text-2xl"
-          style={{ backgroundColor: `${CATEGORIES[r.category].color}1A` }}
-          aria-hidden
-        >
-          {r.cover_emoji}
-        </span>
-        <span className="rounded-full bg-[#FFF5EE] px-1.5 py-0.5 text-[9px] font-extrabold text-[#CC4400]">
-          {distanceKm < 10 ? distanceKm.toFixed(1) : Math.round(distanceKm)}km
-        </span>
+      {/* 왼쪽 패널 — 사진 있으면 이미지, 없으면 카테고리 그라디언트 + 이모지 */}
+      <div className="relative flex w-[76px] shrink-0 items-center justify-center overflow-hidden">
+        {r.photo_url ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={r.photo_url}
+            alt=""
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(160deg, ${color}2e 0%, ${color}0f 100%)`,
+            }}
+          />
+        )}
+        {!r.photo_url && (
+          <span className="relative text-[32px]" aria-hidden>
+            {r.cover_emoji}
+          </span>
+        )}
       </div>
 
-      <div className="min-w-0 flex-1">
-        <p
-          className="text-[10px] font-extrabold"
-          style={{ color: CATEGORIES[r.category].color }}
-        >
-          {CATEGORIES[r.category].emoji} {t(r.category)}
-        </p>
-        <div className="flex items-center gap-1.5">
-          <h3 className="min-w-0 truncate text-[14px] font-bold text-[#1A0800]">
+      {/* 오른쪽 콘텐츠 */}
+      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1 py-3 pe-3 ps-3">
+        {/* 이름 + 오픈 dot */}
+        <div className="flex items-center gap-2">
+          <span
+            className="h-[7px] w-[7px] shrink-0 rounded-full"
+            style={{ backgroundColor: isOpen ? "#22C55E" : "#F87171" }}
+            aria-label={isOpen ? tc("openNow") : tc("closed")}
+          />
+          <h3 className="min-w-0 flex-1 truncate text-[16px] font-extrabold leading-tight text-[#1A0800]">
             {r.name}
           </h3>
-          <span
-            className="shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-extrabold"
-            style={
-              isOpen
-                ? { backgroundColor: "#DCFCE7", color: "#15803D" }
-                : { backgroundColor: "#FEE2E2", color: "#B91C1C" }
-            }
-          >
-            {isOpen ? tc("openNow") : tc("closed")}
-          </span>
         </div>
-        {r.cuisine && (
-          <p className="truncate text-[11px] text-[#8A6040]">{r.cuisine}</p>
-        )}
-        <div className="mt-1 flex items-center gap-1.5">
-          <span className="flex items-center gap-0.5 text-[11px] font-extrabold text-[#1A0800]">
-            <IconStarFilled size={10} color="#F59E0B" />
-            {r.avg_rating > 0 ? r.avg_rating : "—"}
-          </span>
-          <span className="text-[10px] text-[#B07040]">
-            {tc("reviews", { count: r.review_count })}
-          </span>
-          {(r.price_range || r.price_min != null || r.price_max != null) && (
-            <span className="text-[10px] font-bold text-[#8A6040]">
-              {formatPriceDisplay(r.price_currency, r.price_min, r.price_max, r.price_range)}
+
+        {/* 카테고리 + 거리 */}
+        <p className="text-[12px] font-semibold text-[#8A6040]">
+          <span aria-hidden>{emoji}</span> {t(r.category)}&ensp;·&ensp;
+          {distanceKm < 10 ? distanceKm.toFixed(1) : Math.round(distanceKm)}km
+        </p>
+
+        {/* 평점 + 리뷰 수 + 가격 + 인증 뱃지 */}
+        <div className="flex items-center gap-2">
+          {r.avg_rating > 0 && (
+            <span className="flex items-center gap-0.5 text-[12px] font-bold text-[#1A0800]">
+              <IconStarFilled size={11} color="#F59E0B" />
+              {r.avg_rating}
+            </span>
+          )}
+          {r.review_count > 0 && (
+            <span className="text-[11px] text-[#B07040]">
+              {tc("reviews", { count: r.review_count })}
+            </span>
+          )}
+          {(r.price_range != null ||
+            r.price_min != null ||
+            r.price_max != null) && (
+            <span className="text-[11px] font-bold text-[#8A6040]">
+              {formatPriceDisplay(
+                r.price_currency,
+                r.price_min,
+                r.price_max,
+                r.price_range,
+              )}
             </span>
           )}
           {PLAN_FEATURES[r.plan].certBadgeEnabled && (
