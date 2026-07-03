@@ -263,7 +263,8 @@
     "statsSaves": "Сохранения",
     "statsViews": "Просмотры",
     "subCancelledNotice": "Подписка отменена — преимущества действуют до {date}",
-    "upgradeNow": "Перейти на Premium"
+    "upgradeNow": "Перейти на Premium",
+    "subPastDueNotice": "Платёж не прошёл — мы будем повторять попытки до {date}, затем тариф станет Free. Пожалуйста, заново привяжите карту."
   },
   "pricing": {
     "title": "Простые прозрачные цены",

@@ -263,7 +263,8 @@
     "statsSaves": "保存",
     "statsViews": "閲覧",
     "subCancelledNotice": "サブスクリプション解約済み — 特典は{date}まで有効",
-    "upgradeNow": "Premiumにアップグレード"
+    "upgradeNow": "Premiumにアップグレード",
+    "subPastDueNotice": "決済に失敗しました — {date}まで再試行し、その後は無料プランに切り替わります。カードを再登録してください。"
   },
   "pricing": {
     "title": "シンプルな料金プラン",

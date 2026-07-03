@@ -263,7 +263,8 @@
     "statsSaves": "Đã lưu",
     "statsViews": "Lượt xem",
     "subCancelledNotice": "Đã hủy gói — quyền lợi còn hiệu lực đến {date}",
-    "upgradeNow": "Nâng cấp lên Premium"
+    "upgradeNow": "Nâng cấp lên Premium",
+    "subPastDueNotice": "Thanh toán thất bại — chúng tôi sẽ thử lại đến {date}, sau đó gói sẽ chuyển về Free. Vui lòng đăng ký lại thẻ."
   },
   "pricing": {
     "title": "Giá cả minh bạch, đơn giản",

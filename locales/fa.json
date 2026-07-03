@@ -263,7 +263,8 @@
     "statsSaves": "ذخیره‌ها",
     "statsViews": "بازدیدها",
     "subCancelledNotice": "اشتراک لغو شد — مزایا تا {date} فعال است",
-    "upgradeNow": "ارتقا به Premium"
+    "upgradeNow": "ارتقا به Premium",
+    "subPastDueNotice": "پرداخت ناموفق بود — تا {date} دوباره تلاش می‌کنیم و پس از آن طرح شما به رایگان تغییر می‌کند. لطفاً کارت خود را دوباره ثبت کنید."
   },
   "pricing": {
     "title": "قیمت‌گذاری ساده و شفاف",

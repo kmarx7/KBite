@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
 interface PaymentRow {
   id: string;
   amount: number;
-  status: "success" | "failed";
+  status: "pending" | "success" | "failed";
   paid_at: string | null;
   created_at: string;
 }
@@ -52,19 +52,19 @@ export default async function PartnerBillingPage({
 
   const admin = createAdminClient();
 
-  /* 현재 구독 상태 — 취소됐지만 기간이 남은 경우 처리 */
-  let subStatus: "active" | "cancelled" | null = null;
+  /* 현재 구독 상태 — 취소·결제 실패(past_due)로 기간이 남은 경우 처리 */
+  let subStatus: "active" | "cancelled" | "past_due" | null = null;
   let periodEnd: string | null = null;
   try {
     const { data: sub } = await admin
       .from("subscriptions")
       .select("status, current_period_end")
       .eq("restaurant_id", id)
-      .in("status", ["active", "cancelled"])
+      .in("status", ["active", "cancelled", "past_due"])
       .order("created_at", { ascending: false })
       .limit(1)
       .maybeSingle();
-    subStatus = (sub?.status as "active" | "cancelled") ?? null;
+    subStatus = (sub?.status as typeof subStatus) ?? null;
     periodEnd = (sub?.current_period_end as string | null) ?? null;
   } catch {}
 
@@ -230,8 +230,25 @@ export default async function PartnerBillingPage({
             </div>
           )}
 
-          {/* 구독 중이 아니거나 취소된 경우 업그레이드 버튼 표시 */}
-          {(currentPlan === "free" || subStatus === "cancelled") &&
+          {/* 결제 실패 유예 안내 — 카드 재등록 유도 */}
+          {subStatus === "past_due" && periodEnd && (
+            <div className="rounded-2xl border border-[#FECACA] bg-[#FEE2E2] px-4 py-3 text-center">
+              <p className="text-[12px] font-bold text-[#B91C1C]">
+                {t("subPastDueNotice", {
+                  date: new Date(
+                    new Date(periodEnd).getTime() + 3 * 24 * 60 * 60 * 1000,
+                  )
+                    .toISOString()
+                    .slice(0, 10),
+                })}
+              </p>
+            </div>
+          )}
+
+          {/* 구독 중이 아니거나 취소·결제 실패인 경우 업그레이드(카드 등록) 버튼 표시 */}
+          {(currentPlan === "free" ||
+            subStatus === "cancelled" ||
+            subStatus === "past_due") &&
             planOrder
               .filter((p) => p !== "free" && p !== currentPlan)
               .map((plan) => (
@@ -282,10 +299,12 @@ export default async function PartnerBillingPage({
                     style={
                       p.status === "success"
                         ? { backgroundColor: "#DCFCE7", color: "#15803D" }
-                        : { backgroundColor: "#FEE2E2", color: "#B91C1C" }
+                        : p.status === "pending"
+                          ? { backgroundColor: "#FEF9C3", color: "#854D0E" }
+                          : { backgroundColor: "#FEE2E2", color: "#B91C1C" }
                     }
                   >
-                    {p.status === "success" ? "✓" : "✕"}
+                    {p.status === "success" ? "✓" : p.status === "pending" ? "…" : "✕"}
                   </span>
                 </li>
               ))}

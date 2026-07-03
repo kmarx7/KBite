@@ -263,7 +263,8 @@
     "statsSaves": "收藏",
     "statsViews": "浏览",
     "subCancelledNotice": "订阅已取消——权益保留至 {date}",
-    "upgradeNow": "升级到 Premium"
+    "upgradeNow": "升级到 Premium",
+    "subPastDueNotice": "扣款失败——我们将在 {date} 前重试，之后将转为免费套餐。请重新登记您的卡。"
   },
   "pricing": {
     "title": "简单透明的定价",

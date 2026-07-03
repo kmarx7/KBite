@@ -263,7 +263,8 @@
     "passwordMismatch": "Passwords do not match.",
     "resetSubmit": "Update password",
     "resetExpired": "This reset link is invalid or has expired. Please request a new one.",
-    "backToLogin": "Back to login"
+    "backToLogin": "Back to login",
+    "subPastDueNotice": "Payment failed — we'll retry until {date}, then your plan reverts to Free. Please re-register your card."
   },
   "pricing": {
     "title": "Simple, transparent pricing",
