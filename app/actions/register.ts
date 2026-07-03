@@ -7,8 +7,10 @@ import {
   step1Schema,
   step2Schema,
   step3Schema,
+  coordsSchema,
   validateFile,
   ALLOWED_IMAGE_TYPES,
+  ALLOWED_DOC_TYPES,
 } from "@/lib/validation/register";
 import { priceRangeFromMinMax } from "@/lib/price";
 import { sendRegistrationConfirmation } from "@/lib/email";
@@ -25,6 +27,7 @@ const EXT_BY_MIME: Record<string, string> = {
   "image/png": "png",
   "image/webp": "webp",
   "image/heic": "heic",
+  "application/pdf": "pdf",
 };
 
 /**
@@ -76,6 +79,15 @@ export async function registerRestaurant(
     return { ok: false, error: "requiredField" };
   }
 
+  /* 좌표 — 주소 검색(지오코딩)으로만 확정됨. 범위 밖/누락은 거부 */
+  const parsedCoords = coordsSchema.safeParse({
+    lat: formData.get("lat"),
+    lng: formData.get("lng"),
+  });
+  if (!parsedCoords.success) {
+    return { ok: false, error: "addressSearchRequired" };
+  }
+
   const supabase = createAdminClient();
 
   /* 로그인된 사용자면 owner_id 자동 연결 */
@@ -104,14 +116,35 @@ export async function registerRestaurant(
       .data.publicUrl;
   }
 
+  /* 인증서 서류 — 비공개 버킷(cert-documents)에 저장, 경로만 DB에 기록.
+     열람은 관리자 화면에서 service_role 서명 URL로만 가능 */
+  let certFilePath: string | null = null;
+  const certFile = formData.get("certFile");
+  if (certFile instanceof File && certFile.size > 0) {
+    const fileError = validateFile(certFile, ALLOWED_DOC_TYPES);
+    if (fileError) return { ok: false, error: fileError };
+
+    const ext = EXT_BY_MIME[certFile.type] ?? "pdf";
+    const path = `${randomUUID()}.${ext}`;
+    const { error: uploadError } = await supabase.storage
+      .from("cert-documents")
+      .upload(path, certFile, { contentType: certFile.type });
+
+    if (uploadError) {
+      console.error("cert upload failed:", uploadError.message);
+      return { ok: false, error: "submitFailed" };
+    }
+    certFilePath = path;
+  }
+
   const { error: insertError } = await supabase.from("restaurants").insert({
     name: parsed1.data.name,
     owner_email: parsed1.data.ownerEmail,
     phone: parsed1.data.phone || null,
     category: parsed1.data.category,
     address: parsed2.data.address,
-    lat: 37.534,
-    lng: 126.9948,
+    lat: parsedCoords.data.lat,
+    lng: parsedCoords.data.lng,
     opening_time: parsed2.data.openingTime,
     closing_time: parsed2.data.closingTime,
     price_currency: parsed2.data.priceCurrency,
@@ -122,6 +155,8 @@ export async function registerRestaurant(
     certifications: parsed2.data.certifications,
     languages: parsed2.data.languages,
     photo_url: photoUrl,
+    /* 마이그레이션(20260703000000) 적용 전에도 인증서 없는 등록은 동작 */
+    ...(certFilePath ? { cert_file_path: certFilePath } : {}),
     biz_reg_no: parsed3.data.bizRegNo,
     sns_url: parsed3.data.snsUrl || null,
     owner_id: ownerId,

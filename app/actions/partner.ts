@@ -2,6 +2,7 @@
 
 import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -84,6 +85,59 @@ export async function partnerLogin(
 export async function partnerLogout(): Promise<void> {
   const supabase = await createClient();
   await supabase.auth.signOut();
+}
+
+/* ───────────── 비밀번호 재설정 ───────────── */
+
+export async function partnerRequestPasswordReset(
+  formData: FormData,
+): Promise<PartnerResult> {
+  const parsed = z
+    .string()
+    .trim()
+    .email()
+    .max(254)
+    .safeParse(String(formData.get("email") ?? ""));
+  if (!parsed.success) return { ok: false, error: "invalidEmail" };
+
+  const h = await headers();
+  const origin =
+    h.get("origin") ??
+    process.env.NEXT_PUBLIC_APP_URL ??
+    "https://kbite.vercel.app";
+
+  const supabase = await createClient();
+  await supabase.auth.resetPasswordForEmail(parsed.data, {
+    redirectTo: `${origin}/auth/confirm?next=/partner/reset`,
+  });
+  /* 계정 존재 여부와 무관하게 항상 성공 응답 (계정 열거 방지) */
+  return { ok: true };
+}
+
+export async function partnerUpdatePassword(
+  formData: FormData,
+): Promise<PartnerResult> {
+  const parsed = z
+    .string()
+    .min(8, "passwordMin")
+    .max(72)
+    .safeParse(String(formData.get("password") ?? ""));
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  /* 이메일 링크(recovery 세션)로만 도달 가능 — 세션 없으면 만료 */
+  if (!user) return { ok: false, error: "resetExpired" };
+
+  const { error } = await supabase.auth.updateUser({
+    password: parsed.data,
+  });
+  if (error) return { ok: false, error: "resetExpired" };
+  return { ok: true };
 }
 
 /* ───────────── 식당 소유권 연결 (claim) ───────────── */

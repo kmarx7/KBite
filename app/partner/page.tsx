@@ -53,12 +53,15 @@ export default async function PartnerPage() {
     .order("created_at", { ascending: false });
   const owned = (ownedData ?? []) as PartnerRow[];
 
-  /* 내 이메일로 등록됐지만 아직 연결 안 된 식당 — 서버에서만 조회 */
+  /* 내 이메일로 등록됐지만 아직 연결 안 된 식당 — 서버에서만 조회.
+     이메일 local part에 %/_가 올 수 있으므로 ilike 와일드카드를 이스케이프
+     (미이스케이프 시 a%@x.com 계정이 타인 식당 목록을 열람 가능) */
   const admin = createAdminClient();
+  const emailPattern = (user.email ?? "").replace(/[\\%_]/g, (m) => `\\${m}`);
   const { data: claimableData } = await admin
     .from("restaurants")
     .select("id, name, category, address, status, plan")
-    .ilike("owner_email", user.email ?? "")
+    .ilike("owner_email", emailPattern)
     .is("owner_id", null);
   const claimable = (claimableData ?? []) as PartnerRow[];
 

@@ -1,11 +1,15 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { IconBuildingStore, IconChevronLeft } from "@tabler/icons-react";
-import { partnerLogin, partnerSignUp } from "@/app/actions/partner";
+import {
+  partnerLogin,
+  partnerSignUp,
+  partnerRequestPasswordReset,
+} from "@/app/actions/partner";
 import { TRACK_EVENTS, track } from "@/lib/analytics";
 import { formatBizRegNo } from "@/lib/utils";
 
@@ -13,10 +17,22 @@ const inputClass =
   "w-full rounded-xl border border-[#FFD4B8] bg-white px-3 py-3 text-[14px] font-semibold text-[#1A0800] placeholder:text-[#C0A080] focus:border-[#FF6B35] focus:outline-none";
 
 export default function PartnerLoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <PartnerLoginInner />
+    </Suspense>
+  );
+}
+
+function PartnerLoginInner() {
   const t = useTranslations("partner");
   const router = useRouter();
-  const [mode, setMode] = useState<"login" | "signup">("login");
-  const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const [mode, setMode] = useState<"login" | "signup" | "reset">("login");
+  /* /auth/confirm에서 만료 링크로 되돌아온 경우 안내 */
+  const [error, setError] = useState<string | null>(() =>
+    searchParams.get("error") === "resetExpired" ? "resetExpired" : null,
+  );
   const [notice, setNotice] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [bizRegNo, setBizRegNo] = useState("");
@@ -29,6 +45,14 @@ export default function PartnerLoginPage() {
     const formData = new FormData(e.currentTarget);
 
     startTransition(async () => {
+      if (mode === "reset") {
+        await partnerRequestPasswordReset(formData);
+        /* 계정 존재 여부 무관 동일 안내 (열거 방지) */
+        setNotice("resetSent");
+        setMode("login");
+        return;
+      }
+
       const result =
         mode === "login"
           ? await partnerLogin(formData)
@@ -68,7 +92,8 @@ export default function PartnerLoginPage() {
           {t("title")}
         </h2>
 
-        {/* 로그인 / 가입 전환 */}
+        {/* 로그인 / 가입 전환 (재설정 모드에서는 숨김) */}
+        {mode !== "reset" && (
         <div className="mb-4 flex w-full max-w-xs rounded-xl border border-[#FFD4B8] bg-white p-1">
           {(["login", "signup"] as const).map((m) => (
             <button
@@ -89,12 +114,23 @@ export default function PartnerLoginPage() {
             </button>
           ))}
         </div>
+        )}
+
+        {mode === "reset" && (
+          <p className="mb-4 max-w-xs text-center text-[12px] leading-relaxed text-[#8A6040]">
+            {t("resetDesc")}
+          </p>
+        )}
 
         <form
           onSubmit={handleSubmit}
           className="flex w-full max-w-xs flex-col gap-3"
         >
+          <label className="sr-only" htmlFor="partner-email">
+            {t("email")}
+          </label>
           <input
+            id="partner-email"
             type="email"
             name="email"
             autoComplete="email"
@@ -102,19 +138,32 @@ export default function PartnerLoginPage() {
             required
             className={inputClass}
           />
-          <input
-            type="password"
-            name="password"
-            autoComplete={
-              mode === "login" ? "current-password" : "new-password"
-            }
-            placeholder={t("password")}
-            required
-            minLength={8}
-            className={inputClass}
-          />
-          {mode === "signup" && (
+          {mode !== "reset" && (
+            <>
+            <label className="sr-only" htmlFor="partner-password">
+              {t("password")}
+            </label>
             <input
+              id="partner-password"
+              type="password"
+              name="password"
+              autoComplete={
+                mode === "login" ? "current-password" : "new-password"
+              }
+              placeholder={t("password")}
+              required
+              minLength={8}
+              className={inputClass}
+            />
+            </>
+          )}
+          {mode === "signup" && (
+            <>
+            <label className="sr-only" htmlFor="partner-bizno">
+              {t("bizRegNoPlaceholder")}
+            </label>
+            <input
+              id="partner-bizno"
               name="bizRegNo"
               value={bizRegNo}
               onChange={(e) => setBizRegNo(formatBizRegNo(e.target.value))}
@@ -122,6 +171,7 @@ export default function PartnerLoginPage() {
               required
               className={inputClass}
             />
+            </>
           )}
           {error && (
             <p className="text-[12px] font-bold text-[#B91C1C]">{t(error)}</p>
@@ -137,8 +187,34 @@ export default function PartnerLoginPage() {
             className="rounded-xl py-3 text-[14px] font-extrabold text-white disabled:opacity-60"
             style={{ backgroundColor: "#FF6B35" }}
           >
-            {t(mode)}
+            {mode === "reset" ? t("resetSend") : t(mode)}
           </button>
+
+          {mode === "login" && (
+            <button
+              type="button"
+              onClick={() => {
+                setMode("reset");
+                setError(null);
+                setNotice(null);
+              }}
+              className="text-[12px] font-semibold text-[#8A6040] underline underline-offset-2"
+            >
+              {t("forgotPassword")}
+            </button>
+          )}
+          {mode === "reset" && (
+            <button
+              type="button"
+              onClick={() => {
+                setMode("login");
+                setError(null);
+              }}
+              className="text-[12px] font-semibold text-[#8A6040] underline underline-offset-2"
+            >
+              {t("backToLogin")}
+            </button>
+          )}
         </form>
       </main>
     </div>

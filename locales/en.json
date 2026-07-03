@@ -134,7 +134,16 @@
     "invalidBizNo": "Business registration number format: 000-00-00000",
     "submitFailed": "Something went wrong while submitting. Please try again.",
     "consent": "I have read and agree to the <terms>Terms of Service</terms>, <privacy>Privacy Policy</privacy> and <partner>Partner Terms</partner>.",
-    "consentRequired": "Please agree to the terms to continue"
+    "consentRequired": "Please agree to the terms to continue",
+    "addressSearchPlaceholder": "Search address",
+    "addressSearchTitle": "Find your address",
+    "addressGeocoding": "Locating address…",
+    "addressDetailPlaceholder": "Unit, floor, etc. (optional)",
+    "geocodeFailed": "We couldn't locate this address on the map. Please search again.",
+    "addressSearchRequired": "Please select your address using the address search.",
+    "ownerEmailHint": "The owner signs up for the KBite Partner Center with this email to manage the restaurant directly.",
+    "draftRestored": "We restored your unfinished registration.",
+    "draftClear": "Start over"
   },
   "language": {
     "select": "Select Language"
@@ -243,7 +252,18 @@
     "delete": "Delete",
     "upgradeForMorePhotos": "Upgrade to add more photos",
     "invalidBizNo": "Business registration number format: 000-00-00000",
-    "bizRegNoPlaceholder": "Business Reg. No. 000-00-00000"
+    "bizRegNoPlaceholder": "Business Reg. No. 000-00-00000",
+    "forgotPassword": "Forgot your password?",
+    "resetTitle": "Set a new password",
+    "resetDesc": "Enter the email you signed up with and we'll send you a password reset link.",
+    "resetSend": "Send reset link",
+    "resetSent": "If an account exists for this email, a reset link has been sent.",
+    "newPassword": "New password",
+    "newPasswordConfirm": "Confirm new password",
+    "passwordMismatch": "Passwords do not match.",
+    "resetSubmit": "Update password",
+    "resetExpired": "This reset link is invalid or has expired. Please request a new one.",
+    "backToLogin": "Back to login"
   },
   "pricing": {
     "title": "Simple, transparent pricing",

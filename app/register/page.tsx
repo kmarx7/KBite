@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IconChevronLeft, IconSparkles } from "@tabler/icons-react";
@@ -14,13 +14,17 @@ import {
 } from "@/lib/price";
 import WheelPicker from "@/components/ui/WheelPicker";
 import StepIndicator from "@/components/register/StepIndicator";
+import AddressSearch from "@/components/register/AddressSearch";
 import CategoryGrid from "@/components/register/CategoryGrid";
 import CertToggle from "@/components/register/CertToggle";
 import LangToggle from "@/components/register/LangToggle";
 import UploadBox from "@/components/register/UploadBox";
 import StepButton from "@/components/ui/StepButton";
 import DateTimeButton from "@/components/ui/DateTimeButton";
-import { validateStep, ALLOWED_DOC_TYPES } from "@/lib/validation/register";
+import {
+  validateStepFields,
+  ALLOWED_DOC_TYPES,
+} from "@/lib/validation/register";
 import { registerRestaurant } from "@/app/actions/register";
 import { TRACK_EVENTS, track } from "@/lib/analytics";
 import { formatPhone, formatBizRegNo } from "@/lib/utils";
@@ -31,6 +35,9 @@ interface RegisterForm {
   phone: string;
   category: Category | null;
   address: string;
+  addressDetail: string;
+  lat: number | null;
+  lng: number | null;
   openingTime: string | null;
   closingTime: string | null;
   priceCurrency: PriceCurrency;
@@ -52,6 +59,9 @@ const INITIAL_FORM: RegisterForm = {
   phone: "",
   category: null,
   address: "",
+  addressDetail: "",
+  lat: null,
+  lng: null,
   openingTime: null,
   closingTime: null,
   priceCurrency: "KRW",
@@ -72,23 +82,94 @@ const inputClass =
 
 const labelClass = "mb-1 block text-[11px] font-bold text-[#8A6040]";
 
+/* 작성 중 이탈 대비 임시저장 — 파일(photo/certFile)은 직렬화 불가라 제외 */
+const DRAFT_KEY = "kbite.registerDraft.v1";
+
+type DraftData = Omit<RegisterForm, "photo" | "certFile"> & {
+  step: 1 | 2 | 3;
+};
+
+function loadDraft(): DraftData | null {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw) as DraftData;
+  } catch {
+    return null;
+  }
+}
+
 export default function RegisterPage() {
   const t = useTranslations("register");
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [form, setForm] = useState<RegisterForm>(INITIAL_FORM);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [draftRestored, setDraftRestored] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [snsNone, setSnsNone] = useState(true);
 
-  const set = <K extends keyof RegisterForm>(key: K, value: RegisterForm[K]) =>
+  const set = <K extends keyof RegisterForm>(key: K, value: RegisterForm[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
+    setFieldErrors({});
+  };
+
+  /* 마운트 시 드래프트 복원 (비동기 — 하이드레이션 이후) */
+  useEffect(() => {
+    let cancelled = false;
+    void Promise.resolve().then(() => {
+      if (cancelled) return;
+      const draft = loadDraft();
+      if (!draft) return;
+      const { step: draftStep, ...fields } = draft;
+      setForm((f) => ({ ...f, ...fields }));
+      setStep(draftStep);
+      setSnsNone(!fields.snsUrl);
+      setDraftRestored(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  /* 입력할 때마다 드래프트 저장 (디바운스) */
+  useEffect(() => {
+    if (submitted) return;
+    const id = setTimeout(() => {
+      const draft: Record<string, unknown> = { ...form, step };
+      delete draft.photo;
+      delete draft.certFile;
+      try {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+      } catch {
+        /* 저장 공간 부족 등 — 드래프트는 편의 기능이라 무시 */
+      }
+    }, 400);
+    return () => clearTimeout(id);
+  }, [form, step, submitted]);
+
+  const clearDraft = () => {
+    localStorage.removeItem(DRAFT_KEY);
+    setForm(INITIAL_FORM);
+    setStep(1);
+    setSnsNone(true);
+    setDraftRestored(false);
+    setError(null);
+    setFieldErrors({});
+  };
 
   const handleNext = () => {
-    /* zod 스키마 검증 — 작업 2에서 서버 측에 동일 스키마 재사용 */
-    const errorKey = validateStep(step, form);
-    if (errorKey) {
-      setError(errorKey);
+    /* zod 스키마 검증 (필드 단위) — 서버 측에서 동일 스키마 재검증 */
+    const errors = validateStepFields(step, form);
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setError(null);
+      return;
+    }
+    /* 주소는 검색으로 선택해야 좌표가 확정됨 — 좌표 없으면 지도에 못 올림 */
+    if (step === 2 && (form.lat == null || form.lng == null)) {
+      setError("addressSearchRequired");
       return;
     }
     setError(null);
@@ -107,7 +188,14 @@ export default function RegisterPage() {
     payload.set("ownerEmail", form.ownerEmail);
     payload.set("phone", form.phone);
     payload.set("category", form.category ?? "");
-    payload.set("address", form.address);
+    payload.set(
+      "address",
+      form.addressDetail
+        ? `${form.address}, ${form.addressDetail}`
+        : form.address,
+    );
+    payload.set("lat", form.lat != null ? String(form.lat) : "");
+    payload.set("lng", form.lng != null ? String(form.lng) : "");
     if (form.openingTime) payload.set("openingTime", form.openingTime);
     if (form.closingTime) payload.set("closingTime", form.closingTime);
     payload.set("priceCurrency", form.priceCurrency);
@@ -120,6 +208,7 @@ export default function RegisterPage() {
     payload.set("snsUrl", form.snsUrl);
     payload.set("consent", String(form.consent));
     if (form.photo) payload.set("photo", form.photo);
+    if (form.certFile) payload.set("certFile", form.certFile);
 
     startTransition(async () => {
       const result = await registerRestaurant(payload);
@@ -127,6 +216,7 @@ export default function RegisterPage() {
         track(TRACK_EVENTS.RESTAURANT_REGISTERED, {
           category: form.category ?? "",
         });
+        localStorage.removeItem(DRAFT_KEY);
         setSubmitted(true);
       } else {
         setError(result.error ?? "submitFailed");
@@ -136,8 +226,16 @@ export default function RegisterPage() {
 
   const handlePrev = () => {
     setError(null);
+    setFieldErrors({});
     if (step > 1) setStep((s) => (s - 1) as 1 | 2 | 3);
   };
+
+  const fieldError = (field: string) =>
+    fieldErrors[field] ? (
+      <p className="mt-1 text-[11px] font-bold text-[#B91C1C]" role="alert">
+        {t(fieldErrors[field])}
+      </p>
+    ) : null;
 
   if (submitted) {
     return (
@@ -177,6 +275,20 @@ export default function RegisterPage() {
       <StepIndicator currentStep={step} />
 
       <main className="flex-1 overflow-y-auto px-4 pb-4">
+        {draftRestored && (
+          <div className="mb-4 flex items-center justify-between gap-2 rounded-xl bg-[#FFF5EE] px-3 py-2">
+            <p className="text-[11px] font-semibold text-[#8A6040]">
+              {t("draftRestored")}
+            </p>
+            <button
+              type="button"
+              onClick={clearDraft}
+              className="shrink-0 text-[11px] font-bold text-[#CC4400] underline underline-offset-2"
+            >
+              {t("draftClear")}
+            </button>
+          </div>
+        )}
         {step === 1 && (
           <div className="flex flex-col gap-4">
             <h2 className="text-[16px] font-extrabold text-[#1A0800]">
@@ -192,7 +304,9 @@ export default function RegisterPage() {
                 placeholder={t("restaurantNamePlaceholder")}
                 value={form.name}
                 onChange={(e) => set("name", e.target.value)}
+                aria-invalid={!!fieldErrors.name}
               />
+              {fieldError("name")}
             </div>
             <div>
               <label className={labelClass} htmlFor="reg-email">
@@ -205,7 +319,13 @@ export default function RegisterPage() {
                 placeholder="owner@example.com"
                 value={form.ownerEmail}
                 onChange={(e) => set("ownerEmail", e.target.value)}
+                aria-invalid={!!fieldErrors.ownerEmail}
               />
+              {fieldError("ownerEmail")}
+              {/* 이 이메일이 파트너 센터 로그인·소유권 연결의 열쇠 */}
+              <p className="mt-1 text-[11px] leading-relaxed text-[#B07040]">
+                {t("ownerEmailHint")}
+              </p>
             </div>
             <div>
               <label className={labelClass} htmlFor="reg-phone">
@@ -218,7 +338,9 @@ export default function RegisterPage() {
                 placeholder="02-1234-5678"
                 value={form.phone}
                 onChange={(e) => set("phone", formatPhone(e.target.value))}
+                aria-invalid={!!fieldErrors.phone}
               />
+              {fieldError("phone")}
             </div>
             <div>
               <span className={labelClass}>{t("category")} *</span>
@@ -226,6 +348,7 @@ export default function RegisterPage() {
                 value={form.category}
                 onChange={(cat) => set("category", cat)}
               />
+              {fieldError("category")}
             </div>
           </div>
         )}
@@ -236,16 +359,28 @@ export default function RegisterPage() {
               {t("restaurantDetail")}
             </h2>
             <div>
-              <label className={labelClass} htmlFor="reg-address">
-                {t("address")} *
-              </label>
-              <input
-                id="reg-address"
-                className={inputClass}
-                placeholder={t("addressPlaceholder")}
-                value={form.address}
-                onChange={(e) => set("address", e.target.value)}
+              <span className={labelClass}>{t("address")} *</span>
+              <AddressSearch
+                value={{ address: form.address, lat: form.lat, lng: form.lng }}
+                onChange={(v) =>
+                  setForm((f) => ({
+                    ...f,
+                    address: v.address,
+                    lat: v.lat,
+                    lng: v.lng,
+                  }))
+                }
               />
+              {form.address && (
+                <input
+                  id="reg-address-detail"
+                  className={`${inputClass} mt-2`}
+                  placeholder={t("addressDetailPlaceholder")}
+                  value={form.addressDetail}
+                  onChange={(e) => set("addressDetail", e.target.value)}
+                  maxLength={100}
+                />
+              )}
             </div>
             {/* 2열 그리드 — min-width:0 필수 */}
             <div className="grid grid-cols-2 gap-2">
@@ -359,7 +494,9 @@ export default function RegisterPage() {
                 placeholder="000-00-00000"
                 value={form.bizRegNo}
                 onChange={(e) => set("bizRegNo", formatBizRegNo(e.target.value))}
+                aria-invalid={!!fieldErrors.bizRegNo}
               />
+              {fieldError("bizRegNo")}
             </div>
             <div>
               <span className={labelClass}>{t("halalCertificate")}</span>

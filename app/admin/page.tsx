@@ -20,6 +20,7 @@ interface AdminRow {
   owner_email: string | null;
   phone: string | null;
   biz_reg_no: string | null;
+  cert_file_path: string | null;
   status: "pending" | "approved" | "rejected";
   plan: string;
   created_at: string;
@@ -40,7 +41,7 @@ export default async function AdminPage() {
     supabase
       .from("restaurants")
       .select(
-        "id, name, category, address, owner_email, phone, biz_reg_no, status, plan, created_at",
+        "id, name, category, address, owner_email, phone, biz_reg_no, cert_file_path, status, plan, created_at",
       )
       .order("created_at", { ascending: false })
       .limit(500),
@@ -49,6 +50,19 @@ export default async function AdminPage() {
 
   const rows = (restaurants ?? []) as AdminRow[];
   const pending = rows.filter((r) => r.status === "pending");
+
+  /* 인증서는 비공개 버킷 — 승인 검토용 서명 URL(10분) 생성 */
+  const certUrls = new Map<string, string>();
+  await Promise.all(
+    pending
+      .filter((r) => r.cert_file_path)
+      .map(async (r) => {
+        const { data } = await supabase.storage
+          .from("cert-documents")
+          .createSignedUrl(r.cert_file_path!, 600);
+        if (data?.signedUrl) certUrls.set(r.id, data.signedUrl);
+      }),
+  );
   const counts = {
     total: rows.length,
     approved: rows.filter((r) => r.status === "approved").length,
@@ -136,6 +150,16 @@ export default async function AdminPage() {
                     {r.biz_reg_no ?? "-"} ·{" "}
                     {new Date(r.created_at).toLocaleDateString("ko-KR")}
                   </p>
+                  {certUrls.has(r.id) && (
+                    <a
+                      href={certUrls.get(r.id)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 inline-block text-[11px] font-bold text-[#FF6B35] underline"
+                    >
+                      인증서 서류 보기
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

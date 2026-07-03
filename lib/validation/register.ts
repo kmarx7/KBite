@@ -31,12 +31,14 @@ const TIME_PATTERN = /^([01]\d|2[0-3]):[0-5]\d$/;
 
 export const step1Schema = z.object({
   name: z.string().trim().min(1, "requiredField").max(100, "requiredField"),
+  /* 소문자 정규화 — 파트너 claim이 이메일 일치로 소유권을 판단하므로 저장 시점에 통일 */
   ownerEmail: z
     .string()
     .trim()
     .min(1, "requiredField")
     .max(254, "invalidEmail")
-    .email("invalidEmail"),
+    .email("invalidEmail")
+    .toLowerCase(),
   phone: z
     .string()
     .trim()
@@ -77,6 +79,12 @@ export const step3Schema = z.object({
     .regex(/^$|^https?:\/\/\S+$/i, "invalidUrl"),
 });
 
+/** 좌표 — 클라이언트 지오코딩 결과를 서버에서 재검증 (한국 영토 범위) */
+export const coordsSchema = z.object({
+  lat: z.coerce.number().min(33, "addressSearchRequired").max(39, "addressSearchRequired"),
+  lng: z.coerce.number().min(124, "addressSearchRequired").max(132, "addressSearchRequired"),
+});
+
 /** 단계별 검증 — 통과 시 null, 실패 시 첫 에러의 i18n 키 반환 */
 export function validateStep(
   step: 1 | 2 | 3,
@@ -87,6 +95,23 @@ export function validateStep(
   const result = schema.safeParse(data);
   if (result.success) return null;
   return result.error.issues[0]?.message ?? "requiredField";
+}
+
+/** 단계별 검증 (필드 단위) — 필드명 → 첫 에러 i18n 키. 통과 시 빈 객체 */
+export function validateStepFields(
+  step: 1 | 2 | 3,
+  data: unknown,
+): Record<string, string> {
+  const schema =
+    step === 1 ? step1Schema : step === 2 ? step2Schema : step3Schema;
+  const result = schema.safeParse(data);
+  if (result.success) return {};
+  const errors: Record<string, string> = {};
+  for (const issue of result.error.issues) {
+    const field = String(issue.path[0] ?? "");
+    if (field && !errors[field]) errors[field] = issue.message;
+  }
+  return errors;
 }
 
 /** 업로드 파일 제한 — 클라이언트 UX용. 서버 측에서도 동일 제한 적용 필수 */
