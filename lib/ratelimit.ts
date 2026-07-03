@@ -11,8 +11,12 @@ const LIMITS: Record<Action, { requests: number; window: `${number} ${"s" | "m" 
 };
 
 function makeLimiter(action: Action): Ratelimit | null {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  /* Vercel 마켓플레이스(Upstash for Redis)는 KV_* 이름으로 주입,
+     Upstash 콘솔 직접 발급은 UPSTASH_* — 둘 다 지원 */
+  const url =
+    process.env.KV_REST_API_URL ?? process.env.UPSTASH_REDIS_REST_URL;
+  const token =
+    process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN;
   if (!url || !token) return null;
 
   const { requests, window } = LIMITS[action];
