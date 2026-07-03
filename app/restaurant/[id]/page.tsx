@@ -13,6 +13,7 @@ import {
   getRestaurantDetail,
   incrementViewCount,
 } from "@/lib/api/restaurants";
+import { createClient } from "@/lib/supabase/server";
 import { DEFAULT_LOCATION, haversineKm, isOpenNow } from "@/lib/utils";
 import { formatPriceDisplay } from "@/lib/price";
 import DetailCover from "@/components/restaurant/DetailCover";
@@ -38,6 +39,12 @@ export default async function RestaurantDetailPage({
   void incrementViewCount(id);
   const restaurant = await getRestaurantDetail(id);
   if (!restaurant) notFound();
+
+  /* 리뷰 작성은 로그인 필수 — 폼 대신 로그인 유도 여부 결정 */
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const t = await getTranslations("detail");
   const tc = await getTranslations("common");
@@ -176,7 +183,7 @@ export default async function RestaurantDetailPage({
           lat={restaurant.lat}
           lng={restaurant.lng}
         />
-        <ReviewForm restaurantId={restaurant.id} />
+        <ReviewForm restaurantId={restaurant.id} isLoggedIn={!!user} />
         {restaurant.reviews.length > 0 && (
           <ReviewList reviews={restaurant.reviews} />
         )}

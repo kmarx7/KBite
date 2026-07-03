@@ -34,7 +34,8 @@ export default function PartnerResetPage() {
         setError(result.error ?? "resetExpired");
         return;
       }
-      router.push("/partner");
+      /* 파트너·소비자 공용 재설정 — 공통 착지점은 프로필 */
+      router.push("/profile");
       router.refresh();
     });
   };

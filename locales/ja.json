@@ -90,7 +90,8 @@
     "reviewThanks": "レビューありがとうございます！",
     "reviewError": "投稿に失敗しました。もう一度お試しください。",
     "cancel": "キャンセル",
-    "ownerReply": "オーナー返信"
+    "ownerReply": "オーナー返信",
+    "loginToReview": "ログインしてレビューを書く"
   },
   "register": {
     "title": "レストラン登録",
@@ -169,9 +170,9 @@
     "addRestaurant": "お店を登録する",
     "legal": "規約とポリシー",
     "contact": "お問い合わせ",
-    "accountSoon": "アカウント機能は近日公開——現在、保存はこの端末に記録されます。",
     "partnerLogin": "パートナーログイン",
-    "viewPlans": "プランと料金"
+    "viewPlans": "プランと料金",
+    "account": "アカウント"
   },
   "partner": {
     "title": "パートナーセンター",
@@ -304,5 +305,30 @@
     "upgradeModalDesc": "{plan}以上のプランでご利用いただけます。",
     "upgradeModalCta": "プランを見てアップグレード",
     "upgradeModalDismiss": "後で"
+  },
+  "auth": {
+    "title": "アカウント",
+    "welcome": "KBiteへようこそ",
+    "welcomeDesc": "ログインするとレビューを書けて、保存したレストランをどの端末でも見られます。",
+    "login": "ログイン",
+    "signup": "新規登録",
+    "email": "メールアドレス",
+    "password": "パスワード（8文字以上）",
+    "continueWithGoogle": "Googleで続ける",
+    "or": "または",
+    "forgotPassword": "パスワードをお忘れですか？",
+    "resetTitle": "パスワード再設定",
+    "resetDesc": "メールアドレスを入力すると再設定リンクをお送りします。",
+    "resetSend": "再設定リンクを送信",
+    "resetSent": "このメールアドレスで登録されたアカウントがあれば、再設定リンクを送信しました。",
+    "emailConfirmSent": "メールをご確認ください — 確認リンクを送信しました。",
+    "loginFailed": "メールアドレスまたはパスワードが正しくありません。",
+    "signupFailed": "登録できませんでした。別のメールアドレスをお試しください。",
+    "passwordMin": "パスワードは8文字以上必要です。",
+    "invalidEmail": "有効なメールアドレスを入力してください。",
+    "googleUnavailable": "Googleログインは現在利用できません — メールでお進みください。",
+    "backToLogin": "ログインに戻る",
+    "logout": "ログアウト",
+    "loginCta": "ログイン / 新規登録"
   }
 }

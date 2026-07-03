@@ -90,7 +90,8 @@
     "reviewThanks": "感谢您的评论！",
     "reviewError": "提交失败，请重试。",
     "cancel": "取消",
-    "ownerReply": "商家回复"
+    "ownerReply": "商家回复",
+    "loginToReview": "登录后撰写评价"
   },
   "register": {
     "title": "登记餐厅",
@@ -169,9 +170,9 @@
     "addRestaurant": "登记我的餐厅",
     "legal": "条款与政策",
     "contact": "联系我们",
-    "accountSoon": "账号功能即将上线——目前收藏保存在本设备上。",
     "partnerLogin": "合作伙伴登录",
-    "viewPlans": "套餐与价格"
+    "viewPlans": "套餐与价格",
+    "account": "账户"
   },
   "partner": {
     "title": "合作伙伴中心",
@@ -304,5 +305,30 @@
     "upgradeModalDesc": "此功能在{plan}及更高版本中可用。",
     "upgradeModalCta": "查看计划并升级",
     "upgradeModalDismiss": "稍后再说"
+  },
+  "auth": {
+    "title": "账户",
+    "welcome": "欢迎来到 KBite",
+    "welcomeDesc": "登录后可以撰写评价，并在所有设备上同步收藏的餐厅。",
+    "login": "登录",
+    "signup": "注册",
+    "email": "邮箱",
+    "password": "密码（8位以上）",
+    "continueWithGoogle": "使用 Google 继续",
+    "or": "或",
+    "forgotPassword": "忘记密码？",
+    "resetTitle": "重置密码",
+    "resetDesc": "输入邮箱，我们会发送密码重置链接。",
+    "resetSend": "发送重置链接",
+    "resetSent": "如果该邮箱已注册，我们已发送重置链接。",
+    "emailConfirmSent": "请查收邮件——我们发送了确认链接。",
+    "loginFailed": "邮箱或密码不正确。",
+    "signupFailed": "无法注册，请尝试其他邮箱。",
+    "passwordMin": "密码至少需要8个字符。",
+    "invalidEmail": "请输入有效的邮箱。",
+    "googleUnavailable": "Google 登录暂不可用——请使用邮箱。",
+    "backToLogin": "返回登录",
+    "logout": "退出登录",
+    "loginCta": "登录 / 注册"
   }
 }

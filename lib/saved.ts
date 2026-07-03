@@ -1,10 +1,15 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import {
+  mergeSavedRestaurants,
+  setSavedRestaurants,
+} from "@/app/actions/account";
 
 /**
- * 찜 저장 — 로그인 도입 전까지 localStorage(기기별).
- * 계정 시스템 도입 시 profiles.saved_restaurants로 마이그레이션한다.
+ * 찜 저장 — localStorage가 1차 저장소(비로그인 포함 즉시 반응),
+ * 로그인 상태면 profiles.saved_restaurants에 백그라운드 동기화.
+ * 로그인 직후에는 syncSavedWithServer()가 양쪽을 합집합으로 병합한다.
  */
 
 const STORAGE_KEY = "kbite_saved";
@@ -52,18 +57,39 @@ export function useSavedIds(): string[] {
   return useSyncExternalStore(subscribe, getSnapshot, () => EMPTY);
 }
 
-/** 찜 토글 — 찜 상태가 되면 true 반환 */
+function writeLocal(ids: string[]) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  } catch {
+    /* 저장 불가(시크릿 모드 등) */
+  }
+  window.dispatchEvent(new Event(CHANGE_EVENT));
+}
+
+/** 찜 토글 — 찜 상태가 되면 true 반환. 로그인 상태면 서버에도 반영 */
 export function toggleSaved(id: string): boolean {
   const current = getSnapshot();
   const nowSaved = !current.includes(id);
   const next = nowSaved
     ? [...current, id]
     : current.filter((v) => v !== id);
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-  } catch {
-    /* 저장 불가(시크릿 모드 등) — 토글은 무시됨 */
-  }
-  window.dispatchEvent(new Event(CHANGE_EVENT));
+  writeLocal(next);
+  /* 비로그인이면 서버 액션이 조용히 무시 — 실패해도 로컬은 유지 */
+  void setSavedRestaurants(next).catch(() => {});
   return nowSaved;
+}
+
+/**
+ * 로컬 찜과 서버 찜을 합집합으로 병합 (로그인 직후·페이지 첫 로드에 1회).
+ * 로그인 상태였으면 true 반환.
+ */
+export async function syncSavedWithServer(): Promise<boolean> {
+  try {
+    const merged = await mergeSavedRestaurants(getSnapshot());
+    if (!merged) return false;
+    writeLocal(merged.ids);
+    return true;
+  } catch {
+    return false;
+  }
 }

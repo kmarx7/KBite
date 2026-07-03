@@ -4,7 +4,7 @@ import { createServerClient } from "@supabase/ssr";
 /**
  * Supabase 세션 갱신 (Next 16: middleware → proxy).
  * 만료된 액세스 토큰을 리프레시해 서버 컴포넌트가 항상 유효한
- * 세션을 읽게 한다. 파트너 영역에만 적용.
+ * 세션을 읽게 한다. 세션을 쓰는 화면(파트너·소비자 계정)에 적용.
  */
 export default async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -37,5 +37,6 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/partner/:path*"],
+  /* 세션이 필요한 화면 전부 — 만료 토큰을 서버 렌더 전에 갱신 */
+  matcher: ["/partner/:path*", "/profile", "/login", "/saved", "/restaurant/:path*"],
 };
