@@ -11,8 +11,10 @@ import type { Plan } from "@/types";
 
 export interface ConfirmBillingResult {
   ok: boolean;
-  /** 사용자에게 표시할 메시지 (실패 시) */
+  /** i18n 키 (partner 네임스페이스) */
   error?: string;
+  /** PG사(Toss) 원문 메시지 — 키로 대체 불가한 상세 사유 */
+  errorDetail?: string;
   amount?: number;
 }
 
@@ -33,19 +35,19 @@ export async function confirmBillingAuth(
   input: unknown,
 ): Promise<ConfirmBillingResult> {
   const parsed = inputSchema.safeParse(input);
-  if (!parsed.success) return { ok: false, error: "잘못된 요청입니다." };
+  if (!parsed.success) return { ok: false, error: "invalidRequest" };
   const { restaurantId, authKey, customerKey, plan } = parsed.data;
 
   /* customerKey는 SDK 호출 시 restaurantId로 지정했음 — 불일치는 변조 */
   if (customerKey !== restaurantId) {
-    return { ok: false, error: "잘못된 요청입니다." };
+    return { ok: false, error: "invalidRequest" };
   }
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { ok: false, error: "로그인이 필요합니다." };
+  if (!user) return { ok: false, error: "loginRequired" };
 
   const { data: restaurant } = await supabase
     .from("restaurants")
@@ -54,7 +56,7 @@ export async function confirmBillingAuth(
     .eq("owner_id", user.id)
     .maybeSingle();
   if (!restaurant) {
-    return { ok: false, error: "레스토랑을 찾을 수 없습니다." };
+    return { ok: false, error: "restaurantNotFound" };
   }
 
   const admin = createAdminClient();
@@ -88,12 +90,9 @@ export async function confirmBillingAuth(
       .maybeSingle();
     if (existing?.status === "success") return { ok: true, amount };
     if (existing?.status === "pending") {
-      return {
-        ok: false,
-        error: "이미 처리 중인 결제입니다. 잠시 후 결제 내역을 확인해 주세요.",
-      };
+      return { ok: false, error: "paymentInProgress" };
     }
-    return { ok: false, error: "이미 사용된 결제 요청입니다. 다시 시도해 주세요." };
+    return { ok: false, error: "paymentAlreadyUsed" };
   }
 
   try {
@@ -162,12 +161,12 @@ export async function confirmBillingAuth(
 
     return { ok: true, amount };
   } catch (err) {
-    const message = err instanceof Error ? err.message : "결제 오류";
+    const message = err instanceof Error ? err.message : "";
     await admin
       .from("payment_history")
-      .update({ status: "failed", failure_reason: message })
+      .update({ status: "failed", failure_reason: message || "결제 오류" })
       .eq("id", pendingRow.id)
       .eq("status", "pending");
-    return { ok: false, error: message };
+    return { ok: false, error: "paymentError", errorDetail: message };
   }
 }
