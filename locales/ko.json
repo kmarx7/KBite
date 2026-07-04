@@ -281,7 +281,9 @@
     "paymentInProgress": "이미 처리 중인 결제입니다. 잠시 후 결제 내역을 확인해 주세요.",
     "paymentAlreadyUsed": "이미 사용된 결제 요청입니다. 다시 시도해 주세요.",
     "paymentError": "결제 오류",
-    "cancelConfirm": "구독을 취소하면 현재 결제 기간이 끝날 때까지는 혜택이 유지됩니다. 취소하시겠습니까?"
+    "cancelConfirm": "구독을 취소하면 현재 결제 기간이 끝날 때까지는 혜택이 유지됩니다. 취소하시겠습니까?",
+    "viewsTrend": "조회수 — 최근 14일",
+    "viewsWeekSummary": "이번 주 {current} · 지난주 {prev}"
   },
   "pricing": {
     "title": "투명한 가격 정책",

@@ -281,7 +281,9 @@
     "paymentInProgress": "该付款正在处理中，请稍后查看付款记录。",
     "paymentAlreadyUsed": "该付款请求已被使用，请重试。",
     "paymentError": "付款错误",
-    "cancelConfirm": "取消订阅后，权益将保留至本计费周期结束。确定取消吗？"
+    "cancelConfirm": "取消订阅后，权益将保留至本计费周期结束。确定取消吗？",
+    "viewsTrend": "浏览量——最近14天",
+    "viewsWeekSummary": "本周 {current} · 上周 {prev}"
   },
   "pricing": {
     "title": "简单透明的定价",
