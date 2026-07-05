@@ -26,7 +26,7 @@ export default function RestaurantCard({
   return (
     <Link
       href={`/restaurant/${r.id}`}
-      className="flex overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow active:shadow-md"
+      className="flex shrink-0 overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow active:shadow-md"
     >
       {/* 왼쪽 패널 — 사진 있으면 이미지, 없으면 카테고리 그라디언트 + 이모지 */}
       <div className="relative flex w-[76px] shrink-0 items-center justify-center overflow-hidden">
