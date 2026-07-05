@@ -173,7 +173,11 @@
     "contact": "Contact us",
     "partnerLogin": "Partner login",
     "viewPlans": "Plans & pricing",
-    "account": "Account"
+    "account": "Account",
+    "accountDiner": "Looking for food?",
+    "accountOwner": "Restaurant owner?",
+    "accountOwnerDesc": "Partner Center — register & manage your restaurant",
+    "accountOwnerManage": "Manage my restaurants ({count})"
   },
   "partner": {
     "title": "Partner Center",
@@ -285,7 +289,11 @@
     "cancelConfirm": "If you cancel, your benefits remain until the end of the current billing period. Cancel subscription?",
     "viewsTrend": "Views — last 14 days",
     "viewsWeekSummary": "This week {current} · Last week {prev}",
-    "bizNoNotVerified": "This business registration number could not be verified with the National Tax Service (closed or unregistered). Please double-check."
+    "bizNoNotVerified": "This business registration number could not be verified with the National Tax Service (closed or unregistered). Please double-check.",
+    "signupConsent": "By signing up, you agree to our <terms>Terms of Service</terms>, <privacy>Privacy Policy</privacy> and <partner>Partner Terms</partner>.",
+    "consumerCta": "Just looking for food?",
+    "consumerCtaLink": "Sign in as a diner",
+    "refundNotice": "By paying, you agree to our <refund>Refund Policy</refund>."
   },
   "pricing": {
     "title": "Simple, transparent pricing",
@@ -333,6 +341,9 @@
     "googleUnavailable": "Google sign-in is unavailable right now — please use email.",
     "backToLogin": "Back to login",
     "logout": "Log out",
-    "loginCta": "Sign in / Sign up"
+    "loginCta": "Sign in / Sign up",
+    "signupConsent": "By signing up, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
+    "partnerCta": "Restaurant owner?",
+    "partnerCtaLink": "Partner login"
   }
 }

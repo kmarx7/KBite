@@ -173,7 +173,11 @@
     "contact": "문의하기",
     "partnerLogin": "파트너 로그인",
     "viewPlans": "플랜 · 가격 보기",
-    "account": "계정"
+    "account": "계정",
+    "accountDiner": "음식을 찾고 계신가요?",
+    "accountOwner": "식당 사장님이신가요?",
+    "accountOwnerDesc": "파트너 센터 — 내 식당 등록·관리",
+    "accountOwnerManage": "내 식당 관리 ({count})"
   },
   "partner": {
     "title": "파트너 센터",
@@ -285,7 +289,11 @@
     "cancelConfirm": "구독을 취소하면 현재 결제 기간이 끝날 때까지는 혜택이 유지됩니다. 취소하시겠습니까?",
     "viewsTrend": "조회수 — 최근 14일",
     "viewsWeekSummary": "이번 주 {current} · 지난주 {prev}",
-    "bizNoNotVerified": "국세청에서 확인되지 않는 사업자등록번호예요 (폐업 또는 미등록). 다시 확인해 주세요."
+    "bizNoNotVerified": "국세청에서 확인되지 않는 사업자등록번호예요 (폐업 또는 미등록). 다시 확인해 주세요.",
+    "signupConsent": "가입하면 <terms>이용약관</terms>, <privacy>개인정보처리방침</privacy>, <partner>파트너 약관</partner>에 동의하는 것으로 간주됩니다.",
+    "consumerCta": "일반 사용자이신가요?",
+    "consumerCtaLink": "소비자 로그인",
+    "refundNotice": "결제하면 <refund>환불 정책</refund>에 동의하는 것으로 간주됩니다."
   },
   "pricing": {
     "title": "투명한 가격 정책",
@@ -333,6 +341,9 @@
     "googleUnavailable": "Google 로그인을 지금 사용할 수 없어요 — 이메일로 진행해 주세요.",
     "backToLogin": "로그인으로 돌아가기",
     "logout": "로그아웃",
-    "loginCta": "로그인 / 가입하기"
+    "loginCta": "로그인 / 가입하기",
+    "signupConsent": "가입하면 <terms>이용약관</terms>과 <privacy>개인정보처리방침</privacy>에 동의하는 것으로 간주됩니다.",
+    "partnerCta": "식당 사장님이신가요?",
+    "partnerCtaLink": "파트너 로그인"
   }
 }

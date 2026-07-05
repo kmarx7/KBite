@@ -173,7 +173,11 @@
     "contact": "تماس با ما",
     "partnerLogin": "ورود شرکا",
     "viewPlans": "طرح‌ها و قیمت‌ها",
-    "account": "حساب"
+    "account": "حساب",
+    "accountDiner": "دنبال غذا هستید؟",
+    "accountOwner": "صاحب رستوران هستید؟",
+    "accountOwnerDesc": "مرکز شرکا — ثبت و مدیریت رستوران شما",
+    "accountOwnerManage": "مدیریت رستوران‌های من ({count})"
   },
   "partner": {
     "title": "مرکز شرکا",
@@ -285,7 +289,11 @@
     "cancelConfirm": "در صورت لغو، مزایا تا پایان دوره صورتحساب فعلی حفظ می‌شود. اشتراک لغو شود؟",
     "viewsTrend": "بازدیدها — ۱۴ روز اخیر",
     "viewsWeekSummary": "این هفته {current} · هفته گذشته {prev}",
-    "bizNoNotVerified": "این شماره ثبت کسب‌وکار توسط سازمان مالیات کره تأیید نشد (تعطیل یا ثبت‌نشده). لطفاً دوباره بررسی کنید."
+    "bizNoNotVerified": "این شماره ثبت کسب‌وکار توسط سازمان مالیات کره تأیید نشد (تعطیل یا ثبت‌نشده). لطفاً دوباره بررسی کنید.",
+    "signupConsent": "با ثبت‌نام، با <terms>شرایط استفاده</terms>، <privacy>سیاست حریم خصوصی</privacy> و <partner>شرایط شرکا</partner> موافقت می‌کنید.",
+    "consumerCta": "کاربر عادی هستید؟",
+    "consumerCtaLink": "ورود کاربران",
+    "refundNotice": "با پرداخت، با <refund>سیاست بازپرداخت</refund> موافقت می‌کنید."
   },
   "pricing": {
     "title": "قیمت‌گذاری ساده و شفاف",
@@ -333,6 +341,9 @@
     "googleUnavailable": "ورود با Google اکنون در دسترس نیست — از ایمیل استفاده کنید.",
     "backToLogin": "بازگشت به ورود",
     "logout": "خروج",
-    "loginCta": "ورود / ثبت‌نام"
+    "loginCta": "ورود / ثبت‌نام",
+    "signupConsent": "با ثبت‌نام، با <terms>شرایط استفاده</terms> و <privacy>سیاست حریم خصوصی</privacy> موافقت می‌کنید.",
+    "partnerCta": "صاحب رستوران هستید؟",
+    "partnerCtaLink": "ورود شرکا"
   }
 }

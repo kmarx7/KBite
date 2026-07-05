@@ -263,6 +263,25 @@ export default async function PartnerBillingPage({
                 />
               ))}
 
+          {/* 결제 동의 고지 — 환불 정책 (전자상거래법 표시 의무) */}
+          {(currentPlan === "free" ||
+            subStatus === "cancelled" ||
+            subStatus === "past_due") && (
+            <p className="text-center text-[11px] leading-relaxed text-[#8A6040]">
+              {t.rich("refundNotice", {
+                refund: (chunks) => (
+                  <Link
+                    href="/policy/refund"
+                    target="_blank"
+                    className="font-bold underline"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </p>
+          )}
+
           {/* 취소 버튼 — 활성 구독일 때만 */}
           {currentPlan !== "free" && subStatus === "active" && (
             <CancelSubscriptionButton restaurantId={id} />

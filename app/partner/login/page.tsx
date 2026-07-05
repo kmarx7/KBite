@@ -11,7 +11,6 @@ import {
   partnerRequestPasswordReset,
 } from "@/app/actions/partner";
 import { TRACK_EVENTS, track } from "@/lib/analytics";
-import { formatBizRegNo } from "@/lib/utils";
 
 const inputClass =
   "w-full rounded-xl border border-[#FFD4B8] bg-white px-3 py-3 text-[14px] font-semibold text-[#1A0800] placeholder:text-[#C0A080] focus:border-[#FF6B35] focus:outline-none";
@@ -35,7 +34,6 @@ function PartnerLoginInner() {
   );
   const [notice, setNotice] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const [bizRegNo, setBizRegNo] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -157,22 +155,6 @@ function PartnerLoginInner() {
             />
             </>
           )}
-          {mode === "signup" && (
-            <>
-            <label className="sr-only" htmlFor="partner-bizno">
-              {t("bizRegNoPlaceholder")}
-            </label>
-            <input
-              id="partner-bizno"
-              name="bizRegNo"
-              value={bizRegNo}
-              onChange={(e) => setBizRegNo(formatBizRegNo(e.target.value))}
-              placeholder={t("bizRegNoPlaceholder")}
-              required
-              className={inputClass}
-            />
-            </>
-          )}
           {error && (
             <p className="text-[12px] font-bold text-[#B91C1C]">{t(error)}</p>
           )}
@@ -189,6 +171,41 @@ function PartnerLoginInner() {
           >
             {mode === "reset" ? t("resetSend") : t(mode)}
           </button>
+
+          {/* 가입 동의 고지 — 이용약관·개인정보·파트너 약관 */}
+          {mode === "signup" && (
+            <p className="text-center text-[11px] leading-relaxed text-[#8A6040]">
+              {t.rich("signupConsent", {
+                terms: (chunks) => (
+                  <Link
+                    href="/policy/terms"
+                    target="_blank"
+                    className="font-bold underline"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+                privacy: (chunks) => (
+                  <Link
+                    href="/policy/privacy"
+                    target="_blank"
+                    className="font-bold underline"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+                partner: (chunks) => (
+                  <Link
+                    href="/policy/partner"
+                    target="_blank"
+                    className="font-bold underline"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </p>
+          )}
 
           {mode === "login" && (
             <button
@@ -216,6 +233,17 @@ function PartnerLoginInner() {
             </button>
           )}
         </form>
+
+        {/* 소비자 탈출구 — 일반 사용자를 소비자 로그인으로 */}
+        <p className="mt-6 text-[12px] font-semibold text-[#8A6040]">
+          {t("consumerCta")}{" "}
+          <Link
+            href="/login"
+            className="font-bold text-[#CC4400] underline underline-offset-2"
+          >
+            {t("consumerCtaLink")}
+          </Link>
+        </p>
       </main>
     </div>
   );

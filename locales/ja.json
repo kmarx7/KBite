@@ -173,7 +173,11 @@
     "contact": "お問い合わせ",
     "partnerLogin": "パートナーログイン",
     "viewPlans": "プランと料金",
-    "account": "アカウント"
+    "account": "アカウント",
+    "accountDiner": "お食事をお探しですか？",
+    "accountOwner": "レストランのオーナーですか？",
+    "accountOwnerDesc": "パートナーセンター — お店の登録・管理",
+    "accountOwnerManage": "マイレストラン管理（{count}）"
   },
   "partner": {
     "title": "パートナーセンター",
@@ -285,7 +289,11 @@
     "cancelConfirm": "解約すると、現在の請求期間が終了するまで特典は維持されます。解約しますか？",
     "viewsTrend": "閲覧数 — 直近14日",
     "viewsWeekSummary": "今週 {current} · 先週 {prev}",
-    "bizNoNotVerified": "この事業者登録番号は国税庁で確認できませんでした（廃業または未登録）。もう一度ご確認ください。"
+    "bizNoNotVerified": "この事業者登録番号は国税庁で確認できませんでした（廃業または未登録）。もう一度ご確認ください。",
+    "signupConsent": "登録すると<terms>利用規約</terms>、<privacy>プライバシーポリシー</privacy>、<partner>パートナー規約</partner>に同意したものとみなされます。",
+    "consumerCta": "一般ユーザーの方は",
+    "consumerCtaLink": "ユーザーログイン",
+    "refundNotice": "お支払いにより<refund>返金ポリシー</refund>に同意したものとみなされます。"
   },
   "pricing": {
     "title": "シンプルな料金プラン",
@@ -333,6 +341,9 @@
     "googleUnavailable": "Googleログインは現在利用できません — メールでお進みください。",
     "backToLogin": "ログインに戻る",
     "logout": "ログアウト",
-    "loginCta": "ログイン / 新規登録"
+    "loginCta": "ログイン / 新規登録",
+    "signupConsent": "登録すると<terms>利用規約</terms>と<privacy>プライバシーポリシー</privacy>に同意したものとみなされます。",
+    "partnerCta": "レストランのオーナーですか？",
+    "partnerCtaLink": "パートナーログイン"
   }
 }
