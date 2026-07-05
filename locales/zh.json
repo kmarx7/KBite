@@ -283,6 +283,8 @@
     "paymentAlreadyUsed": "该付款请求已被使用，请重试。",
     "paymentError": "付款错误",
     "cancelConfirm": "取消订阅后，权益将保留至本计费周期结束。确定取消吗？",
+    "viewsTrend": "浏览量——最近14天",
+    "viewsWeekSummary": "本周 {current} · 上周 {prev}",
     "bizNoNotVerified": "该营业执照号码未能通过国税厅验证（已注销或未登记），请再次确认。"
   },
   "pricing": {

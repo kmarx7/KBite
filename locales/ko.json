@@ -283,6 +283,8 @@
     "paymentAlreadyUsed": "이미 사용된 결제 요청입니다. 다시 시도해 주세요.",
     "paymentError": "결제 오류",
     "cancelConfirm": "구독을 취소하면 현재 결제 기간이 끝날 때까지는 혜택이 유지됩니다. 취소하시겠습니까?",
+    "viewsTrend": "조회수 — 최근 14일",
+    "viewsWeekSummary": "이번 주 {current} · 지난주 {prev}",
     "bizNoNotVerified": "국세청에서 확인되지 않는 사업자등록번호예요 (폐업 또는 미등록). 다시 확인해 주세요."
   },
   "pricing": {

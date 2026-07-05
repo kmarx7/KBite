@@ -112,6 +112,35 @@ export default async function PartnerRestaurantDashboard({
   } catch {}
 
   const viewCount = (restaurant.view_count as number | null) ?? 0;
+
+  /* 일별 조회 추이 14일 — KST 기준 (증가 함수와 동일 기준) */
+  const TREND_DAYS = 14;
+  const kstNow = new Date(Date.now() + 9 * 60 * 60 * 1000);
+  const dayKeys: string[] = Array.from({ length: TREND_DAYS }, (_, i) => {
+    const d = new Date(kstNow);
+    d.setUTCDate(d.getUTCDate() - (TREND_DAYS - 1 - i));
+    return d.toISOString().slice(0, 10);
+  });
+  const viewsByDay = new Map<string, number>(dayKeys.map((k) => [k, 0]));
+  try {
+    const admin = createAdminClient();
+    const { data: dailyRows } = await admin
+      .from("restaurant_view_daily")
+      .select("day, views")
+      .eq("restaurant_id", id)
+      .gte("day", dayKeys[0]);
+    for (const row of dailyRows ?? []) {
+      if (viewsByDay.has(row.day as string)) {
+        viewsByDay.set(row.day as string, row.views as number);
+      }
+    }
+  } catch {
+    /* 마이그레이션 미적용 등 — 0으로 표시 */
+  }
+  const trend = dayKeys.map((k) => ({ day: k, views: viewsByDay.get(k) ?? 0 }));
+  const maxViews = Math.max(1, ...trend.map((d) => d.views));
+  const thisWeek = trend.slice(7).reduce((s, d) => s + d.views, 0);
+  const lastWeek = trend.slice(0, 7).reduce((s, d) => s + d.views, 0);
   const category = restaurant.category as Category;
   const status = (restaurant.status as keyof typeof STATUS_STYLE) ?? "pending";
   const statusStyle = STATUS_STYLE[status];
@@ -192,6 +221,48 @@ export default async function PartnerRestaurantDashboard({
             </div>
           ))}
         </div>
+
+        {/* 조회 추이 — 14일 (무료 플랜에도 노출: 가치 증명) */}
+        <section className="rounded-2xl border border-[#FFE8D6] bg-white p-4">
+          <h2 className="text-[13px] font-extrabold text-[#1A0800]">
+            {t("viewsTrend")}
+          </h2>
+          <p className="mb-3 text-[11px] font-semibold text-[#8A6040]">
+            {t("viewsWeekSummary", { current: thisWeek, prev: lastWeek })}
+          </p>
+          <div
+            className="flex h-20 items-end gap-[3px]"
+            role="img"
+            aria-label={t("viewsWeekSummary", {
+              current: thisWeek,
+              prev: lastWeek,
+            })}
+          >
+            {trend.map(({ day, views }) => (
+              <div
+                key={day}
+                className="flex h-full min-w-0 flex-1 items-end"
+                title={`${day.slice(5).replace("-", "/")} · ${views}`}
+              >
+                <div
+                  className="w-full rounded-t-[3px]"
+                  style={
+                    views > 0
+                      ? {
+                          height: `${Math.max(6, (views / maxViews) * 100)}%`,
+                          backgroundColor: "#FF6B35",
+                        }
+                      : { height: "3px", backgroundColor: "#FFE8D6" }
+                  }
+                />
+              </div>
+            ))}
+          </div>
+          <div className="mt-1 flex justify-between text-[9px] font-bold text-[#B07040]">
+            <span>{dayKeys[0].slice(5).replace("-", "/")}</span>
+            <span>{dayKeys[TREND_DAYS - 1].slice(5).replace("-", "/")}</span>
+          </div>
+        </section>
 
         {/* 빠른 메뉴 */}
         <nav className="flex flex-col gap-2">

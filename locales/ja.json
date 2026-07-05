@@ -283,6 +283,8 @@
     "paymentAlreadyUsed": "この決済リクエストはすでに使用されています。もう一度お試しください。",
     "paymentError": "決済エラー",
     "cancelConfirm": "解約すると、現在の請求期間が終了するまで特典は維持されます。解約しますか？",
+    "viewsTrend": "閲覧数 — 直近14日",
+    "viewsWeekSummary": "今週 {current} · 先週 {prev}",
     "bizNoNotVerified": "この事業者登録番号は国税庁で確認できませんでした（廃業または未登録）。もう一度ご確認ください。"
   },
   "pricing": {

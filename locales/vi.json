@@ -283,6 +283,8 @@
     "paymentAlreadyUsed": "Yêu cầu thanh toán này đã được sử dụng. Vui lòng thử lại.",
     "paymentError": "Lỗi thanh toán",
     "cancelConfirm": "Nếu hủy, quyền lợi vẫn được giữ đến hết chu kỳ thanh toán hiện tại. Hủy gói đăng ký?",
+    "viewsTrend": "Lượt xem — 14 ngày qua",
+    "viewsWeekSummary": "Tuần này {current} · Tuần trước {prev}",
     "bizNoNotVerified": "Số đăng ký kinh doanh này không được Cơ quan Thuế Quốc gia xác nhận (đã đóng cửa hoặc chưa đăng ký). Vui lòng kiểm tra lại."
   },
   "pricing": {

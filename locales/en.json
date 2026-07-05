@@ -283,6 +283,8 @@
     "paymentAlreadyUsed": "This payment request was already used. Please try again.",
     "paymentError": "Payment error",
     "cancelConfirm": "If you cancel, your benefits remain until the end of the current billing period. Cancel subscription?",
+    "viewsTrend": "Views — last 14 days",
+    "viewsWeekSummary": "This week {current} · Last week {prev}",
     "bizNoNotVerified": "This business registration number could not be verified with the National Tax Service (closed or unregistered). Please double-check."
   },
   "pricing": {
