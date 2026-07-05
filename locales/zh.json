@@ -144,7 +144,8 @@
     "addressSearchRequired": "请通过地址搜索选择地址。",
     "ownerEmailHint": "店主使用此邮箱注册 KBite 合作伙伴中心后，即可直接管理餐厅。",
     "draftRestored": "已恢复您未完成的登记内容。",
-    "draftClear": "重新填写"
+    "draftClear": "重新填写",
+    "bizNoNotVerified": "该营业执照号码未能通过国税厅验证（已注销或未登记），请再次确认。"
   },
   "language": {
     "select": "选择语言"
@@ -281,7 +282,8 @@
     "paymentInProgress": "该付款正在处理中，请稍后查看付款记录。",
     "paymentAlreadyUsed": "该付款请求已被使用，请重试。",
     "paymentError": "付款错误",
-    "cancelConfirm": "取消订阅后，权益将保留至本计费周期结束。确定取消吗？"
+    "cancelConfirm": "取消订阅后，权益将保留至本计费周期结束。确定取消吗？",
+    "bizNoNotVerified": "该营业执照号码未能通过国税厅验证（已注销或未登记），请再次确认。"
   },
   "pricing": {
     "title": "简单透明的定价",

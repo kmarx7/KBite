@@ -15,6 +15,7 @@ import {
 import { priceRangeFromMinMax } from "@/lib/price";
 import { sendRegistrationConfirmation } from "@/lib/email";
 import { checkRateLimit } from "@/lib/ratelimit";
+import { verifyBizRegNo } from "@/lib/bizno";
 
 export interface RegisterResult {
   ok: boolean;
@@ -86,6 +87,12 @@ export async function registerRestaurant(
   });
   if (!parsedCoords.success) {
     return { ok: false, error: "addressSearchRequired" };
+  }
+
+  /* 사업자번호 국세청 진위확인 — 폐업·미등록 거부 (키 미설정/API 장애는 통과) */
+  const bizStatus = await verifyBizRegNo(parsed3.data.bizRegNo);
+  if (bizStatus === "closed" || bizStatus === "unregistered") {
+    return { ok: false, error: "bizNoNotVerified" };
   }
 
   const supabase = createAdminClient();

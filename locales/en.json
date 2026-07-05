@@ -144,7 +144,8 @@
     "addressSearchRequired": "Please select your address using the address search.",
     "ownerEmailHint": "The owner signs up for the KBite Partner Center with this email to manage the restaurant directly.",
     "draftRestored": "We restored your unfinished registration.",
-    "draftClear": "Start over"
+    "draftClear": "Start over",
+    "bizNoNotVerified": "This business registration number could not be verified with the National Tax Service (closed or unregistered). Please double-check."
   },
   "language": {
     "select": "Select Language"
@@ -281,7 +282,8 @@
     "paymentInProgress": "This payment is already being processed. Please check your payment history shortly.",
     "paymentAlreadyUsed": "This payment request was already used. Please try again.",
     "paymentError": "Payment error",
-    "cancelConfirm": "If you cancel, your benefits remain until the end of the current billing period. Cancel subscription?"
+    "cancelConfirm": "If you cancel, your benefits remain until the end of the current billing period. Cancel subscription?",
+    "bizNoNotVerified": "This business registration number could not be verified with the National Tax Service (closed or unregistered). Please double-check."
   },
   "pricing": {
     "title": "Simple, transparent pricing",

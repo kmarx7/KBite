@@ -144,7 +144,8 @@
     "addressSearchRequired": "주소 검색으로 주소를 선택해 주세요.",
     "ownerEmailHint": "사장님이 이 이메일로 KBite 파트너 센터에 가입하면 식당을 직접 관리할 수 있어요.",
     "draftRestored": "작성 중이던 내용을 불러왔어요.",
-    "draftClear": "새로 작성"
+    "draftClear": "새로 작성",
+    "bizNoNotVerified": "국세청에서 확인되지 않는 사업자등록번호예요 (폐업 또는 미등록). 다시 확인해 주세요."
   },
   "language": {
     "select": "언어 선택"
@@ -281,7 +282,8 @@
     "paymentInProgress": "이미 처리 중인 결제입니다. 잠시 후 결제 내역을 확인해 주세요.",
     "paymentAlreadyUsed": "이미 사용된 결제 요청입니다. 다시 시도해 주세요.",
     "paymentError": "결제 오류",
-    "cancelConfirm": "구독을 취소하면 현재 결제 기간이 끝날 때까지는 혜택이 유지됩니다. 취소하시겠습니까?"
+    "cancelConfirm": "구독을 취소하면 현재 결제 기간이 끝날 때까지는 혜택이 유지됩니다. 취소하시겠습니까?",
+    "bizNoNotVerified": "국세청에서 확인되지 않는 사업자등록번호예요 (폐업 또는 미등록). 다시 확인해 주세요."
   },
   "pricing": {
     "title": "투명한 가격 정책",

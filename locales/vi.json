@@ -144,7 +144,8 @@
     "addressSearchRequired": "Vui lòng chọn địa chỉ bằng tính năng tìm địa chỉ.",
     "ownerEmailHint": "Chủ nhà hàng đăng ký Trung tâm Đối tác KBite bằng email này để trực tiếp quản lý nhà hàng.",
     "draftRestored": "Đã khôi phục nội dung đăng ký chưa hoàn tất.",
-    "draftClear": "Nhập lại từ đầu"
+    "draftClear": "Nhập lại từ đầu",
+    "bizNoNotVerified": "Số đăng ký kinh doanh này không được Cơ quan Thuế Quốc gia xác nhận (đã đóng cửa hoặc chưa đăng ký). Vui lòng kiểm tra lại."
   },
   "language": {
     "select": "Chọn ngôn ngữ"
@@ -281,7 +282,8 @@
     "paymentInProgress": "Thanh toán này đang được xử lý. Vui lòng kiểm tra lịch sử thanh toán sau ít phút.",
     "paymentAlreadyUsed": "Yêu cầu thanh toán này đã được sử dụng. Vui lòng thử lại.",
     "paymentError": "Lỗi thanh toán",
-    "cancelConfirm": "Nếu hủy, quyền lợi vẫn được giữ đến hết chu kỳ thanh toán hiện tại. Hủy gói đăng ký?"
+    "cancelConfirm": "Nếu hủy, quyền lợi vẫn được giữ đến hết chu kỳ thanh toán hiện tại. Hủy gói đăng ký?",
+    "bizNoNotVerified": "Số đăng ký kinh doanh này không được Cơ quan Thuế Quốc gia xác nhận (đã đóng cửa hoặc chưa đăng ký). Vui lòng kiểm tra lại."
   },
   "pricing": {
     "title": "Giá cả minh bạch, đơn giản",
