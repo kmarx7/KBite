@@ -281,7 +281,9 @@
     "paymentInProgress": "Thanh toán này đang được xử lý. Vui lòng kiểm tra lịch sử thanh toán sau ít phút.",
     "paymentAlreadyUsed": "Yêu cầu thanh toán này đã được sử dụng. Vui lòng thử lại.",
     "paymentError": "Lỗi thanh toán",
-    "cancelConfirm": "Nếu hủy, quyền lợi vẫn được giữ đến hết chu kỳ thanh toán hiện tại. Hủy gói đăng ký?"
+    "cancelConfirm": "Nếu hủy, quyền lợi vẫn được giữ đến hết chu kỳ thanh toán hiện tại. Hủy gói đăng ký?",
+    "viewsTrend": "Lượt xem — 14 ngày qua",
+    "viewsWeekSummary": "Tuần này {current} · Tuần trước {prev}"
   },
   "pricing": {
     "title": "Giá cả minh bạch, đơn giản",

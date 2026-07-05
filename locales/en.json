@@ -281,7 +281,9 @@
     "paymentInProgress": "This payment is already being processed. Please check your payment history shortly.",
     "paymentAlreadyUsed": "This payment request was already used. Please try again.",
     "paymentError": "Payment error",
-    "cancelConfirm": "If you cancel, your benefits remain until the end of the current billing period. Cancel subscription?"
+    "cancelConfirm": "If you cancel, your benefits remain until the end of the current billing period. Cancel subscription?",
+    "viewsTrend": "Views — last 14 days",
+    "viewsWeekSummary": "This week {current} · Last week {prev}"
   },
   "pricing": {
     "title": "Simple, transparent pricing",
