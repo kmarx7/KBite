@@ -5,21 +5,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import {
-  IconHeart,
   IconLogout,
   IconMail,
   IconChevronDown,
   IconChevronRight,
   IconUserCircle,
   IconBuildingStore,
-  IconScale,
 } from "@tabler/icons-react";
 import { LANGUAGES, type Language } from "@/types";
 import { LOCALES } from "@/lib/i18n/config";
 import { setLocale } from "@/app/actions/locale";
 import { consumerLogout } from "@/app/actions/account";
 import { TRACK_EVENTS, track } from "@/lib/analytics";
-import { useSavedIds } from "@/lib/saved";
 import TabBar from "@/components/ui/TabBar";
 
 const CONTACT_EMAIL = "marx21c@gmail.com";
@@ -44,9 +41,9 @@ export default function ProfileScreen({
 }) {
   const t = useTranslations("profile");
   const ta = useTranslations("auth");
+  const tp = useTranslations("policies");
   const locale = useLocale() as Language;
   const router = useRouter();
-  const savedCount = useSavedIds().length;
   const [langOpen, setLangOpen] = useState(false);
   const [, startTransition] = useTransition();
 
@@ -76,6 +73,37 @@ export default function ProfileScreen({
       </header>
 
       <main className="flex-1 overflow-y-auto px-4 pb-6">
+        {/* 언어 — 맨 위: 언어가 틀리면 아래 모든 줄이 읽을 수 없는 글자 */}
+        <SectionLabel>{t("language")}</SectionLabel>
+        <div className="overflow-hidden rounded-2xl border border-[#FFE8D6] bg-white">
+          <button
+            type="button"
+            onClick={() => setLangOpen((v) => !v)}
+            aria-expanded={langOpen}
+            className="flex w-full items-center gap-2.5 px-3.5 py-3 text-start text-[13px] font-bold text-[#1A0800]"
+          >
+            <span aria-hidden>{LANGUAGES[locale].flag}</span>
+            <span className="flex-1">{LANGUAGES[locale].label}</span>
+            <IconChevronDown
+              size={15}
+              color="#C0A080"
+              className={`transition-transform ${langOpen ? "rotate-180" : ""}`}
+            />
+          </button>
+          {langOpen &&
+            LOCALES.filter((code) => code !== locale).map((code) => (
+              <button
+                key={code}
+                type="button"
+                onClick={() => handleLanguage(code)}
+                className="flex w-full items-center gap-2.5 border-t border-[#FFF5EE] px-3.5 py-2.5 text-start text-[13px] font-semibold text-[#1A0800]"
+              >
+                <span aria-hidden>{LANGUAGES[code].flag}</span>
+                <span className="flex-1">{LANGUAGES[code].label}</span>
+              </button>
+            ))}
+        </div>
+
         {/* 계정 — 소비자·사장님 두 입구를 한 화면에서 구분 */}
         <SectionLabel>{t("account")}</SectionLabel>
         <div className="flex flex-col gap-2">
@@ -132,65 +160,28 @@ export default function ProfileScreen({
           </Link>
         </div>
 
-        {/* 언어 — 접힘: 현재 언어만, 탭하면 펼침 */}
-        <SectionLabel>{t("language")}</SectionLabel>
-        <div className="overflow-hidden rounded-2xl border border-[#FFE8D6] bg-white">
-          <button
-            type="button"
-            onClick={() => setLangOpen((v) => !v)}
-            aria-expanded={langOpen}
-            className="flex w-full items-center gap-2.5 px-3.5 py-3 text-start text-[13px] font-bold text-[#1A0800]"
-          >
-            <span aria-hidden>{LANGUAGES[locale].flag}</span>
-            <span className="flex-1">{LANGUAGES[locale].label}</span>
-            <IconChevronDown
-              size={15}
-              color="#C0A080"
-              className={`transition-transform ${langOpen ? "rotate-180" : ""}`}
-            />
-          </button>
-          {langOpen &&
-            LOCALES.filter((code) => code !== locale).map((code) => (
-              <button
-                key={code}
-                type="button"
-                onClick={() => handleLanguage(code)}
-                className="flex w-full items-center gap-2.5 border-t border-[#FFF5EE] px-3.5 py-2.5 text-start text-[13px] font-semibold text-[#1A0800]"
-              >
-                <span aria-hidden>{LANGUAGES[code].flag}</span>
-                <span className="flex-1">{LANGUAGES[code].label}</span>
-              </button>
-            ))}
-        </div>
-
-        {/* 내 활동 */}
-        <SectionLabel>{t("myActivity")}</SectionLabel>
-        <Link href="/saved" className={rowClass}>
-          <IconHeart size={17} color="#FF6B35" />
-          <span className="flex-1">{t("savedRow")}</span>
-          {savedCount > 0 && (
-            <span className="rounded-full bg-[#FFE8D6] px-2 py-0.5 text-[11px] font-extrabold text-[#CC4400]">
-              {savedCount}
-            </span>
-          )}
-          <IconChevronRight size={15} color="#C0A080" />
-        </Link>
-
-        {/* 약관 및 정책 — 상시 접근(법적 요건)은 한 줄로 유지 */}
-        <Link href="/policy" className={`${rowClass} mt-4`}>
-          <IconScale size={17} color="#FF6B35" />
-          <span className="flex-1">{t("legal")}</span>
-          <IconChevronRight size={15} color="#C0A080" />
-        </Link>
-
         {/* 문의 */}
-        <a href={`mailto:${CONTACT_EMAIL}`} className={`${rowClass} mt-2`}>
+        <a href={`mailto:${CONTACT_EMAIL}`} className={`${rowClass} mt-4`}>
           <IconMail size={17} color="#FF6B35" />
           <span className="flex-1">{t("contact")}</span>
           <IconChevronRight size={15} color="#C0A080" />
         </a>
 
-        <p className="mt-6 text-center text-[10px] font-semibold text-[#C0A080]">
+        {/* 정책 — 풋터 소형 링크 (동의는 가입·결제 맥락에서, 여기는 상시 공개 의무만) */}
+        <p className="mt-8 text-center text-[10px] font-semibold leading-relaxed text-[#C0A080]">
+          <Link href="/policy/terms" className="underline underline-offset-2">
+            {tp("terms")}
+          </Link>
+          {" · "}
+          <Link href="/policy/privacy" className="underline underline-offset-2">
+            {tp("privacy")}
+          </Link>
+          {" · "}
+          <Link href="/policy/refund" className="underline underline-offset-2">
+            {tp("refund")}
+          </Link>
+        </p>
+        <p className="mt-2 text-center text-[10px] font-semibold text-[#C0A080]">
           KBite v0.1.0 · Find Your Home Food in Korea
         </p>
       </main>
