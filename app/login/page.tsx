@@ -212,6 +212,32 @@ function LoginInner() {
             {mode === "reset" ? t("resetSend") : t(mode)}
           </button>
 
+          {/* 가입 동의 고지 — 개인정보보호법·약관 표시 의무 */}
+          {mode === "signup" && (
+            <p className="text-center text-[11px] leading-relaxed text-[#8A6040]">
+              {t.rich("signupConsent", {
+                terms: (chunks) => (
+                  <Link
+                    href="/policy/terms"
+                    target="_blank"
+                    className="font-bold underline"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+                privacy: (chunks) => (
+                  <Link
+                    href="/policy/privacy"
+                    target="_blank"
+                    className="font-bold underline"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </p>
+          )}
+
           {mode === "login" && (
             <button
               type="button"
@@ -238,6 +264,17 @@ function LoginInner() {
             </button>
           )}
         </form>
+
+        {/* 사장님 탈출구 — 잘못 들어온 사장님을 파트너 센터로 */}
+        <p className="mt-6 text-[12px] font-semibold text-[#8A6040]">
+          {t("partnerCta")}{" "}
+          <Link
+            href="/partner/login"
+            className="font-bold text-[#CC4400] underline underline-offset-2"
+          >
+            {t("partnerCtaLink")}
+          </Link>
+        </p>
       </main>
     </div>
   );

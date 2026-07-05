@@ -12,7 +12,6 @@ import {
   ALLOWED_IMAGE_TYPES,
 } from "@/lib/validation/register";
 import { priceRangeFromMinMax } from "@/lib/price";
-import { verifyBizRegNo } from "@/lib/bizno";
 
 export interface PartnerResult {
   ok: boolean;
@@ -27,31 +26,18 @@ const credentialsSchema = z.object({
   password: z.string().min(8, "passwordMin").max(72),
 });
 
-const signupSchema = credentialsSchema.extend({
-  bizRegNo: z
-    .string()
-    .trim()
-    .regex(/^\d{3}-\d{2}-\d{5}$/, "invalidBizNo"),
-});
-
-/* ───────────── 가입 / 로그인 / 로그아웃 ───────────── */
+/* ───────────── 가입 / 로그인 / 로그아웃 ─────────────
+   가입은 가볍게 — 사업자번호 수집·국세청 검증은 식당 등록 단계에서 일원화 */
 
 export async function partnerSignUp(
   formData: FormData,
 ): Promise<PartnerResult> {
-  const parsed = signupSchema.safeParse({
+  const parsed = credentialsSchema.safeParse({
     email: String(formData.get("email") ?? ""),
     password: String(formData.get("password") ?? ""),
-    bizRegNo: String(formData.get("bizRegNo") ?? ""),
   });
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message };
-  }
-
-  /* 사업자번호 국세청 진위확인 — 폐업·미등록 거부 (키 미설정/API 장애는 통과) */
-  const bizStatus = await verifyBizRegNo(parsed.data.bizRegNo);
-  if (bizStatus === "closed" || bizStatus === "unregistered") {
-    return { ok: false, error: "bizNoNotVerified" };
   }
 
   const supabase = await createClient();
@@ -59,7 +45,7 @@ export async function partnerSignUp(
     email: parsed.data.email,
     password: parsed.data.password,
     options: {
-      data: { biz_reg_no: parsed.data.bizRegNo, role: "partner" },
+      data: { role: "partner" },
     },
   });
   if (error) {

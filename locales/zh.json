@@ -173,7 +173,11 @@
     "contact": "联系我们",
     "partnerLogin": "合作伙伴登录",
     "viewPlans": "套餐与价格",
-    "account": "账户"
+    "account": "账户",
+    "accountDiner": "在找美食吗？",
+    "accountOwner": "您是餐厅老板吗？",
+    "accountOwnerDesc": "合作伙伴中心——登记并管理您的餐厅",
+    "accountOwnerManage": "管理我的餐厅（{count}）"
   },
   "partner": {
     "title": "合作伙伴中心",
@@ -285,7 +289,11 @@
     "cancelConfirm": "取消订阅后，权益将保留至本计费周期结束。确定取消吗？",
     "viewsTrend": "浏览量——最近14天",
     "viewsWeekSummary": "本周 {current} · 上周 {prev}",
-    "bizNoNotVerified": "该营业执照号码未能通过国税厅验证（已注销或未登记），请再次确认。"
+    "bizNoNotVerified": "该营业执照号码未能通过国税厅验证（已注销或未登记），请再次确认。",
+    "signupConsent": "注册即表示您同意<terms>服务条款</terms>、<privacy>隐私政策</privacy>和<partner>合作伙伴条款</partner>。",
+    "consumerCta": "只是想找美食？",
+    "consumerCtaLink": "以用户身份登录",
+    "refundNotice": "付款即表示您同意<refund>退款政策</refund>。"
   },
   "pricing": {
     "title": "简单透明的定价",
@@ -333,6 +341,9 @@
     "googleUnavailable": "Google 登录暂不可用——请使用邮箱。",
     "backToLogin": "返回登录",
     "logout": "退出登录",
-    "loginCta": "登录 / 注册"
+    "loginCta": "登录 / 注册",
+    "signupConsent": "注册即表示您同意我们的<terms>服务条款</terms>和<privacy>隐私政策</privacy>。",
+    "partnerCta": "您是餐厅老板吗？",
+    "partnerCtaLink": "合作伙伴登录"
   }
 }

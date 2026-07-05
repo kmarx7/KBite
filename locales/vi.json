@@ -173,7 +173,11 @@
     "contact": "Liên hệ",
     "partnerLogin": "Đăng nhập đối tác",
     "viewPlans": "Gói & giá",
-    "account": "Tài khoản"
+    "account": "Tài khoản",
+    "accountDiner": "Đang tìm món ăn?",
+    "accountOwner": "Bạn là chủ nhà hàng?",
+    "accountOwnerDesc": "Trung tâm Đối tác — đăng ký & quản lý nhà hàng",
+    "accountOwnerManage": "Quản lý nhà hàng của tôi ({count})"
   },
   "partner": {
     "title": "Trung tâm đối tác",
@@ -285,7 +289,11 @@
     "cancelConfirm": "Nếu hủy, quyền lợi vẫn được giữ đến hết chu kỳ thanh toán hiện tại. Hủy gói đăng ký?",
     "viewsTrend": "Lượt xem — 14 ngày qua",
     "viewsWeekSummary": "Tuần này {current} · Tuần trước {prev}",
-    "bizNoNotVerified": "Số đăng ký kinh doanh này không được Cơ quan Thuế Quốc gia xác nhận (đã đóng cửa hoặc chưa đăng ký). Vui lòng kiểm tra lại."
+    "bizNoNotVerified": "Số đăng ký kinh doanh này không được Cơ quan Thuế Quốc gia xác nhận (đã đóng cửa hoặc chưa đăng ký). Vui lòng kiểm tra lại.",
+    "signupConsent": "Khi đăng ký, bạn đồng ý với <terms>Điều khoản dịch vụ</terms>, <privacy>Chính sách bảo mật</privacy> và <partner>Điều khoản đối tác</partner>.",
+    "consumerCta": "Chỉ đang tìm món ăn?",
+    "consumerCtaLink": "Đăng nhập người dùng",
+    "refundNotice": "Khi thanh toán, bạn đồng ý với <refund>Chính sách hoàn tiền</refund>."
   },
   "pricing": {
     "title": "Giá cả minh bạch, đơn giản",
@@ -333,6 +341,9 @@
     "googleUnavailable": "Đăng nhập Google hiện không khả dụng — vui lòng dùng email.",
     "backToLogin": "Quay lại đăng nhập",
     "logout": "Đăng xuất",
-    "loginCta": "Đăng nhập / Đăng ký"
+    "loginCta": "Đăng nhập / Đăng ký",
+    "signupConsent": "Khi đăng ký, bạn đồng ý với <terms>Điều khoản dịch vụ</terms> và <privacy>Chính sách bảo mật</privacy>.",
+    "partnerCta": "Bạn là chủ nhà hàng?",
+    "partnerCtaLink": "Đăng nhập đối tác"
   }
 }
