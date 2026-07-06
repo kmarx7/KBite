@@ -185,3 +185,94 @@ export async function sendRenewalReminder(params: {
     `,
   });
 }
+
+/* ───────────── 예약 요청 (비실시간) ───────────── */
+
+export interface ReservationEmailInfo {
+  restaurantName: string;
+  date: string; // YYYY-MM-DD
+  time: string; // HH:MM
+  partySize: number;
+  note?: string | null;
+  guestEmail: string;
+}
+
+/** 사장님에게 — 한국어, 로그인 없이 응답 가능한 수락/거절 링크 포함 */
+export async function sendReservationRequestToOwner(params: {
+  to: string;
+  info: ReservationEmailInfo;
+  confirmUrl: string;
+  declineUrl: string;
+}): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
+  const { info } = params;
+
+  await resend.emails.send({
+    from: FROM,
+    to: params.to,
+    subject: `[KBite] 예약 요청 — ${info.date} ${info.time} ${info.partySize}명 (${info.restaurantName})`,
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:24px;">
+        <h2 style="color:#FF6B35;margin-bottom:4px;">새 예약 요청</h2>
+        <p style="color:#8A6040;margin-top:0;margin-bottom:24px;">${info.restaurantName}</p>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:16px;">
+          <tr><td style="padding:8px 0;border-bottom:1px solid #F0E6D6;color:#8A6040;">날짜</td>
+              <td style="padding:8px 0;border-bottom:1px solid #F0E6D6;text-align:right;font-weight:700;color:#1A0800;">${info.date}</td></tr>
+          <tr><td style="padding:8px 0;border-bottom:1px solid #F0E6D6;color:#8A6040;">시간</td>
+              <td style="padding:8px 0;border-bottom:1px solid #F0E6D6;text-align:right;font-weight:700;color:#1A0800;">${info.time}</td></tr>
+          <tr><td style="padding:8px 0;border-bottom:1px solid #F0E6D6;color:#8A6040;">인원</td>
+              <td style="padding:8px 0;border-bottom:1px solid #F0E6D6;text-align:right;font-weight:700;color:#1A0800;">${info.partySize}명</td></tr>
+          ${info.note ? `<tr><td style="padding:8px 0;color:#8A6040;">요청사항</td><td style="padding:8px 0;text-align:right;color:#1A0800;">${info.note.replace(/</g, "&lt;")}</td></tr>` : ""}
+        </table>
+        <p style="color:#1A0800;">아래 버튼으로 바로 응답할 수 있습니다 (로그인 불필요):</p>
+        <p>
+          <a href="${params.confirmUrl}" style="display:inline-block;background:#15803D;color:#fff;text-decoration:none;padding:12px 24px;border-radius:12px;font-weight:700;margin-right:8px;">예약 수락</a>
+          <a href="${params.declineUrl}" style="display:inline-block;background:#B91C1C;color:#fff;text-decoration:none;padding:12px 24px;border-radius:12px;font-weight:700;">거절</a>
+        </p>
+        <p style="color:#8A6040;font-size:12px;margin-top:16px;">손님 연락처: ${params.info.guestEmail} — 응답하면 손님에게 자동으로 이메일이 발송됩니다.</p>
+      </div>
+    `,
+  });
+}
+
+/** 손님에게 — 결과 통지 (영어+한국어 병기) */
+export async function sendReservationResultToGuest(params: {
+  to: string;
+  restaurantName: string;
+  date: string;
+  time: string;
+  partySize: number;
+  confirmed: boolean;
+}): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
+  const { restaurantName, date, time, partySize, confirmed } = params;
+
+  await resend.emails.send({
+    from: FROM,
+    to: params.to,
+    subject: confirmed
+      ? `[KBite] Reservation confirmed — ${restaurantName} (${date} ${time})`
+      : `[KBite] Reservation declined — ${restaurantName}`,
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:24px;">
+        <h2 style="color:${confirmed ? "#15803D" : "#B91C1C"};margin-bottom:4px;">
+          ${confirmed ? "Reservation confirmed ✓" : "Reservation declined"}
+        </h2>
+        <p style="color:#8A6040;margin-top:0;margin-bottom:24px;">${restaurantName}</p>
+        <p style="color:#1A0800;">
+          ${confirmed
+            ? `Your reservation for <strong>${partySize}</strong> on <strong>${date} ${time}</strong> has been confirmed by the restaurant.`
+            : `Unfortunately the restaurant could not accept your reservation for ${date} ${time}. Please try a different time or restaurant.`}
+        </p>
+        <p style="color:#8A6040;font-size:13px;">
+          ${confirmed
+            ? `${date} ${time} ${partySize}명 예약이 확정되었습니다.`
+            : `${date} ${time} 예약이 수락되지 않았습니다. 다른 시간이나 식당을 이용해 주세요.`}
+        </p>
+        <a href="https://kbite.vercel.app" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:12px 24px;border-radius:12px;font-weight:700;margin-top:16px;">KBite 열기</a>
+      </div>
+    `,
+  });
+}

@@ -91,7 +91,18 @@
     "reviewError": "提交失败，请重试。",
     "cancel": "取消",
     "ownerReply": "商家回复",
-    "loginToReview": "登录后撰写评价"
+    "loginToReview": "登录后撰写评价",
+    "reserveRequestTitle": "申请预订",
+    "reserveDate": "日期",
+    "reserveTime": "时间",
+    "reserveParty": "人数",
+    "reserveNote": "特殊要求（选填）",
+    "reserveNotePlaceholder": "过敏、婴儿车、生日等…",
+    "reserveSubmit": "发送申请",
+    "reserveSent": "申请已发送！",
+    "reserveSentDesc": "餐厅回复后我们会立即邮件通知您。",
+    "loginToReserve": "登录后申请预订",
+    "reserveError": "申请发送失败，请重试。"
   },
   "register": {
     "title": "登记餐厅",
@@ -293,7 +304,15 @@
     "signupConsent": "注册即表示您同意<terms>服务条款</terms>、<privacy>隐私政策</privacy>和<partner>合作伙伴条款</partner>。",
     "consumerCta": "只是想找美食？",
     "consumerCtaLink": "以用户身份登录",
-    "refundNotice": "付款即表示您同意<refund>退款政策</refund>。"
+    "refundNotice": "付款即表示您同意<refund>退款政策</refund>。",
+    "reservationsTitle": "预订申请",
+    "resAccept": "接受",
+    "resDecline": "拒绝",
+    "resNone": "暂无预订申请",
+    "resStatusPending": "待处理",
+    "resStatusConfirmed": "已接受",
+    "resStatusDeclined": "已拒绝",
+    "resStatusCancelled": "已取消"
   },
   "pricing": {
     "title": "简单透明的定价",

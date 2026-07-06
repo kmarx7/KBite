@@ -91,7 +91,18 @@
     "reviewError": "Failed to submit. Please try again.",
     "cancel": "Cancel",
     "ownerReply": "Owner Reply",
-    "loginToReview": "Sign in to write a review"
+    "loginToReview": "Sign in to write a review",
+    "reserveRequestTitle": "Request a reservation",
+    "reserveDate": "Date",
+    "reserveTime": "Time",
+    "reserveParty": "Party size",
+    "reserveNote": "Special requests (optional)",
+    "reserveNotePlaceholder": "Allergies, stroller, birthday…",
+    "reserveSubmit": "Send request",
+    "reserveSent": "Request sent!",
+    "reserveSentDesc": "We'll email you as soon as the restaurant responds.",
+    "loginToReserve": "Sign in to request a reservation",
+    "reserveError": "Could not send the request. Please try again."
   },
   "register": {
     "title": "Add Restaurant",
@@ -293,7 +304,15 @@
     "signupConsent": "By signing up, you agree to our <terms>Terms of Service</terms>, <privacy>Privacy Policy</privacy> and <partner>Partner Terms</partner>.",
     "consumerCta": "Just looking for food?",
     "consumerCtaLink": "Sign in as a diner",
-    "refundNotice": "By paying, you agree to our <refund>Refund Policy</refund>."
+    "refundNotice": "By paying, you agree to our <refund>Refund Policy</refund>.",
+    "reservationsTitle": "Reservation requests",
+    "resAccept": "Accept",
+    "resDecline": "Decline",
+    "resNone": "No reservation requests yet",
+    "resStatusPending": "Pending",
+    "resStatusConfirmed": "Confirmed",
+    "resStatusDeclined": "Declined",
+    "resStatusCancelled": "Cancelled"
   },
   "pricing": {
     "title": "Simple, transparent pricing",

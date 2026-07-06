@@ -91,7 +91,18 @@
     "reviewError": "ارسال ناموفق بود. دوباره امتحان کنید.",
     "cancel": "لغو",
     "ownerReply": "پاسخ صاحب رستوران",
-    "loginToReview": "برای نوشتن نظر وارد شوید"
+    "loginToReview": "برای نوشتن نظر وارد شوید",
+    "reserveRequestTitle": "درخواست رزرو",
+    "reserveDate": "تاریخ",
+    "reserveTime": "ساعت",
+    "reserveParty": "تعداد نفرات",
+    "reserveNote": "درخواست‌های خاص (اختیاری)",
+    "reserveNotePlaceholder": "آلرژی، کالسکه، تولد و…",
+    "reserveSubmit": "ارسال درخواست",
+    "reserveSent": "درخواست ارسال شد!",
+    "reserveSentDesc": "به محض پاسخ رستوران ایمیل می‌زنیم.",
+    "loginToReserve": "برای درخواست رزرو وارد شوید",
+    "reserveError": "ارسال درخواست ممکن نشد. دوباره تلاش کنید."
   },
   "register": {
     "title": "ثبت رستوران",
@@ -293,7 +304,15 @@
     "signupConsent": "با ثبت‌نام، با <terms>شرایط استفاده</terms>، <privacy>سیاست حریم خصوصی</privacy> و <partner>شرایط شرکا</partner> موافقت می‌کنید.",
     "consumerCta": "کاربر عادی هستید؟",
     "consumerCtaLink": "ورود کاربران",
-    "refundNotice": "با پرداخت، با <refund>سیاست بازپرداخت</refund> موافقت می‌کنید."
+    "refundNotice": "با پرداخت، با <refund>سیاست بازپرداخت</refund> موافقت می‌کنید.",
+    "reservationsTitle": "درخواست‌های رزرو",
+    "resAccept": "پذیرش",
+    "resDecline": "رد",
+    "resNone": "هنوز درخواست رزروی نیست",
+    "resStatusPending": "در انتظار",
+    "resStatusConfirmed": "پذیرفته شد",
+    "resStatusDeclined": "رد شد",
+    "resStatusCancelled": "لغو شد"
   },
   "pricing": {
     "title": "قیمت‌گذاری ساده و شفاف",

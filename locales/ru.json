@@ -91,7 +91,18 @@
     "reviewError": "Ошибка отправки. Попробуйте ещё раз.",
     "cancel": "Отмена",
     "ownerReply": "Ответ владельца",
-    "loginToReview": "Войдите, чтобы написать отзыв"
+    "loginToReview": "Войдите, чтобы написать отзыв",
+    "reserveRequestTitle": "Запросить бронь",
+    "reserveDate": "Дата",
+    "reserveTime": "Время",
+    "reserveParty": "Гостей",
+    "reserveNote": "Пожелания (необязательно)",
+    "reserveNotePlaceholder": "Аллергии, коляска, день рождения…",
+    "reserveSubmit": "Отправить запрос",
+    "reserveSent": "Запрос отправлен!",
+    "reserveSentDesc": "Мы напишем вам, как только ресторан ответит.",
+    "loginToReserve": "Войдите, чтобы запросить бронь",
+    "reserveError": "Не удалось отправить запрос. Попробуйте ещё раз."
   },
   "register": {
     "title": "Добавить ресторан",
@@ -293,7 +304,15 @@
     "signupConsent": "Регистрируясь, вы соглашаетесь с <terms>Условиями использования</terms>, <privacy>Политикой конфиденциальности</privacy> и <partner>Условиями для партнёров</partner>.",
     "consumerCta": "Обычный пользователь?",
     "consumerCtaLink": "Войти как посетитель",
-    "refundNotice": "Оплачивая, вы соглашаетесь с <refund>Политикой возврата</refund>."
+    "refundNotice": "Оплачивая, вы соглашаетесь с <refund>Политикой возврата</refund>.",
+    "reservationsTitle": "Запросы на бронь",
+    "resAccept": "Принять",
+    "resDecline": "Отклонить",
+    "resNone": "Запросов пока нет",
+    "resStatusPending": "Ожидает",
+    "resStatusConfirmed": "Принято",
+    "resStatusDeclined": "Отклонено",
+    "resStatusCancelled": "Отменено"
   },
   "pricing": {
     "title": "Простые прозрачные цены",

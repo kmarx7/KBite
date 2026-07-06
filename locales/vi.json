@@ -91,7 +91,18 @@
     "reviewError": "Gửi thất bại. Vui lòng thử lại.",
     "cancel": "Hủy",
     "ownerReply": "Phản hồi của chủ nhà hàng",
-    "loginToReview": "Đăng nhập để viết đánh giá"
+    "loginToReview": "Đăng nhập để viết đánh giá",
+    "reserveRequestTitle": "Yêu cầu đặt bàn",
+    "reserveDate": "Ngày",
+    "reserveTime": "Giờ",
+    "reserveParty": "Số người",
+    "reserveNote": "Yêu cầu đặc biệt (tùy chọn)",
+    "reserveNotePlaceholder": "Dị ứng, xe đẩy, sinh nhật…",
+    "reserveSubmit": "Gửi yêu cầu",
+    "reserveSent": "Đã gửi yêu cầu!",
+    "reserveSentDesc": "Chúng tôi sẽ email cho bạn ngay khi nhà hàng phản hồi.",
+    "loginToReserve": "Đăng nhập để yêu cầu đặt bàn",
+    "reserveError": "Không gửi được yêu cầu. Vui lòng thử lại."
   },
   "register": {
     "title": "Đăng ký nhà hàng",
@@ -293,7 +304,15 @@
     "signupConsent": "Khi đăng ký, bạn đồng ý với <terms>Điều khoản dịch vụ</terms>, <privacy>Chính sách bảo mật</privacy> và <partner>Điều khoản đối tác</partner>.",
     "consumerCta": "Chỉ đang tìm món ăn?",
     "consumerCtaLink": "Đăng nhập người dùng",
-    "refundNotice": "Khi thanh toán, bạn đồng ý với <refund>Chính sách hoàn tiền</refund>."
+    "refundNotice": "Khi thanh toán, bạn đồng ý với <refund>Chính sách hoàn tiền</refund>.",
+    "reservationsTitle": "Yêu cầu đặt bàn",
+    "resAccept": "Chấp nhận",
+    "resDecline": "Từ chối",
+    "resNone": "Chưa có yêu cầu đặt bàn",
+    "resStatusPending": "Chờ xử lý",
+    "resStatusConfirmed": "Đã chấp nhận",
+    "resStatusDeclined": "Đã từ chối",
+    "resStatusCancelled": "Đã hủy"
   },
   "pricing": {
     "title": "Giá cả minh bạch, đơn giản",

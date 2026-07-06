@@ -91,7 +91,18 @@
     "reviewError": "등록에 실패했습니다. 다시 시도해 주세요.",
     "cancel": "취소",
     "ownerReply": "사장님 답글",
-    "loginToReview": "로그인하고 리뷰 쓰기"
+    "loginToReview": "로그인하고 리뷰 쓰기",
+    "reserveRequestTitle": "예약 요청하기",
+    "reserveDate": "날짜",
+    "reserveTime": "시간",
+    "reserveParty": "인원",
+    "reserveNote": "요청사항 (선택)",
+    "reserveNotePlaceholder": "알레르기, 유모차, 생일 등…",
+    "reserveSubmit": "요청 보내기",
+    "reserveSent": "요청을 보냈어요!",
+    "reserveSentDesc": "식당이 응답하면 바로 이메일로 알려드려요.",
+    "loginToReserve": "로그인하고 예약 요청하기",
+    "reserveError": "요청을 보내지 못했어요. 다시 시도해 주세요."
   },
   "register": {
     "title": "식당 등록",
@@ -293,7 +304,15 @@
     "signupConsent": "가입하면 <terms>이용약관</terms>, <privacy>개인정보처리방침</privacy>, <partner>파트너 약관</partner>에 동의하는 것으로 간주됩니다.",
     "consumerCta": "일반 사용자이신가요?",
     "consumerCtaLink": "소비자 로그인",
-    "refundNotice": "결제하면 <refund>환불 정책</refund>에 동의하는 것으로 간주됩니다."
+    "refundNotice": "결제하면 <refund>환불 정책</refund>에 동의하는 것으로 간주됩니다.",
+    "reservationsTitle": "예약 요청",
+    "resAccept": "수락",
+    "resDecline": "거절",
+    "resNone": "아직 예약 요청이 없어요",
+    "resStatusPending": "대기",
+    "resStatusConfirmed": "수락됨",
+    "resStatusDeclined": "거절됨",
+    "resStatusCancelled": "취소됨"
   },
   "pricing": {
     "title": "투명한 가격 정책",

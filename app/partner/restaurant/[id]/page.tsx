@@ -18,6 +18,7 @@ import { CATEGORIES, type Category } from "@/types";
 import type { Plan } from "@/types";
 import { PLAN_FEATURES } from "@/lib/features";
 import ReviewReplyForm from "@/components/partner/ReviewReplyForm";
+import ReservationActions from "@/components/partner/ReservationActions";
 import LockedNavItem from "@/components/partner/LockedNavItem";
 import { IconLock } from "@tabler/icons-react";
 
@@ -141,6 +142,34 @@ export default async function PartnerRestaurantDashboard({
   const maxViews = Math.max(1, ...trend.map((d) => d.views));
   const thisWeek = trend.slice(7).reduce((s, d) => s + d.views, 0);
   const lastWeek = trend.slice(0, 7).reduce((s, d) => s + d.views, 0);
+
+  /* 예약 요청 — RLS(owner_select)로 본인 식당 것만. pending 우선 표시 */
+  interface ReservationRow {
+    id: string;
+    reserved_date: string;
+    reserved_time: string;
+    party_size: number;
+    note: string | null;
+    status: "pending" | "confirmed" | "declined" | "cancelled";
+  }
+  let reservations: ReservationRow[] = [];
+  try {
+    const { data: resRows } = await supabase
+      .from("reservations")
+      .select("id, reserved_date, reserved_time, party_size, note, status")
+      .eq("restaurant_id", id)
+      .order("created_at", { ascending: false })
+      .limit(10);
+    reservations = (resRows ?? []) as ReservationRow[];
+  } catch {
+    /* 마이그레이션 미적용 — 섹션 비표시 */
+  }
+  const RES_BADGE: Record<ReservationRow["status"], { bg: string; text: string; key: string }> = {
+    pending: { bg: "#FEF9C3", text: "#854D0E", key: "resStatusPending" },
+    confirmed: { bg: "#DCFCE7", text: "#15803D", key: "resStatusConfirmed" },
+    declined: { bg: "#FEE2E2", text: "#B91C1C", key: "resStatusDeclined" },
+    cancelled: { bg: "#F3F4F6", text: "#6B7280", key: "resStatusCancelled" },
+  };
   const category = restaurant.category as Category;
   const status = (restaurant.status as keyof typeof STATUS_STYLE) ?? "pending";
   const statusStyle = STATUS_STYLE[status];
@@ -263,6 +292,48 @@ export default async function PartnerRestaurantDashboard({
             <span>{dayKeys[TREND_DAYS - 1].slice(5).replace("-", "/")}</span>
           </div>
         </section>
+
+        {/* 예약 요청 — 이메일 링크와 동일 처리를 대시보드에서도 */}
+        {reservations.length > 0 && (
+          <section className="rounded-2xl border border-[#FFE8D6] bg-white p-4">
+            <h2 className="mb-2 text-[13px] font-extrabold text-[#1A0800]">
+              {t("reservationsTitle")}
+            </h2>
+            <ul className="flex flex-col gap-2">
+              {reservations.map((r) => {
+                const badge = RES_BADGE[r.status];
+                return (
+                  <li
+                    key={r.id}
+                    className="flex items-center gap-2 rounded-xl bg-[#FFF5EE] px-3 py-2.5"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[12px] font-bold text-[#1A0800]">
+                        {r.reserved_date} · {r.reserved_time.slice(0, 5)} ·{" "}
+                        {r.party_size}
+                      </p>
+                      {r.note && (
+                        <p className="truncate text-[11px] text-[#8A6040]">
+                          {r.note}
+                        </p>
+                      )}
+                    </div>
+                    {r.status === "pending" ? (
+                      <ReservationActions reservationId={r.id} />
+                    ) : (
+                      <span
+                        className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-extrabold"
+                        style={{ backgroundColor: badge.bg, color: badge.text }}
+                      >
+                        {t(badge.key as Parameters<typeof t>[0])}
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
 
         {/* 빠른 메뉴 */}
         <nav className="flex flex-col gap-2">
