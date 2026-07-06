@@ -91,7 +91,18 @@
     "reviewError": "投稿に失敗しました。もう一度お試しください。",
     "cancel": "キャンセル",
     "ownerReply": "オーナー返信",
-    "loginToReview": "ログインしてレビューを書く"
+    "loginToReview": "ログインしてレビューを書く",
+    "reserveRequestTitle": "予約をリクエスト",
+    "reserveDate": "日付",
+    "reserveTime": "時間",
+    "reserveParty": "人数",
+    "reserveNote": "リクエスト（任意）",
+    "reserveNotePlaceholder": "アレルギー、ベビーカー、誕生日など…",
+    "reserveSubmit": "リクエスト送信",
+    "reserveSent": "リクエストを送信しました！",
+    "reserveSentDesc": "レストランが応答したらすぐメールでお知らせします。",
+    "loginToReserve": "ログインして予約をリクエスト",
+    "reserveError": "送信できませんでした。もう一度お試しください。"
   },
   "register": {
     "title": "レストラン登録",
@@ -293,7 +304,15 @@
     "signupConsent": "登録すると<terms>利用規約</terms>、<privacy>プライバシーポリシー</privacy>、<partner>パートナー規約</partner>に同意したものとみなされます。",
     "consumerCta": "一般ユーザーの方は",
     "consumerCtaLink": "ユーザーログイン",
-    "refundNotice": "お支払いにより<refund>返金ポリシー</refund>に同意したものとみなされます。"
+    "refundNotice": "お支払いにより<refund>返金ポリシー</refund>に同意したものとみなされます。",
+    "reservationsTitle": "予約リクエスト",
+    "resAccept": "承認",
+    "resDecline": "拒否",
+    "resNone": "予約リクエストはまだありません",
+    "resStatusPending": "保留中",
+    "resStatusConfirmed": "承認済み",
+    "resStatusDeclined": "拒否済み",
+    "resStatusCancelled": "キャンセル"
   },
   "pricing": {
     "title": "シンプルな料金プラン",

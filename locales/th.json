@@ -91,7 +91,18 @@
     "reviewError": "ส่งไม่สำเร็จ กรุณาลองใหม่",
     "cancel": "ยกเลิก",
     "ownerReply": "การตอบกลับของเจ้าของ",
-    "loginToReview": "เข้าสู่ระบบเพื่อเขียนรีวิว"
+    "loginToReview": "เข้าสู่ระบบเพื่อเขียนรีวิว",
+    "reserveRequestTitle": "ขอจองโต๊ะ",
+    "reserveDate": "วันที่",
+    "reserveTime": "เวลา",
+    "reserveParty": "จำนวนคน",
+    "reserveNote": "คำขอพิเศษ (ไม่บังคับ)",
+    "reserveNotePlaceholder": "แพ้อาหาร รถเข็นเด็ก วันเกิด ฯลฯ…",
+    "reserveSubmit": "ส่งคำขอ",
+    "reserveSent": "ส่งคำขอแล้ว!",
+    "reserveSentDesc": "เราจะอีเมลแจ้งทันทีที่ร้านตอบกลับ",
+    "loginToReserve": "เข้าสู่ระบบเพื่อขอจอง",
+    "reserveError": "ส่งคำขอไม่สำเร็จ กรุณาลองใหม่"
   },
   "register": {
     "title": "ลงทะเบียนร้านอาหาร",
@@ -293,7 +304,15 @@
     "signupConsent": "การสมัครถือว่าคุณยอมรับ<terms>ข้อกำหนดการใช้บริการ</terms> <privacy>นโยบายความเป็นส่วนตัว</privacy> และ<partner>ข้อกำหนดพาร์ทเนอร์</partner>",
     "consumerCta": "เป็นผู้ใช้ทั่วไป?",
     "consumerCtaLink": "เข้าสู่ระบบผู้ใช้",
-    "refundNotice": "การชำระเงินถือว่าคุณยอมรับ<refund>นโยบายการคืนเงิน</refund>"
+    "refundNotice": "การชำระเงินถือว่าคุณยอมรับ<refund>นโยบายการคืนเงิน</refund>",
+    "reservationsTitle": "คำขอจอง",
+    "resAccept": "ยอมรับ",
+    "resDecline": "ปฏิเสธ",
+    "resNone": "ยังไม่มีคำขอจอง",
+    "resStatusPending": "รอดำเนินการ",
+    "resStatusConfirmed": "ยอมรับแล้ว",
+    "resStatusDeclined": "ปฏิเสธแล้ว",
+    "resStatusCancelled": "ยกเลิกแล้ว"
   },
   "pricing": {
     "title": "ราคาเรียบง่าย โปร่งใส",

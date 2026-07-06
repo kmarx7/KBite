@@ -41,11 +41,11 @@ export default function DetailCTA({
         <IconNavigation size={14} />
         {t("directions")}
       </a>
+      {/* 예약 URL 있으면 외부 링크, 없으면 인앱 예약 요청 폼으로 스크롤 */}
       <a
-        href={bookingUrl ?? "#"}
+        href={bookingUrl ?? "#reserve-request"}
         target={bookingUrl ? "_blank" : undefined}
-        rel="noopener noreferrer"
-        aria-disabled={!bookingUrl}
+        rel={bookingUrl ? "noopener noreferrer" : undefined}
         onClick={() =>
           track(TRACK_EVENTS.RESERVE_CLICK, {
             restaurantId,
@@ -53,10 +53,7 @@ export default function DetailCTA({
           })
         }
         className="shrink-0 rounded-xl px-5 py-2.5 text-[13px] font-extrabold text-white"
-        style={{
-          backgroundColor: "#FF6B35",
-          opacity: bookingUrl ? 1 : 0.5,
-        }}
+        style={{ backgroundColor: "#FF6B35" }}
       >
         {t("reserve")}
       </a>

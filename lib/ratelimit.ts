@@ -3,11 +3,12 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { headers } from "next/headers";
 
-type Action = "register" | "review";
+type Action = "register" | "review" | "reserve";
 
 const LIMITS: Record<Action, { requests: number; window: `${number} ${"s" | "m" | "h" | "d"}` }> = {
   register: { requests: 5, window: "1 h" },
   review: { requests: 10, window: "1 h" },
+  reserve: { requests: 10, window: "1 h" },
 };
 
 function makeLimiter(action: Action): Ratelimit | null {

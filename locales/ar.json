@@ -91,7 +91,18 @@
     "reviewError": "فشل الإرسال. يرجى المحاولة مرة أخرى.",
     "cancel": "إلغاء",
     "ownerReply": "رد صاحب المطعم",
-    "loginToReview": "سجّل الدخول لكتابة تقييم"
+    "loginToReview": "سجّل الدخول لكتابة تقييم",
+    "reserveRequestTitle": "طلب حجز",
+    "reserveDate": "التاريخ",
+    "reserveTime": "الوقت",
+    "reserveParty": "عدد الأشخاص",
+    "reserveNote": "طلبات خاصة (اختياري)",
+    "reserveNotePlaceholder": "حساسية، عربة أطفال، عيد ميلاد…",
+    "reserveSubmit": "إرسال الطلب",
+    "reserveSent": "تم إرسال الطلب!",
+    "reserveSentDesc": "سنراسلك فور رد المطعم.",
+    "loginToReserve": "سجّل الدخول لطلب الحجز",
+    "reserveError": "تعذّر إرسال الطلب. حاول مرة أخرى."
   },
   "register": {
     "title": "إضافة مطعم",
@@ -293,7 +304,15 @@
     "signupConsent": "بالتسجيل فإنك توافق على <terms>شروط الخدمة</terms> و<privacy>سياسة الخصوصية</privacy> و<partner>شروط الشركاء</partner>.",
     "consumerCta": "مستخدم عادي؟",
     "consumerCtaLink": "تسجيل الدخول كمستخدم",
-    "refundNotice": "بالدفع فإنك توافق على <refund>سياسة الاسترداد</refund>."
+    "refundNotice": "بالدفع فإنك توافق على <refund>سياسة الاسترداد</refund>.",
+    "reservationsTitle": "طلبات الحجز",
+    "resAccept": "قبول",
+    "resDecline": "رفض",
+    "resNone": "لا توجد طلبات حجز بعد",
+    "resStatusPending": "قيد الانتظار",
+    "resStatusConfirmed": "مقبول",
+    "resStatusDeclined": "مرفوض",
+    "resStatusCancelled": "ملغى"
   },
   "pricing": {
     "title": "تسعير بسيط وشفاف",

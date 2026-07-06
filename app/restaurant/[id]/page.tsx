@@ -22,6 +22,7 @@ import LanguageAvailable from "@/components/restaurant/LanguageAvailable";
 import VenueMap from "@/components/restaurant/VenueMap";
 import ReviewList from "@/components/restaurant/ReviewList";
 import ReviewForm from "@/components/restaurant/ReviewForm";
+import ReservationRequest from "@/components/restaurant/ReservationRequest";
 import ShareButton from "@/components/restaurant/ShareButton";
 import DetailCTA from "@/components/restaurant/DetailCTA";
 import TrackOnMount from "@/components/analytics/TrackOnMount";
@@ -183,6 +184,7 @@ export default async function RestaurantDetailPage({
           lat={restaurant.lat}
           lng={restaurant.lng}
         />
+        <ReservationRequest restaurantId={restaurant.id} isLoggedIn={!!user} />
         <ReviewForm restaurantId={restaurant.id} isLoggedIn={!!user} />
         {restaurant.reviews.length > 0 && (
           <ReviewList reviews={restaurant.reviews} />
