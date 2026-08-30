@@ -16,7 +16,8 @@
     "km": "کیلومتر",
     "reviews": "{count} نظر",
     "fileTooLarge": "حجم فایل باید کمتر از {size} مگابایت باشد",
-    "fileType": "این نوع فایل مجاز نیست"
+    "fileType": "این نوع فایل مجاز نیست",
+    "mapUnavailable": "نقشه بارگذاری نشد"
   },
   "tabs": {
     "explore": "کاوش",
@@ -79,7 +80,6 @@
     "directions": "مسیریابی",
     "reserve": "رزرو",
     "distanceAway": "در فاصله {distance}",
-    "mapPlaceholder": "نقشه تعاملی به‌زودی",
     "writeReview": "نظر بنویسید",
     "ratingLabel": "امتیاز",
     "commentLabel": "نظر (اختیاری)",

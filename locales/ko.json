@@ -16,7 +16,8 @@
     "km": "km",
     "reviews": "리뷰 {count}개",
     "fileTooLarge": "파일은 {size}MB 이하여야 해요",
-    "fileType": "허용되지 않는 파일 형식이에요"
+    "fileType": "허용되지 않는 파일 형식이에요",
+    "mapUnavailable": "지도를 불러올 수 없습니다"
   },
   "tabs": {
     "explore": "탐색",
@@ -79,7 +80,6 @@
     "directions": "길찾기",
     "reserve": "예약",
     "distanceAway": "{distance} 거리",
-    "mapPlaceholder": "지도는 곧 제공될 예정이에요",
     "writeReview": "리뷰 쓰기",
     "ratingLabel": "별점",
     "commentLabel": "후기 (선택)",

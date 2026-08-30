@@ -179,6 +179,8 @@ export default async function RestaurantDetailPage({
         {restaurant.menu.length > 0 && <MenuList items={restaurant.menu} />}
         <LanguageAvailable available={restaurant.languages} />
         <VenueMap
+          name={restaurant.name}
+          category={restaurant.category}
           address={restaurant.address}
           distanceKm={distanceKm}
           lat={restaurant.lat}

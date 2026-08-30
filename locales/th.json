@@ -16,7 +16,8 @@
     "km": "กม.",
     "reviews": "{count} รีวิว",
     "fileTooLarge": "ไฟล์ต้องมีขนาดไม่เกิน {size}MB",
-    "fileType": "ไม่รองรับไฟล์ประเภทนี้"
+    "fileType": "ไม่รองรับไฟล์ประเภทนี้",
+    "mapUnavailable": "ไม่สามารถโหลดแผนที่ได้"
   },
   "tabs": {
     "explore": "สำรวจ",
@@ -79,7 +80,6 @@
     "directions": "นำทาง",
     "reserve": "จอง",
     "distanceAway": "ห่าง {distance}",
-    "mapPlaceholder": "แผนที่แบบโต้ตอบเร็ว ๆ นี้",
     "writeReview": "เขียนรีวิว",
     "ratingLabel": "คะแนน",
     "commentLabel": "ความคิดเห็น (ไม่บังคับ)",

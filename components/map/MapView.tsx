@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Script from "next/script";
+import { useTranslations } from "next-intl";
 import type { Category, RestaurantListItem } from "@/types";
 import {
   createMyLocationElement,
@@ -25,6 +26,7 @@ export default function MapView({
   myLocation,
   onPinClick,
 }: MapViewProps) {
+  const t = useTranslations("common");
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<kakao.maps.Map | null>(null);
   const pinsRef = useRef<globalThis.Map<string, HTMLElement>>(
@@ -128,7 +130,9 @@ export default function MapView({
       />
       {sdkError ? (
         <div className="flex h-full w-full items-center justify-center bg-[#FFF5EE]">
-          <p className="text-[12px] font-semibold text-[#B07040]">지도를 불러올 수 없습니다</p>
+          <p className="text-[12px] font-semibold text-[#B07040]">
+            {t("mapUnavailable")}
+          </p>
         </div>
       ) : (
         <div ref={containerRef} className="h-full w-full bg-[#FFF5EE]" />

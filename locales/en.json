@@ -16,7 +16,8 @@
     "km": "km",
     "reviews": "{count, plural, one {# review} other {# reviews}}",
     "fileTooLarge": "File must be under {size}MB",
-    "fileType": "This file type is not allowed"
+    "fileType": "This file type is not allowed",
+    "mapUnavailable": "Couldn't load the map"
   },
   "tabs": {
     "explore": "Explore",
@@ -79,7 +80,6 @@
     "directions": "Dir",
     "reserve": "Reserve",
     "distanceAway": "{distance} away",
-    "mapPlaceholder": "Interactive map coming soon",
     "writeReview": "Write a Review",
     "ratingLabel": "Rating",
     "commentLabel": "Comment (optional)",

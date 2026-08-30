@@ -16,7 +16,8 @@
     "km": "km",
     "reviews": "レビュー {count} 件",
     "fileTooLarge": "ファイルは {size}MB 以下にしてください",
-    "fileType": "このファイル形式は使用できません"
+    "fileType": "このファイル形式は使用できません",
+    "mapUnavailable": "地図を読み込めませんでした"
   },
   "tabs": {
     "explore": "探索",
@@ -79,7 +80,6 @@
     "directions": "経路",
     "reserve": "予約",
     "distanceAway": "{distance} 先",
-    "mapPlaceholder": "インタラクティブマップは近日公開",
     "writeReview": "レビューを書く",
     "ratingLabel": "評価",
     "commentLabel": "コメント（任意）",
