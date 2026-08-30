@@ -16,7 +16,8 @@
     "km": "كم",
     "reviews": "{count} تقييم",
     "fileTooLarge": "يجب أن يكون حجم الملف أقل من {size} ميغابايت",
-    "fileType": "نوع الملف غير مسموح به"
+    "fileType": "نوع الملف غير مسموح به",
+    "mapUnavailable": "تعذّر تحميل الخريطة"
   },
   "tabs": {
     "explore": "استكشاف",
@@ -79,7 +80,6 @@
     "directions": "الاتجاهات",
     "reserve": "حجز",
     "distanceAway": "على بُعد {distance}",
-    "mapPlaceholder": "الخريطة التفاعلية قريباً",
     "writeReview": "اكتب تقييمًا",
     "ratingLabel": "التقييم",
     "commentLabel": "تعليق (اختياري)",

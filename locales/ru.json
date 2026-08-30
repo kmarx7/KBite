@@ -16,7 +16,8 @@
     "km": "км",
     "reviews": "{count, plural, one {# отзыв} few {# отзыва} other {# отзывов}}",
     "fileTooLarge": "Файл должен быть меньше {size}МБ",
-    "fileType": "Этот тип файла не поддерживается"
+    "fileType": "Этот тип файла не поддерживается",
+    "mapUnavailable": "Не удалось загрузить карту"
   },
   "tabs": {
     "explore": "Поиск",
@@ -79,7 +80,6 @@
     "directions": "Маршрут",
     "reserve": "Забронировать",
     "distanceAway": "В {distance} от вас",
-    "mapPlaceholder": "Интерактивная карта скоро появится",
     "writeReview": "Написать отзыв",
     "ratingLabel": "Оценка",
     "commentLabel": "Комментарий (необязательно)",

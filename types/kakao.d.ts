@@ -6,16 +6,26 @@ declare namespace kakao.maps {
     constructor(lat: number, lng: number);
   }
 
+  interface MapOptions {
+    center: LatLng;
+    level: number;
+    /* 아래는 상세 페이지 미니맵처럼 조작을 잠글 때만 지정한다 */
+    draggable?: boolean;
+    scrollwheel?: boolean;
+    disableDoubleClick?: boolean;
+    disableDoubleClickZoom?: boolean;
+  }
+
   class Map {
-    constructor(
-      container: HTMLElement,
-      options: { center: LatLng; level: number },
-    );
+    constructor(container: HTMLElement, options: MapOptions);
     setCenter(latlng: LatLng): void;
     getCenter(): LatLng;
     panTo(latlng: LatLng): void;
     setLevel(level: number, options?: { animate?: boolean | { duration: number } }): void;
     relayout(): void;
+    /* zoomable은 생성자 옵션에 없고 이 메서드로만 끈다 */
+    setDraggable(draggable: boolean): void;
+    setZoomable(zoomable: boolean): void;
   }
 
   class CustomOverlay {

@@ -16,7 +16,8 @@
     "km": "km",
     "reviews": "{count} đánh giá",
     "fileTooLarge": "Tệp phải nhỏ hơn {size}MB",
-    "fileType": "Định dạng tệp không được hỗ trợ"
+    "fileType": "Định dạng tệp không được hỗ trợ",
+    "mapUnavailable": "Không thể tải bản đồ"
   },
   "tabs": {
     "explore": "Khám phá",
@@ -79,7 +80,6 @@
     "directions": "Chỉ đường",
     "reserve": "Đặt bàn",
     "distanceAway": "Cách {distance}",
-    "mapPlaceholder": "Bản đồ tương tác sắp ra mắt",
     "writeReview": "Viết đánh giá",
     "ratingLabel": "Đánh giá",
     "commentLabel": "Nhận xét (tùy chọn)",

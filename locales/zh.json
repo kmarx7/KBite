@@ -16,7 +16,8 @@
     "km": "公里",
     "reviews": "{count} 条评价",
     "fileTooLarge": "文件大小不能超过 {size}MB",
-    "fileType": "不支持此文件格式"
+    "fileType": "不支持此文件格式",
+    "mapUnavailable": "无法加载地图"
   },
   "tabs": {
     "explore": "探索",
@@ -79,7 +80,6 @@
     "directions": "导航",
     "reserve": "预订",
     "distanceAway": "距离 {distance}",
-    "mapPlaceholder": "互动地图即将上线",
     "writeReview": "写评论",
     "ratingLabel": "评分",
     "commentLabel": "评论（选填）",

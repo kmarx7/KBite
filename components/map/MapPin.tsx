@@ -3,14 +3,23 @@ import { CATEGORIES, type Category } from "@/types";
 /**
  * 카카오맵 CustomOverlay에 들어가는 핀 DOM 엘리먼트 생성.
  * show/hide는 display가 아닌 opacity + scale 트랜지션으로 처리한다 (스펙).
+ *
+ * onClick을 생략하면 장식용 div로 만든다 — 상세 페이지 미니맵처럼
+ * 지도 전체를 덮는 링크가 탭을 받는 경우, 핀이 탭 순서에 끼어들거나
+ * 클릭을 가로채면 안 되기 때문.
  */
 export function createPinElement(
   cat: Category,
-  onClick: () => void,
+  onClick?: () => void,
 ): HTMLElement {
-  const el = document.createElement("button");
-  el.type = "button";
-  el.setAttribute("aria-label", CATEGORIES[cat].label);
+  const interactive = Boolean(onClick);
+  const el = document.createElement(interactive ? "button" : "div");
+  if (interactive) {
+    (el as HTMLButtonElement).type = "button";
+    el.setAttribute("aria-label", CATEGORIES[cat].label);
+  } else {
+    el.setAttribute("aria-hidden", "true");
+  }
   el.style.cssText = [
     "width:30px",
     "height:30px",
@@ -22,7 +31,7 @@ export function createPinElement(
     "align-items:center",
     "justify-content:center",
     "font-size:14px",
-    "cursor:pointer",
+    interactive ? "cursor:pointer" : "pointer-events:none",
     "transform:rotate(-45deg) scale(1)",
     "transition:opacity 0.2s, transform 0.2s",
     "opacity:1",
@@ -33,7 +42,7 @@ export function createPinElement(
   emoji.style.transform = "rotate(45deg)";
   el.appendChild(emoji);
 
-  el.addEventListener("click", onClick);
+  if (onClick) el.addEventListener("click", onClick);
   return el;
 }
 
